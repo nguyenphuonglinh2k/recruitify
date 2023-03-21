@@ -1,9 +1,24 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "noImplicitAny": false,
+    "jsx": "react-native",
+    "lib": ["es6", "dom"],
+    "moduleResolution": "Node",
+    "module": "esnext",
+    "strict": true,
+    "sourceMap": false,
+    "plugins": [],
+    "target": "es6",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "*": ["*"],
-      "@/*": ["./src/*"],
+      "*": ["./src/*"],
       "assets": ["./src/assets"],
       "navigation": ["./src/navigation"],
       "screens": ["./src/screens"],
@@ -15,5 +30,15 @@
       "sagas": ["./src/sagas"],
       "services": ["./src/services"]
     }
-  }
+  },
+  "include": ["src/**/*.js", "src/**/*.jsx", "App.jsx"],
+  "filesGlob": ["src/**/*.js", "src/**/*.jsx", "src/**/*.png", "src/**/*.json"],
+  "exclude": [
+    "index.js",
+    "build",
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "react-native.config.js"
+  ]
 }
