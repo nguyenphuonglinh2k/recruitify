@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { ToastProvider } from "react-native-toast-notifications";
-// import DrawerNavigator from "./src/navigation/DrawerNavigator";
+import DrawerNavigator from "navigation/DrawerNavigator";
 import { AuthStack } from "navigation/StackNavigator";
 
 const navTheme = {
@@ -16,7 +16,7 @@ const navTheme = {
 
 const App = () => {
   const [splash, setSplash] = useState(true);
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   useEffect(() => {
     const splashTimeout = setTimeout(() => {
@@ -37,8 +37,7 @@ const App = () => {
         animationType="slide-in"
       >
         <NavigationContainer theme={navTheme}>
-          {!isLoggedIn && <AuthStack />}
-          {/* <DrawerNavigator /> */}
+          {isLoggedIn ? <DrawerNavigator /> : <AuthStack />}
         </NavigationContainer>
       </ToastProvider>
     </SafeAreaProvider>

@@ -1,5 +1,8 @@
 export const TAB_NAME = {
-  home: "home",
+  dashboard: "dashboard",
+  position: "position",
+  application: "application",
+  scheduled: "scheduled",
 };
 
 export const SCREEN_NAME = {

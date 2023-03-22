@@ -26,10 +26,10 @@ const HomeScreen = () => {
   );
 };
 
-const HomeStack = () => {
+const DashboardStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
     </Stack.Navigator>
   );
 };
@@ -42,7 +42,7 @@ const SearchScreen = () => {
   );
 };
 
-const SearchStack = () => {
+const PositionStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="search" component={SearchScreen} />
@@ -50,7 +50,7 @@ const SearchStack = () => {
   );
 };
 
-const ChatStack = () => {
+const ApplicationStack = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Chat</Text>
@@ -58,7 +58,7 @@ const ChatStack = () => {
   );
 };
 
-const ProfileStack = () => {
+const ScheduleStack = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Profile</Text>
@@ -66,4 +66,10 @@ const ProfileStack = () => {
   );
 };
 
-export { AuthStack, HomeStack, ChatStack, SearchStack, ProfileStack };
+export {
+  AuthStack,
+  DashboardStack,
+  ApplicationStack,
+  PositionStack,
+  ScheduleStack,
+};
