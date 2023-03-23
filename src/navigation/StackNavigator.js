@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { SignInScreen } from "screens";
-import { PathConstant } from "const";
+import { SignInScreen, PositionScreen } from "screens";
+import { SCREEN_NAME } from "const/path.const";
 
 const Stack = createNativeStackNavigator();
 const screenOptions = { headerShown: false };
@@ -10,26 +10,18 @@ const screenOptions = { headerShown: false };
 const AuthStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen
-        name={PathConstant.SCREEN_NAME.signInScreen}
-        component={SignInScreen}
-      />
+      <Stack.Screen name={SCREEN_NAME.signInScreen} component={SignInScreen} />
     </Stack.Navigator>
-  );
-};
-
-const HomeScreen = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>home</Text>
-    </View>
   );
 };
 
 const DashboardStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen
+        name={SCREEN_NAME.positionScreen}
+        component={PositionScreen}
+      />
     </Stack.Navigator>
   );
 };

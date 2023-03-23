@@ -18,6 +18,7 @@ module.exports = {
           reduxStore: ["./src/reduxStore"],
           sagas: ["./src/sagas"],
           services: ["./src/services"],
+          layouts: ["./src/layouts"],
         },
       },
     ],

@@ -7,4 +7,5 @@ export const TAB_NAME = {
 
 export const SCREEN_NAME = {
   signInScreen: "signInScreen",
+  positionScreen: "positionScreen",
 };

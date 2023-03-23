@@ -4,13 +4,16 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { ToastProvider } from "react-native-toast-notifications";
 import DrawerNavigator from "navigation/DrawerNavigator";
 import { AuthStack } from "navigation/StackNavigator";
+import { COLORS } from "utils";
 
 const navTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: "#FFF",
-    text: "#262626",
+    background: COLORS.white,
+    text: COLORS.black,
+    color: COLORS.black,
+    border: COLORS.grey[300],
   },
 };
 

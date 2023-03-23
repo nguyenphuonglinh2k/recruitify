@@ -8,9 +8,10 @@ export default {
     neutral: "#19B5FE",
   },
   grey: {
-    100: "c7d1d8",
+    100: "#c7d1d8",
     200: "#e3e8eb",
-    300: "f4f6f8",
+    300: "#f4f6f8",
+    400: "#B7B6B8",
   },
   yellow: "#f7ca18",
   orange: {
