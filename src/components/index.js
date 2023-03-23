@@ -5,6 +5,8 @@ import CommonIconButton from "./CommonIconButton";
 import CommonBadge from "./CommonBadge";
 import CommonAvatar from "./CommonAvatar";
 import CommonAvatarGroup from "./CommonAvatarGroup";
+import CommonTab from "./CommonTab";
+import CommonTabs from "./CommonTabs";
 
 export {
   CommonButton,
@@ -14,4 +16,6 @@ export {
   CommonBadge,
   CommonAvatar,
   CommonAvatarGroup,
+  CommonTab,
+  CommonTabs,
 };

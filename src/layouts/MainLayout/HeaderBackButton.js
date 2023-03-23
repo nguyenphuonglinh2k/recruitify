@@ -1,8 +1,10 @@
-import React from "react";
+import React, { isValidElement } from "react";
 import PropTypes from "prop-types";
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { ArrowIcon } from "icons";
+import { COLORS } from "utils";
+import HeaderTitle from "./HeaderTitle";
 
 const HeaderBackButton = ({
   title,
@@ -22,14 +24,18 @@ const HeaderBackButton = ({
   return (
     <View style={[styles.wrapper, style]} {...otherProps}>
       <View style={styles.headerLeft}>
-        <TouchableOpacity onPress={onGoBack} style={{ paddingRight: 16 }}>
-          <ArrowIcon />
+        <TouchableOpacity onPress={onGoBack} style={{ paddingRight: 10 }}>
+          <ArrowIcon color={COLORS.green} />
         </TouchableOpacity>
-        {Boolean(title) && (
-          <Text style={[styles.title, titleStyle]} {...otherTitleProps}>
-            {title}
-          </Text>
-        )}
+        {isValidElement(title)
+          ? title
+          : Boolean(title) && (
+              <HeaderTitle
+                title={title}
+                style={[styles.title, titleStyle]}
+                {...otherTitleProps}
+              />
+            )}
       </View>
 
       {headerRight}
@@ -38,11 +44,11 @@ const HeaderBackButton = ({
 };
 
 HeaderBackButton.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   headerRight: PropTypes.node,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   titleProps: PropTypes.shape({
-    style: PropTypes.object,
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   }),
 };
 
@@ -56,15 +62,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#C4C4C4",
   },
   headerLeft: {
     flexDirection: "row",
     alignItems: "center",
   },
   title: {
-    color: "#000",
+    color: COLORS.black,
     fontWeight: "700",
     fontSize: 16,
   },

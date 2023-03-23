@@ -1,4 +1,6 @@
 import SignInScreen from "./SignInScreen";
-import PositionScreen from "./PositionScreen";
 
-export { SignInScreen, PositionScreen };
+import PositionScreen from "./PositionScreen";
+import JobDetailScreen from "./JobDetailScreen";
+
+export { SignInScreen, PositionScreen, JobDetailScreen };
