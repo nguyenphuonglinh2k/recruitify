@@ -20,12 +20,17 @@ JobDetailTabBar.propTypes = {
 };
 
 export const JOB_DETAIL_TAB_VALUES = {
-  info: 1,
-  candidates: 2,
-  documents: 3,
+  assignees: 1,
+  info: 2,
+  candidates: 3,
+  documents: 4,
 };
 
 export const TAB_DATA = [
+  {
+    label: "Assignees",
+    tabValue: JOB_DETAIL_TAB_VALUES.assignees,
+  },
   {
     label: "Info",
     tabValue: JOB_DETAIL_TAB_VALUES.info,

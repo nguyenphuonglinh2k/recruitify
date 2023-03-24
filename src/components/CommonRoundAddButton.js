@@ -1,44 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { PlusIcon } from "icons";
 import { COLORS } from "utils";
 
-const CommonButton = ({ color, label, style, labelStyle, ...otherProps }) => {
+const CommonRoundAddButton = ({ color, style, iconStyle, ...otherProps }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={[styles.wrapper(color), style]}
       {...otherProps}
     >
-      <Text style={[styles.label, labelStyle]}>{label}</Text>
+      <PlusIcon style={iconStyle} />
     </TouchableOpacity>
   );
 };
 
-CommonButton.propTypes = {
-  label: PropTypes.string.isRequired,
+CommonRoundAddButton.propTypes = {
   onPress: PropTypes.func,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   color: PropTypes.string,
 };
 
-CommonButton.defaultProps = {
+CommonRoundAddButton.defaultProps = {
   color: COLORS.green,
 };
 
 const styles = StyleSheet.create({
   wrapper: color => ({
     backgroundColor: color,
-    borderRadius: 15,
-    padding: 14,
+    borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
+    height: 50,
+    width: 50,
   }),
-  label: {
-    color: "white",
-    fontWeight: "600",
-  },
 });
 
-export default CommonButton;
+export default CommonRoundAddButton;

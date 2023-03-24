@@ -12,6 +12,7 @@ export default {
     200: "#e3e8eb",
     300: "#f4f6f8",
     400: "#B7B6B8",
+    500: "#D2D6D9",
   },
   yellow: "#f7ca18",
   orange: {

@@ -1,11 +1,15 @@
 import { MainLayout } from "layouts";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import JobTitleWithStatus from "./JobTitleWithStatus";
 import JobDetailTabBar, { JOB_DETAIL_TAB_VALUES } from "./JobDetailTabBar";
+import InfoTab from "./InfoTab";
+import AssigneesTab from "./AssigneesTab";
 
 const JobDetailScreen = () => {
-  const [activatedTab, setActivatedTab] = useState(JOB_DETAIL_TAB_VALUES.info);
+  const [activatedTab, setActivatedTab] = useState(
+    JOB_DETAIL_TAB_VALUES.assignees,
+  );
 
   return (
     <MainLayout
@@ -23,6 +27,8 @@ const JobDetailScreen = () => {
         activatedTab={activatedTab}
         setActivatedTab={setActivatedTab}
       />
+      {activatedTab === JOB_DETAIL_TAB_VALUES.assignees && <AssigneesTab />}
+      {activatedTab === JOB_DETAIL_TAB_VALUES.info && <InfoTab />}
     </MainLayout>
   );
 };

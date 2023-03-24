@@ -10,6 +10,9 @@ import ArrowIcon from "./ArrowIcon";
 import NotificationIcon from "./NotificationIcon";
 import FilterSearchIcon from "./FilterSearchIcon";
 import StarIcon from "./StarIcon";
+import PlusIcon from "./PlusIcon";
+import LocationIcon from "./LocationIcon";
+import PencilIcon from "./PencilIcon";
 
 export {
   HomeIcon,
@@ -24,4 +27,7 @@ export {
   NotificationIcon,
   FilterSearchIcon,
   StarIcon,
+  PlusIcon,
+  LocationIcon,
+  PencilIcon,
 };

@@ -3,10 +3,17 @@ import PropTypes from "prop-types";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { COLORS } from "utils";
 
-const CommonButton = ({ color, label, style, labelStyle, ...otherProps }) => {
+const CommonChip = ({
+  onPress,
+  color,
+  label,
+  style,
+  labelStyle,
+  ...otherProps
+}) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
+      activeOpacity={onPress ? 0.7 : 1}
       style={[styles.wrapper(color), style]}
       {...otherProps}
     >
@@ -15,7 +22,7 @@ const CommonButton = ({ color, label, style, labelStyle, ...otherProps }) => {
   );
 };
 
-CommonButton.propTypes = {
+CommonChip.propTypes = {
   label: PropTypes.string.isRequired,
   onPress: PropTypes.func,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -23,22 +30,23 @@ CommonButton.propTypes = {
   color: PropTypes.string,
 };
 
-CommonButton.defaultProps = {
-  color: COLORS.green,
+CommonChip.defaultProps = {
+  color: COLORS.grey[200],
 };
 
 const styles = StyleSheet.create({
   wrapper: color => ({
     backgroundColor: color,
     borderRadius: 15,
-    padding: 14,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "flex-start",
   }),
   label: {
-    color: "white",
-    fontWeight: "600",
+    color: COLORS.black,
   },
 });
 
-export default CommonButton;
+export default CommonChip;
