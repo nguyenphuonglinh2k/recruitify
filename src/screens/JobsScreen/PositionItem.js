@@ -4,8 +4,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "utils";
 import { StarIcon } from "icons";
 import { CommonAvatarGroup, CommonBadge } from "components";
+import { useNavigation } from "@react-navigation/core";
+import { PathConstant } from "const";
 
 const PositionItem = ({ data, style }) => {
+  const navigation = useNavigation();
+
   const {
     isPriority,
     title,
@@ -15,8 +19,16 @@ const PositionItem = ({ data, style }) => {
     assignees,
   } = data;
 
+  const onNavigateToDetail = () => {
+    navigation.navigate(PathConstant.SCREEN_NAME.jobDetailScreen);
+  };
+
   return (
-    <TouchableOpacity style={[styles.root, style]}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={[styles.root, style]}
+      onPress={onNavigateToDetail}
+    >
       <View style={styles.top}>
         <View style={styles.titleLeftWrapper}>
           {isPriority && (
@@ -76,6 +88,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.grey[200],
     borderWidth: 2,
     padding: 12,
+    backgroundColor: COLORS.grey[300],
   },
   top: {
     flexDirection: "row",

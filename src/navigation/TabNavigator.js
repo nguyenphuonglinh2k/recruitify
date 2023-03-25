@@ -4,7 +4,7 @@ import { ApplicationIcon, BriefcaseIcon, CalendarIcon, HomeIcon } from "icons";
 import {
   DashboardStack,
   ApplicationStack,
-  PositionStack,
+  JobStack,
   ScheduleStack,
 } from "./StackNavigator";
 import { TAB_NAME } from "const/path.const";
@@ -28,6 +28,12 @@ export default function TabNavigator() {
     tabBarIcon: ({ focused }) => (
       <Icon color={focused ? COLORS.green : COLORS.grey[200]} />
     ),
+    tabBarActiveTintColor: COLORS.black,
+    tabBarInactiveTintColor: COLORS.grey[100],
+    tabBarLabelStyle: {
+      fontWeight: "600",
+      marginBottom: 6,
+    },
     ...otherOptions,
   });
 
@@ -39,20 +45,22 @@ export default function TabNavigator() {
           height: 50,
         },
         tabBarHideOnKeyboard: true,
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
       }}
       initialRouteName={TAB_NAME.dashboard}
     >
       <Tab.Screen
         name={TAB_NAME.dashboard}
         component={DashboardStack}
-        options={onGetTabScreenOptions(HomeIcon)}
+        options={onGetTabScreenOptions(HomeIcon, { tabBarLabel: "Dashboard" })}
       />
 
       <Tab.Screen
         name={TAB_NAME.position}
-        component={PositionStack}
-        options={onGetTabScreenOptions(BriefcaseIcon)}
+        component={JobStack}
+        options={onGetTabScreenOptions(BriefcaseIcon, {
+          tabBarLabel: "Jobs",
+        })}
         // listeners={() => ({
         //   tabPress: onPressTab(TabName.search, RouteName.search),
         // })}
@@ -61,13 +69,17 @@ export default function TabNavigator() {
       <Tab.Screen
         name={TAB_NAME.application}
         component={ApplicationStack}
-        options={onGetTabScreenOptions(ApplicationIcon)}
+        options={onGetTabScreenOptions(ApplicationIcon, {
+          tabBarLabel: "Applications",
+        })}
       />
 
       <Tab.Screen
         name={TAB_NAME.scheduled}
         component={ScheduleStack}
-        options={onGetTabScreenOptions(CalendarIcon)}
+        options={onGetTabScreenOptions(CalendarIcon, {
+          tabBarLabel: "Scheduled",
+        })}
       />
     </Tab.Navigator>
   );

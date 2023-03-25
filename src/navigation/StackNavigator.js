@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { SignInScreen, PositionScreen, JobDetailScreen } from "screens";
+import { SignInScreen, JobsScreen, JobDetailScreen } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
 const Stack = createNativeStackNavigator();
@@ -18,27 +18,23 @@ const AuthStack = () => {
 const DashboardStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen name={SCREEN_NAME.jobScreen} component={JobsScreen} />
       <Stack.Screen
         name={SCREEN_NAME.jobDetailScreen}
         component={JobDetailScreen}
       />
-      <Stack.Screen name={SCREEN_NAME.jobScreen} component={PositionScreen} />
     </Stack.Navigator>
   );
 };
 
-const SearchScreen = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>search</Text>
-    </View>
-  );
-};
-
-const PositionStack = () => {
+const JobStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="search" component={SearchScreen} />
+      <Stack.Screen name={SCREEN_NAME.jobScreen} component={JobsScreen} />
+      <Stack.Screen
+        name={SCREEN_NAME.jobDetailScreen}
+        component={JobDetailScreen}
+      />
     </Stack.Navigator>
   );
 };
@@ -59,10 +55,4 @@ const ScheduleStack = () => {
   );
 };
 
-export {
-  AuthStack,
-  DashboardStack,
-  ApplicationStack,
-  PositionStack,
-  ScheduleStack,
-};
+export { AuthStack, DashboardStack, ApplicationStack, JobStack, ScheduleStack };

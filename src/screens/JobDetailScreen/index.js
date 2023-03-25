@@ -1,6 +1,5 @@
 import { MainLayout } from "layouts";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
 import JobTitleWithStatus from "./JobTitleWithStatus";
 import JobDetailTabBar, { JOB_DETAIL_TAB_VALUES } from "./JobDetailTabBar";
 import InfoTab from "./InfoTab";
@@ -43,5 +42,3 @@ const MOCK_JOB_INFO = {
   title: "Senior .NET Developer",
   status: 1,
 };
-
-const styles = StyleSheet.create({});

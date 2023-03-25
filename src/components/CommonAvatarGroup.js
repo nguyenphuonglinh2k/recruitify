@@ -39,7 +39,9 @@ const CommonAvatarGroup = ({
 };
 
 CommonAvatarGroup.propTypes = {
-  data: PropTypes.arrayOf([PropTypes.string, PropTypes.object]).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  ).isRequired,
   max: PropTypes.number,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   avatarStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

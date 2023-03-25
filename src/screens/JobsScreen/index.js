@@ -4,7 +4,7 @@ import Header from "./Header";
 import { MainLayout } from "layouts";
 import PositionItem from "./PositionItem";
 
-const PositionScreen = () => {
+const JobsScreen = () => {
   return (
     <MainLayout>
       <ScrollView style={styles.root}>
@@ -42,7 +42,7 @@ const MOCK_DATA = Array.from(new Array(3)).map(() => ({
   ],
 }));
 
-export default PositionScreen;
+export default JobsScreen;
 
 const styles = StyleSheet.create({
   root: {
