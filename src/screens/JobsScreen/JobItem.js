@@ -7,7 +7,7 @@ import { CommonAvatarGroup, CommonBadge } from "components";
 import { useNavigation } from "@react-navigation/core";
 import { PathConstant } from "const";
 
-const PositionItem = ({ data, style }) => {
+const CandidateItem = ({ data, style }) => {
   const navigation = useNavigation();
 
   const {
@@ -63,7 +63,7 @@ const PositionItem = ({ data, style }) => {
   );
 };
 
-PositionItem.propTypes = {
+CandidateItem.propTypes = {
   data: PropTypes.shape({
     isPriority: PropTypes.bool,
     title: PropTypes.string,
@@ -79,7 +79,7 @@ PositionItem.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-export default PositionItem;
+export default CandidateItem;
 
 const styles = StyleSheet.create({
   root: {

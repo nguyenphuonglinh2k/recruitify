@@ -26,10 +26,10 @@ export default function TabNavigator() {
 
   const onGetTabScreenOptions = (Icon, otherOptions = {}) => ({
     tabBarIcon: ({ focused }) => (
-      <Icon color={focused ? COLORS.green : COLORS.grey[200]} />
+      <Icon color={focused ? COLORS.green : COLORS.grey[400]} />
     ),
     tabBarActiveTintColor: COLORS.black,
-    tabBarInactiveTintColor: COLORS.grey[100],
+    tabBarInactiveTintColor: COLORS.grey[400],
     tabBarLabelStyle: {
       fontWeight: "600",
       marginBottom: 6,

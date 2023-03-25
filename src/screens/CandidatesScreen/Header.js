@@ -7,7 +7,7 @@ import { COLORS } from "utils";
 const Header = () => {
   return (
     <View style={styles.header}>
-      <Text style={styles.title}>Job (3)</Text>
+      <Text style={styles.title}>Candidate (3)</Text>
       <View style={styles.icons}>
         <CommonIconButton style={styles.notLastIcon}>
           <SearchIcon />

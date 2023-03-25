@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import Header from "./Header";
 import { MainLayout } from "layouts";
-import PositionItem from "./PositionItem";
+import JobItem from "./JobItem";
 
 const JobsScreen = () => {
   return (
@@ -12,7 +12,7 @@ const JobsScreen = () => {
 
         <View style={styles.positions}>
           {MOCK_DATA.map((data, index) => (
-            <PositionItem key={index} data={data} style={styles.marginBottom} />
+            <JobItem key={index} data={data} style={styles.marginBottom} />
           ))}
         </View>
       </ScrollView>

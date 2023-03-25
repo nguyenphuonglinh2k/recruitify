@@ -9,4 +9,5 @@ export const SCREEN_NAME = {
   signInScreen: "signInScreen",
   jobScreen: "jobScreen",
   jobDetailScreen: "jobDetailScreen",
+  candidateScreen: "candidateScreen",
 };

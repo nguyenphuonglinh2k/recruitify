@@ -1,7 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { SignInScreen, JobsScreen, JobDetailScreen } from "screens";
+import {
+  SignInScreen,
+  JobsScreen,
+  JobDetailScreen,
+  CandidatesScreen,
+} from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
 const Stack = createNativeStackNavigator();
@@ -41,9 +46,12 @@ const JobStack = () => {
 
 const ApplicationStack = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Chat</Text>
-    </View>
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name={SCREEN_NAME.candidateScreen}
+        component={CandidatesScreen}
+      />
+    </Stack.Navigator>
   );
 };
 
