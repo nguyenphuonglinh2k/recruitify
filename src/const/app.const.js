@@ -12,3 +12,12 @@ export const JOB_STATUS = {
   active: 1,
   closed: 2,
 };
+
+export const APPLICATION_STATUS = {
+  screening: 1,
+  interview: 2,
+  reject: 3,
+  hire: 4,
+};
+
+export const MAXIMUM_STAR_RATING = 5;

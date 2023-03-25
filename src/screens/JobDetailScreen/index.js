@@ -5,6 +5,8 @@ import JobTitleWithStatus from "./JobTitleWithStatus";
 import JobDetailTabBar, { JOB_DETAIL_TAB_VALUES } from "./JobDetailTabBar";
 import InfoTab from "./InfoTab";
 import AssigneesTab from "./AssigneesTab";
+import DocumentTab from "./DocumentTab";
+import CandidatesTab from "./CandidatesTabs";
 
 const JobDetailScreen = () => {
   const [activatedTab, setActivatedTab] = useState(
@@ -29,6 +31,8 @@ const JobDetailScreen = () => {
       />
       {activatedTab === JOB_DETAIL_TAB_VALUES.assignees && <AssigneesTab />}
       {activatedTab === JOB_DETAIL_TAB_VALUES.info && <InfoTab />}
+      {activatedTab === JOB_DETAIL_TAB_VALUES.candidates && <CandidatesTab />}
+      {activatedTab === JOB_DETAIL_TAB_VALUES.documents && <DocumentTab />}
     </MainLayout>
   );
 };

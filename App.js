@@ -12,7 +12,6 @@ const navTheme = {
     ...DefaultTheme.colors,
     background: COLORS.white,
     text: COLORS.black,
-    color: COLORS.black,
     border: COLORS.grey[300],
   },
 };

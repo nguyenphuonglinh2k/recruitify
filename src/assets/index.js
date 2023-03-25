@@ -3,4 +3,6 @@ export const ImageSource = {
   LogoDarkImage: require("./img-logo-dark.png"),
   LoginBackgroundImage: require("./img-login-background.png"),
   DefaultAvatarImage: require("./img-default-avatar.png"),
+  NotFoundImage: require("./img-not-found.png"),
+  YellowStarImage: require("./img-yellow-star.png"),
 };

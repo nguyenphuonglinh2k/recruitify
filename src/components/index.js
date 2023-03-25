@@ -9,6 +9,7 @@ import CommonAvatarGroup from "./CommonAvatarGroup";
 import CommonTab from "./CommonTab";
 import CommonTabs from "./CommonTabs";
 import CommonChip from "./CommonChip";
+import CommonRating from "./CommonRating";
 
 export {
   CommonButton,
@@ -22,4 +23,5 @@ export {
   CommonTab,
   CommonTabs,
   CommonChip,
+  CommonRating,
 };
