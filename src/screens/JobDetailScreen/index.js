@@ -1,11 +1,11 @@
 import { MainLayout } from "layouts";
 import React, { useState } from "react";
-import JobTitleWithStatus from "./JobTitleWithStatus";
 import JobDetailTabBar, { JOB_DETAIL_TAB_VALUES } from "./JobDetailTabBar";
 import InfoTab from "./InfoTab";
 import AssigneesTab from "./AssigneesTab";
 import DocumentTab from "./DocumentTab";
 import CandidatesTab from "./CandidatesTabs";
+import { TitleWithStatus } from "components";
 
 const JobDetailScreen = () => {
   const [activatedTab, setActivatedTab] = useState(
@@ -17,7 +17,7 @@ const JobDetailScreen = () => {
       isBackScreen
       headerProps={{
         title: (
-          <JobTitleWithStatus
+          <TitleWithStatus
             title={MOCK_JOB_INFO.title}
             status={MOCK_JOB_INFO.status}
           />

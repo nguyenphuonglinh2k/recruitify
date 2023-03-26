@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: COLORS.black,
-    fontWeight: "700",
+    fontWeight: "600",
     fontSize: 16,
     paddingVertical: 12,
     backgroundColor: COLORS.grey[500],

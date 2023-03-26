@@ -2,20 +2,23 @@ import { StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { COLORS } from "utils";
-import DetailItem from "./DetailItem";
+import { DetailItemRow } from "components";
 
 const Details = ({ style }) => {
   return (
     <View style={style}>
       <Text style={styles.label}>Details</Text>
 
-      <DetailItem label="Starting date" content={MOCK_JOB_DETAILS.startDate} />
-      <DetailItem label="Ending date" content={MOCK_JOB_DETAILS.endDate} />
-      <DetailItem
+      <DetailItemRow
+        label="Starting date"
+        content={MOCK_JOB_DETAILS.startDate}
+      />
+      <DetailItemRow label="Ending date" content={MOCK_JOB_DETAILS.endDate} />
+      <DetailItemRow
         label="Creation time"
         content={MOCK_JOB_DETAILS.creationTime}
       />
-      <DetailItem
+      <DetailItemRow
         label="Responsible person"
         content={MOCK_JOB_DETAILS.responsiblePerson.name}
       />
@@ -41,7 +44,7 @@ export default memo(Details);
 const styles = StyleSheet.create({
   label: {
     color: COLORS.black,
-    fontWeight: "700",
+    fontWeight: "600",
     fontSize: 16,
     paddingVertical: 12,
     backgroundColor: COLORS.grey[500],

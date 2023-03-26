@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.black,
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "600",
   },
   titleLeftWrapper: {
     flexDirection: "row",
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   dateContent: {
-    fontWeight: "700",
+    fontWeight: "600",
     fontSize: 13,
     color: COLORS.black,
   },

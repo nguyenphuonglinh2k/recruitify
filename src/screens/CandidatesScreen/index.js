@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import Header from "./Header";
 import { MainLayout } from "layouts";
 import CandidateItem from "./CandidateItem";
+import { CommonFloatButton } from "components";
 
 const CandidatesScreen = () => {
   return (
@@ -20,6 +21,7 @@ const CandidatesScreen = () => {
           ))}
         </View>
       </ScrollView>
+      <CommonFloatButton />
     </MainLayout>
   );
 };

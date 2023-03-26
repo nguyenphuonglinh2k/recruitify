@@ -6,6 +6,7 @@ import {
   JobsScreen,
   JobDetailScreen,
   CandidatesScreen,
+  CandidateDetailScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -50,6 +51,10 @@ const ApplicationStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.candidateScreen}
         component={CandidatesScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.candidateDetailScreen}
+        component={CandidateDetailScreen}
       />
     </Stack.Navigator>
   );

@@ -10,6 +10,10 @@ import CommonTab from "./CommonTab";
 import CommonTabs from "./CommonTabs";
 import CommonChip from "./CommonChip";
 import CommonRating from "./CommonRating";
+import CommonFloatButton from "./CommonFloatButton";
+
+import TitleWithStatus from "./TitleWithStatus";
+import DetailItemRow from "./DetailItemRow";
 
 export {
   CommonButton,
@@ -24,4 +28,7 @@ export {
   CommonTabs,
   CommonChip,
   CommonRating,
+  CommonFloatButton,
+  TitleWithStatus,
+  DetailItemRow,
 };

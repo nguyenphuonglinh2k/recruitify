@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: COLORS.black,
-    fontWeight: "700",
+    fontWeight: "600",
     fontSize: 16,
   },
 });

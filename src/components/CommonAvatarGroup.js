@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
   },
   lastText: {
     color: COLORS.white,
-    fontWeight: "700",
+    fontWeight: "600",
   },
 });

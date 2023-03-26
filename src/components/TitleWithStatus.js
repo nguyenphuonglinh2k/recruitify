@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import HeaderTitle from "layouts/MainLayout/HeaderTitle";
 import { COLORS } from "utils";
-import { JOB_STATUS } from "const/app.const";
+import { JOB_AND_APPLICATION_STATUS } from "const/app.const";
 
-const JobTitleWithStatus = ({
+const TitleWithStatus = ({
   status,
   title,
   style,
@@ -20,20 +20,20 @@ const JobTitleWithStatus = ({
   );
 };
 
-JobTitleWithStatus.propTypes = {
-  status: PropTypes.oneOf(Object.values(JOB_STATUS)).isRequired,
+TitleWithStatus.propTypes = {
+  status: PropTypes.oneOf(Object.values(JOB_AND_APPLICATION_STATUS)).isRequired,
   title: PropTypes.string.isRequired,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   titleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-export default JobTitleWithStatus;
+export default TitleWithStatus;
 
 const onGetJobStatusColor = status => {
-  if (status === JOB_STATUS.active) {
+  if (status === JOB_AND_APPLICATION_STATUS.active) {
     return COLORS.green;
-  } else if (status === JOB_STATUS.closed) {
-    return COLORS.pink;
+  } else if (status === JOB_AND_APPLICATION_STATUS.closed) {
+    return COLORS.yellow;
   }
 };
 

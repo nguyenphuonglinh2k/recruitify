@@ -70,7 +70,7 @@ export default function TabNavigator() {
         name={TAB_NAME.application}
         component={ApplicationStack}
         options={onGetTabScreenOptions(ApplicationIcon, {
-          tabBarLabel: "Applications",
+          tabBarLabel: "Candidates",
         })}
       />
 

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   selectedLabel: {
     color: COLORS.black,
-    fontWeight: "700",
+    fontWeight: "600",
   },
   selectedRoot: {
     borderBottomWidth: 2,

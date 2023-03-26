@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontWeight: "700",
+    fontWeight: "600",
     fontSize: 18,
     color: COLORS.black,
   },

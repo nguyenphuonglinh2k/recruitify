@@ -3,12 +3,24 @@ import PropTypes from "prop-types";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "utils";
 import { CommonAvatar, CommonChip, CommonRating } from "components";
+import { useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
 const CandidateItem = ({ data, style }) => {
+  const navigation = useNavigation();
+
   const { avatarUrl, name, star, email, position } = data;
 
+  const onNavigateToDetail = () => {
+    navigation.navigate(SCREEN_NAME.candidateDetailScreen);
+  };
+
   return (
-    <TouchableOpacity activeOpacity={0.7} style={[styles.root, style]}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={onNavigateToDetail}
+      style={[styles.root, style]}
+    >
       <View style={styles.top}>
         <CommonAvatar source={{ uri: avatarUrl }} style={styles.left} />
         <View style={styles.right}>
