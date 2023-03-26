@@ -4,10 +4,10 @@ import React, { memo } from "react";
 import { COLORS } from "utils";
 import { isValidElement } from "react";
 
-const DetailItemRow = ({ style, label, content }) => {
+const DetailItemRow = ({ disabled, style, label, content }) => {
   return (
     <View style={[style]}>
-      <Text style={[styles.label, styles.padding]}>{label}</Text>
+      <Text style={[styles.label(disabled), styles.padding]}>{label}</Text>
       {isValidElement(content) ? (
         content
       ) : (
@@ -25,17 +25,18 @@ DetailItemRow.propTypes = {
     PropTypes.number,
     PropTypes.node,
   ]),
+  disabled: PropTypes.bool,
 };
 
 export default memo(DetailItemRow);
 
 const styles = StyleSheet.create({
-  label: {
-    color: COLORS.black,
+  label: disabled => ({
+    color: disabled ? COLORS.grey[100] : COLORS.black,
     fontWeight: "500",
     fontSize: 16,
     backgroundColor: COLORS.grey[300],
-  },
+  }),
   padding: {
     paddingVertical: 12,
     paddingHorizontal: 16,

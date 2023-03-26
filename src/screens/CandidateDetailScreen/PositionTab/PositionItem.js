@@ -3,24 +3,19 @@ import PropTypes from "prop-types";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "utils";
 import { StarIcon } from "icons";
-import { CommonAvatarGroup, CommonBadge } from "components";
+import { CommonBadge } from "components";
 import { useNavigation } from "@react-navigation/core";
 import { PathConstant } from "const";
 
-const JobItem = ({ data, style }) => {
+const PositionItem = ({ data, style }) => {
   const navigation = useNavigation();
 
-  const {
-    isPriority,
-    title,
-    appliedResumeTotal,
-    startDate,
-    endDate,
-    assignees,
-  } = data;
+  const { isPriority, title, appliedResumeTotal, startDate, endDate } = data;
 
   const onNavigateToDetail = () => {
-    navigation.navigate(PathConstant.SCREEN_NAME.jobDetailScreen);
+    navigation.navigate(PathConstant.TAB_NAME.position, {
+      screen: PathConstant.SCREEN_NAME.jobDetailScreen,
+    });
   };
 
   return (
@@ -40,15 +35,6 @@ const JobItem = ({ data, style }) => {
         <CommonBadge value={appliedResumeTotal} />
       </View>
 
-      <View style={styles.center}>
-        <Text style={[styles.label, { marginBottom: 4 }]}>Assignee:</Text>
-        <CommonAvatarGroup
-          data={assignees.map(({ avatarUrl }) => ({
-            uri: avatarUrl,
-          }))}
-        />
-      </View>
-
       <View style={styles.bottom}>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>Start date</Text>
@@ -63,23 +49,18 @@ const JobItem = ({ data, style }) => {
   );
 };
 
-JobItem.propTypes = {
+PositionItem.propTypes = {
   data: PropTypes.shape({
     isPriority: PropTypes.bool,
     title: PropTypes.string,
     appliedResumeTotal: PropTypes.number,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
-    assignees: PropTypes.arrayOf(
-      PropTypes.shape({
-        avatarUrl: PropTypes.string,
-      }),
-    ),
   }),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-export default JobItem;
+export default PositionItem;
 
 const styles = StyleSheet.create({
   root: {
@@ -107,12 +88,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 
-  center: {
-    marginVertical: 12,
-  },
-
   bottom: {
     flexDirection: "row",
+    marginTop: 12,
   },
   dateColumn: {
     flex: 1,

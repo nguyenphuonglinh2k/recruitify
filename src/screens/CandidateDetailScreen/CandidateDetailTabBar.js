@@ -23,6 +23,7 @@ export const CANDIDATE_DETAIL_TAB_VALUES = {
   information: 1,
   attachment: 2,
   position: 3,
+  process: 4,
 };
 
 export const TAB_DATA = [
@@ -37,5 +38,9 @@ export const TAB_DATA = [
   {
     label: "Position",
     tabValue: CANDIDATE_DETAIL_TAB_VALUES.position,
+  },
+  {
+    label: "Process",
+    tabValue: CANDIDATE_DETAIL_TAB_VALUES.process,
   },
 ];

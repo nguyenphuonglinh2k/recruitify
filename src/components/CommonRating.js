@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { OutlineStarIcon, StarIcon } from "icons";
 import { AppConstant } from "const";
+import { COLORS } from "utils";
 
-const CommonRating = ({ value, readonly, style, ...otherProps }) => {
+const CommonRating = ({ color, value, readonly, style, ...otherProps }) => {
   const notFulfilStarTotal = useMemo(
     () => AppConstant.MAXIMUM_STAR_RATING - value,
     [value],
@@ -16,13 +17,13 @@ const CommonRating = ({ value, readonly, style, ...otherProps }) => {
     <View style={[styles.root, style]} {...otherProps}>
       {Array.from(new Array(value)).map((_, index) => (
         <TouchableOpacity key={index} activeOpacity={activeOpacity}>
-          <StarIcon />
+          <StarIcon color={color} />
         </TouchableOpacity>
       ))}
       {notFulfilStarTotal > 0 &&
         Array.from(new Array(notFulfilStarTotal)).map((_, index) => (
           <TouchableOpacity key={index} activeOpacity={activeOpacity}>
-            <OutlineStarIcon />
+            <OutlineStarIcon color={color} />
           </TouchableOpacity>
         ))}
     </View>
@@ -33,11 +34,13 @@ CommonRating.propTypes = {
   value: PropTypes.number,
   readonly: PropTypes.bool,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  color: PropTypes.string,
 };
 
 CommonRating.defaultProps = {
   value: 3,
   readonly: true,
+  color: COLORS.yellow,
 };
 
 export default memo(CommonRating);

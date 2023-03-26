@@ -4,8 +4,10 @@ import CandidateDetailTabBar, {
   CANDIDATE_DETAIL_TAB_VALUES,
 } from "./CandidateDetailTabBar";
 import { TitleWithStatus } from "components";
-import InformationTab from "./InfomationTab";
+import InformationTab from "./InformationTab";
 import AttachmentTab from "./AttachmentTab";
+import PositionTab from "./PositionTab";
+import ProcessTab from "./ProcessTab";
 
 const CandidateDetailScreen = () => {
   const [activatedTab, setActivatedTab] = useState(
@@ -34,6 +36,8 @@ const CandidateDetailScreen = () => {
       {activatedTab === CANDIDATE_DETAIL_TAB_VALUES.attachment && (
         <AttachmentTab />
       )}
+      {activatedTab === CANDIDATE_DETAIL_TAB_VALUES.position && <PositionTab />}
+      {activatedTab === CANDIDATE_DETAIL_TAB_VALUES.process && <ProcessTab />}
     </MainLayout>
   );
 };

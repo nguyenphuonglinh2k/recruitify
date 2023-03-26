@@ -42,5 +42,6 @@ const styles = StyleSheet.create({
     paddingBottom: insets.bottom,
     paddingLeft: insets.left,
     paddingRight: insets.right,
+    position: "relative",
   }),
 });

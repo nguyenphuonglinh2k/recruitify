@@ -3,15 +3,22 @@ import PropTypes from "prop-types";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { PlusIcon } from "icons";
 import { COLORS } from "utils";
+import { isValidElement } from "react";
 
-const CommonRoundAddButton = ({ color, style, iconStyle, ...otherProps }) => {
+const CommonRoundAddButton = ({
+  color,
+  style,
+  iconStyle,
+  icon,
+  ...otherProps
+}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={[styles.wrapper(color), style]}
       {...otherProps}
     >
-      <PlusIcon style={iconStyle} />
+      {isValidElement(icon) ? icon : <PlusIcon style={iconStyle} />}
     </TouchableOpacity>
   );
 };
@@ -21,6 +28,7 @@ CommonRoundAddButton.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   color: PropTypes.string,
+  icon: PropTypes.node,
 };
 
 CommonRoundAddButton.defaultProps = {
