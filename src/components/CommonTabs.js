@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import PropTypes from "prop-types";
 import CommonTab from "./CommonTab";
 
-const CommonTabs = ({ value, setValue, data }) => {
+const CommonTabs = ({ value, setValue, data, style }) => {
   const onChange = newValue => {
     if (setValue) {
       setValue(newValue);
@@ -11,7 +11,7 @@ const CommonTabs = ({ value, setValue, data }) => {
   };
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, style]}>
       {data.map(({ label, tabValue }) => (
         <CommonTab
           key={tabValue}
@@ -36,6 +36,7 @@ CommonTabs.propTypes = {
         .isRequired,
     }),
   ).isRequired,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 CommonTabs.defaultProps = {

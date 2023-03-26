@@ -9,10 +9,13 @@ import {
 } from "./StackNavigator";
 import { TAB_NAME } from "const/path.const";
 import { COLORS } from "utils";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  const insets = useSafeAreaInsets();
+
   // const onPressTab = (tabName, screenName, params) => {
   //   return e => {
   //     // Prevent default action
@@ -42,7 +45,7 @@ export default function TabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          height: 50,
+          height: 50 + insets.bottom,
         },
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: true,

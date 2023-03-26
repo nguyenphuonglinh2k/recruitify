@@ -1,12 +1,13 @@
 import { CommonIconButton } from "components";
 import { FilterSearchIcon, SearchIcon } from "icons";
 import React from "react";
+import PropTypes from "prop-types";
 import { StyleSheet, Text, View } from "react-native";
 import { COLORS } from "utils";
 
-const Header = () => {
+const Header = ({ style }) => {
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, style]}>
       <Text style={styles.title}>Candidate (3)</Text>
       <View style={styles.icons}>
         <CommonIconButton style={styles.notLastIcon}>
@@ -21,6 +22,10 @@ const Header = () => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+};
 
 const styles = StyleSheet.create({
   header: {

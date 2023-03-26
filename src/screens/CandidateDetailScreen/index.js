@@ -5,6 +5,7 @@ import CandidateDetailTabBar, {
 } from "./CandidateDetailTabBar";
 import { TitleWithStatus } from "components";
 import InformationTab from "./InfomationTab";
+import AttachmentTab from "./AttachmentTab";
 
 const CandidateDetailScreen = () => {
   const [activatedTab, setActivatedTab] = useState(
@@ -29,6 +30,9 @@ const CandidateDetailScreen = () => {
       />
       {activatedTab === CANDIDATE_DETAIL_TAB_VALUES.information && (
         <InformationTab />
+      )}
+      {activatedTab === CANDIDATE_DETAIL_TAB_VALUES.attachment && (
+        <AttachmentTab />
       )}
     </MainLayout>
   );

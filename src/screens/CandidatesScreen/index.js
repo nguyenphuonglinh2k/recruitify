@@ -4,29 +4,42 @@ import Header from "./Header";
 import { MainLayout } from "layouts";
 import CandidateItem from "./CandidateItem";
 import { CommonFloatButton } from "components";
+import { useState } from "react";
+import { APPLICATION_STATUS } from "const/app.const";
+import CandidateTabBar from "./CandidateTabBar";
 
 const CandidatesScreen = () => {
+  const [activatedTab, setActivatedTab] = useState(
+    APPLICATION_STATUS.screening,
+  );
+
   return (
     <MainLayout>
-      <ScrollView style={styles.root}>
-        <Header />
+      <CandidateTabBar
+        activatedTab={activatedTab}
+        setActivatedTab={setActivatedTab}
+      />
+      <ScrollView style={[styles.root]}>
+        <Header style={{ marginTop: 16 }} />
 
-        <View style={styles.positions}>
-          {MOCK_CANDIDATES.map((data, index) => (
-            <CandidateItem
-              key={index}
-              data={data}
-              style={styles.marginBottom}
-            />
-          ))}
-        </View>
+        {activatedTab === APPLICATION_STATUS.screening && (
+          <View style={styles.positions}>
+            {MOCK_CANDIDATES.map((data, index) => (
+              <CandidateItem
+                key={index}
+                data={data}
+                style={styles.marginBottom}
+              />
+            ))}
+          </View>
+        )}
       </ScrollView>
       <CommonFloatButton />
     </MainLayout>
   );
 };
 
-const MOCK_CANDIDATES = Array.from(new Array(3)).map(() => ({
+const MOCK_CANDIDATES = Array.from(new Array(7)).map(() => ({
   name: "Alexandar Greg",
   email: "grek@gmail.com",
   avatarUrl:
@@ -41,7 +54,7 @@ export default CandidatesScreen;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
   },
   positions: {
     flex: 1,

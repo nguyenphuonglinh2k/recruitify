@@ -13,7 +13,9 @@ const CandidateItem = ({ data, style }) => {
       <CommonAvatar source={{ uri: avatarUrl }} style={styles.left} />
       <View style={styles.right}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.status}>{onGetApplicationStatusLabel(status)}</Text>
+        <Text style={styles.status}>{`On ${onGetApplicationStatusLabel(
+          status,
+        )}`}</Text>
         <CommonRating value={star} style={{ marginTop: 8 }} />
       </View>
     </TouchableOpacity>

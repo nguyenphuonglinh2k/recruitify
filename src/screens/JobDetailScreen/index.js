@@ -1,7 +1,7 @@
 import { MainLayout } from "layouts";
 import React, { useState } from "react";
 import JobDetailTabBar, { JOB_DETAIL_TAB_VALUES } from "./JobDetailTabBar";
-import InfoTab from "./InfoTab";
+import InfoTab from "./InfoTab/Details";
 import AssigneesTab from "./AssigneesTab";
 import DocumentTab from "./DocumentTab";
 import CandidatesTab from "./CandidatesTabs";

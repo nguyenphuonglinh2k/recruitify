@@ -1,7 +1,7 @@
 import React, { memo } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import PropTypes from "prop-types";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "./Header";
 import HeaderBackButton from "./HeaderBackButton";
 
@@ -12,19 +12,17 @@ const MainLayout = ({
   headerProps,
   ...otherProps
 }) => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView
-      style={[styles.container, style]}
-      edges={["right", "top", "left"]}
-      {...otherProps}
-    >
+    <View style={[styles.container(insets), style]} {...otherProps}>
       {isBackScreen ? (
         <HeaderBackButton {...headerProps} />
       ) : (
         <Header {...headerProps} />
       )}
       {children}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -38,7 +36,11 @@ MainLayout.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  container: insets => ({
     flex: 1,
-  },
+    paddingTop: insets.top,
+    paddingBottom: insets.bottom,
+    paddingLeft: insets.left,
+    paddingRight: insets.right,
+  }),
 });

@@ -14,6 +14,7 @@ import OutlineStarIcon from "./OutlineStarIcon";
 import PlusIcon from "./PlusIcon";
 import LocationIcon from "./LocationIcon";
 import PencilIcon from "./PencilIcon";
+import DownloadIcon from "./DownloadIcon";
 
 export {
   HomeIcon,
@@ -32,4 +33,5 @@ export {
   PlusIcon,
   LocationIcon,
   PencilIcon,
+  DownloadIcon,
 };
