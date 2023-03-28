@@ -1,16 +1,25 @@
 import React from "react";
-import Svg, { Circle, Path } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 import PropTypes from "prop-types";
+import { COLORS } from "utils";
 
 const UserIcon = ({ height, width, color, ...otherProps }) => {
   return (
-    <Svg height={height} width={width} {...otherProps}>
+    <Svg height={height} width={width} fill="none" {...otherProps}>
       <Path
-        opacity="0.4"
-        d="M4 20.28C4 16.7012 6.9012 13.8 10.48 13.8H13.36C16.9388 13.8 19.84 16.7012 19.84 20.28V20.28C19.84 20.6776 19.5176 21 19.12 21H4.72C4.32236 21 4 20.6776 4 20.28V20.28Z"
-        fill={color}
+        d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <Circle cx="11.56" cy="7.68" r="4.68" fill={color} />
+      <Path
+        d="M7.16021 14.56C4.74021 16.18 4.74021 18.82 7.16021 20.43C9.91021 22.27 14.4202 22.27 17.1702 20.43C19.5902 18.81 19.5902 16.17 17.1702 14.56C14.4302 12.73 9.92021 12.73 7.16021 14.56Z"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </Svg>
   );
 };
@@ -22,7 +31,7 @@ UserIcon.propTypes = {
 };
 
 UserIcon.defaultProps = {
-  color: "#A19FA8",
+  color: COLORS.black,
   width: 24,
   height: 24,
 };

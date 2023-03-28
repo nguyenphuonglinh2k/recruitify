@@ -21,4 +21,5 @@ export default {
   },
   pink: "#FF4E71",
   purple: "#4950E5",
+  red: "#ff3300",
 };

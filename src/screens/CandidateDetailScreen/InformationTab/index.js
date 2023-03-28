@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import PropTypes from "prop-types";
 import { CommonAvatar, DetailItemRow } from "components";
+import Skills from "./Skills";
 
 const InformationTab = ({ style }) => {
   return (
@@ -27,6 +28,7 @@ const InformationTab = ({ style }) => {
         label="Current Address"
         content={MOCK_INFORMATION.currentAddress}
       />
+      <Skills />
       <DetailItemRow label="Updated at" content={MOCK_INFORMATION.updatedAt} />
     </ScrollView>
   );

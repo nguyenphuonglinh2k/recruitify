@@ -55,7 +55,7 @@ export default function TabNavigator() {
       <Tab.Screen
         name={TAB_NAME.dashboard}
         component={DashboardStack}
-        options={onGetTabScreenOptions(HomeIcon, { tabBarLabel: "Dashboard" })}
+        options={onGetTabScreenOptions(HomeIcon, { tabBarLabel: "Overview" })}
       />
 
       <Tab.Screen

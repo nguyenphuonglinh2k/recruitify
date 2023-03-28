@@ -1,5 +1,4 @@
 import React from "react";
-import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   SignInScreen,
@@ -7,6 +6,8 @@ import {
   JobDetailScreen,
   CandidatesScreen,
   CandidateDetailScreen,
+  OverviewScreen,
+  ScheduleScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -24,10 +25,9 @@ const AuthStack = () => {
 const DashboardStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name={SCREEN_NAME.jobScreen} component={JobsScreen} />
       <Stack.Screen
-        name={SCREEN_NAME.jobDetailScreen}
-        component={JobDetailScreen}
+        name={SCREEN_NAME.overviewScreen}
+        component={OverviewScreen}
       />
     </Stack.Navigator>
   );
@@ -62,9 +62,12 @@ const ApplicationStack = () => {
 
 const ScheduleStack = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile</Text>
-    </View>
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name={SCREEN_NAME.scheduleScreen}
+        component={ScheduleScreen}
+      />
+    </Stack.Navigator>
   );
 };
 
