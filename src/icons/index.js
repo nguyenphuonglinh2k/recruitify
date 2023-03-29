@@ -16,6 +16,7 @@ import LocationIcon from "./LocationIcon";
 import PencilIcon from "./PencilIcon";
 import DownloadIcon from "./DownloadIcon";
 import TeacherIcon from "./TeacherIcon";
+import ClockIcon from "./ClockIcon";
 
 export {
   HomeIcon,
@@ -36,4 +37,5 @@ export {
   PencilIcon,
   DownloadIcon,
   TeacherIcon,
+  ClockIcon,
 };

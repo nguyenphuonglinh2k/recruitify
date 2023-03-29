@@ -13,4 +13,6 @@ export const SCREEN_NAME = {
   candidateDetailScreen: "candidateDetailScreen",
   overviewScreen: "overviewScreen",
   scheduleScreen: "scheduleScreen",
+  scheduleListScreen: "scheduleListScreen",
+  scheduleDetailScreen: "scheduleDetailScreen",
 };

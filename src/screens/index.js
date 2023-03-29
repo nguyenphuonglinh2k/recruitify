@@ -9,6 +9,7 @@ import CandidatesScreen from "./CandidatesScreen";
 import CandidateDetailScreen from "./CandidateDetailScreen";
 
 import ScheduleScreen from "./ScheduleScreen";
+import ScheduleListScreen from "./ScheduleListScreen";
 
 export {
   SignInScreen,
@@ -18,4 +19,5 @@ export {
   CandidateDetailScreen,
   OverviewScreen,
   ScheduleScreen,
+  ScheduleListScreen,
 };
