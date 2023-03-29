@@ -1,9 +1,14 @@
 import { StyleSheet } from "react-native";
 import React from "react";
 import { MainLayout } from "layouts";
+import { CommonCalendar } from "components";
 
 const OverviewScreen = () => {
-  return <MainLayout></MainLayout>;
+  return (
+    <MainLayout>
+      <CommonCalendar />
+    </MainLayout>
+  );
 };
 
 export default OverviewScreen;

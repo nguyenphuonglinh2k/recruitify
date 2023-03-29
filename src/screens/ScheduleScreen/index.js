@@ -1,9 +1,25 @@
 import { StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { MainLayout } from "layouts";
+import { CommonCalendar } from "components";
+import ScheduleTabBar, { SCHEDULE_TAB_VALUES } from "./ScheduleTabBar";
 
 const ScheduleScreen = () => {
-  return <MainLayout></MainLayout>;
+  const [activatedTab, setActivatedTab] = useState(
+    SCHEDULE_TAB_VALUES.allSchedule,
+  );
+
+  return (
+    <MainLayout>
+      <ScheduleTabBar
+        activatedTab={activatedTab}
+        setActivatedTab={setActivatedTab}
+        style={{ marginBottom: 10 }}
+      />
+      {activatedTab === SCHEDULE_TAB_VALUES.allSchedule && <CommonCalendar />}
+      {activatedTab === SCHEDULE_TAB_VALUES.mySchedule && <CommonCalendar />}
+    </MainLayout>
+  );
 };
 
 export default ScheduleScreen;

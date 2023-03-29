@@ -4,6 +4,13 @@ export const USER_KEY = "user";
 
 export const DATE_TIME_FORMAT = "HH:mm DD-MM-YYYY";
 
+export const TIME_FORMAT = "HH:mm:ss";
+export const HOUR_FORMAT = "HH:mm";
+export const FORMAT_DATE_WITH_SLASH = "YYYY/MM/DD";
+export const FORMAT_DATE_WITH_HYPHEN = "YYYY-MM-DD";
+export const FORMAT_DATE_TIME_WITH_HYPHEN = `${FORMAT_DATE_WITH_HYPHEN} ${HOUR_FORMAT}`;
+export const FORMAT_DATE_TIME_WITH_SLASH = `${FORMAT_DATE_WITH_SLASH} ${HOUR_FORMAT}`;
+
 export const MAXIMUM_BADGE_NUMBER = 99;
 
 export const MAXIMUM_AVATAR_TOTAL_IN_GROUP = 3;
