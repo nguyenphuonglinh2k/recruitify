@@ -4,13 +4,24 @@ import { MainLayout } from "layouts";
 import { CommonFloatButton } from "components";
 import ScheduleItem from "./ScheduleItem";
 import { useRoute } from "@react-navigation/core";
+import { useMemo } from "react";
+import moment from "moment";
+import { AppConstant } from "const";
 
 const ScheduleListScreen = () => {
   const route = useRoute();
   const { date } = route.params;
 
+  const formattedDate = useMemo(
+    () => moment(date).format(AppConstant.FORMAT_DATE_WITH_SLASH),
+    [date],
+  );
+
   return (
-    <MainLayout isBackScreen headerProps={{ title: `All schedule ${date}` }}>
+    <MainLayout
+      isBackScreen
+      headerProps={{ title: `All schedule - ${formattedDate}` }}
+    >
       <View style={styles.list}>
         {MOCK_DATA.map((data, index) => (
           <ScheduleItem

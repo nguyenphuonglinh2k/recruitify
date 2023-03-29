@@ -12,6 +12,7 @@ import CommonChip from "./CommonChip";
 import CommonRating from "./CommonRating";
 import CommonFloatButton from "./CommonFloatButton";
 import CommonCalendar from "./CommonCalendar";
+import CommonAvatarChip from "./CommonAvatarChip";
 
 import TitleWithStatus from "./TitleWithStatus";
 import DetailItemRow from "./DetailItemRow";
@@ -31,6 +32,7 @@ export {
   CommonRating,
   CommonFloatButton,
   CommonCalendar,
+  CommonAvatarChip,
   TitleWithStatus,
   DetailItemRow,
 };

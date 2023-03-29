@@ -10,6 +10,7 @@ import CandidateDetailScreen from "./CandidateDetailScreen";
 
 import ScheduleScreen from "./ScheduleScreen";
 import ScheduleListScreen from "./ScheduleListScreen";
+import ScheduleDetailScreen from "./ScheduleDetailScreen";
 
 export {
   SignInScreen,
@@ -20,4 +21,5 @@ export {
   OverviewScreen,
   ScheduleScreen,
   ScheduleListScreen,
+  ScheduleDetailScreen,
 };

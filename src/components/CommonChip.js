@@ -9,6 +9,8 @@ const CommonChip = ({
   label,
   style,
   labelStyle,
+  startAdornment,
+  endAdornment,
   ...otherProps
 }) => {
   return (
@@ -17,7 +19,9 @@ const CommonChip = ({
       style={[styles.wrapper(color), style]}
       {...otherProps}
     >
+      {startAdornment}
       <Text style={[styles.label, labelStyle]}>{label}</Text>
+      {endAdornment}
     </TouchableOpacity>
   );
 };
@@ -28,6 +32,8 @@ CommonChip.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   color: PropTypes.string,
+  startAdornment: PropTypes.node,
+  endAdornment: PropTypes.node,
 };
 
 CommonChip.defaultProps = {
@@ -43,6 +49,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-start",
+    flexDirection: "row",
   }),
   label: {
     color: COLORS.black,

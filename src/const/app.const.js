@@ -3,6 +3,7 @@ export const AUTH_TOKEN_KEY = "auth-token";
 export const USER_KEY = "user";
 
 export const DATE_TIME_FORMAT = "HH:mm DD-MM-YYYY";
+export const DATE_FORMAT_WITH_DAY = "dddd, DD/MM/YYYY";
 
 export const TIME_FORMAT = "HH:mm:ss";
 export const HOUR_FORMAT = "HH:mm";

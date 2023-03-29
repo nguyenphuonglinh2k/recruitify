@@ -4,14 +4,23 @@ import PropTypes from "prop-types";
 import { memo } from "react";
 import { ClockIcon, UserIcon } from "icons";
 import { COLORS } from "utils";
+import { useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
 const ScheduleItem = ({ data, style, ...otherProps }) => {
-  const { title, time, assignees } = data;
+  const navigation = useNavigation();
+
+  const { id, title, time, assignees } = data;
+
+  const onNavigateToDetail = () => {
+    navigation.navigate(SCREEN_NAME.scheduleDetailScreen, { id });
+  };
 
   return (
     <TouchableOpacity
       activeOpacity={0.5}
       style={[styles.root, style]}
+      onPress={onNavigateToDetail}
       {...otherProps}
     >
       <Text style={[styles.title, styles.spacingBottom]}>{title}</Text>
@@ -39,6 +48,7 @@ const ScheduleItem = ({ data, style, ...otherProps }) => {
 
 ScheduleItem.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     date: PropTypes.string,
     time: PropTypes.string,
