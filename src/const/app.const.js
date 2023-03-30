@@ -29,3 +29,10 @@ export const APPLICATION_STATUS = {
 };
 
 export const MAXIMUM_STAR_RATING = 5;
+
+export const USER_ROLE = {
+  admin: 1,
+  hr: 2,
+  manager: 3,
+  candidate: 4,
+};

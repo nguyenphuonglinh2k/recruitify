@@ -30,21 +30,30 @@ DetailItemRow.propTypes = {
 
 export default memo(DetailItemRow);
 
+export const labelStyle = {
+  color: COLORS.black,
+  fontWeight: "500",
+  fontSize: 16,
+  backgroundColor: COLORS.grey[300],
+};
+
+export const paddingStyle = {
+  paddingVertical: 12,
+  paddingHorizontal: 16,
+  borderBottomWidth: 1,
+  borderBottomColor: COLORS.grey[200],
+};
+
+export const contentStyle = {
+  color: COLORS.black,
+  fontSize: 16,
+};
+
 const styles = StyleSheet.create({
   label: disabled => ({
+    ...labelStyle,
     color: disabled ? COLORS.grey[100] : COLORS.black,
-    fontWeight: "500",
-    fontSize: 16,
-    backgroundColor: COLORS.grey[300],
   }),
-  padding: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.grey[200],
-  },
-  content: {
-    color: COLORS.black,
-    fontSize: 16,
-  },
+  padding: paddingStyle,
+  content: contentStyle,
 });

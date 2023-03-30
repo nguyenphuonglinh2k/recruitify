@@ -16,6 +16,7 @@ import CommonAvatarChip from "./CommonAvatarChip";
 
 import TitleWithStatus from "./TitleWithStatus";
 import DetailItemRow from "./DetailItemRow";
+import Role from "./Role";
 
 export {
   CommonButton,
@@ -35,4 +36,5 @@ export {
   CommonAvatarChip,
   TitleWithStatus,
   DetailItemRow,
+  Role,
 };

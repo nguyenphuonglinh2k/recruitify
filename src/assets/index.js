@@ -5,4 +5,5 @@ export const ImageSource = {
   DefaultAvatarImage: require("./img-default-avatar.png"),
   NotFoundImage: require("./img-not-found.png"),
   YellowStarImage: require("./img-yellow-star.png"),
+  ProfileHeaderBannerImage: require("./img-profile-header-banner.png"),
 };

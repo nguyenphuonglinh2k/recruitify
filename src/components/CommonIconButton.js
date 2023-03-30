@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native";
 
 const CommonIconButton = ({ children, ...otherProps }) => {
   return (
-    <TouchableOpacity activeOpacity={0.7} {...otherProps}>
+    <TouchableOpacity activeOpacity={0.5} {...otherProps}>
       {children}
     </TouchableOpacity>
   );

@@ -11,7 +11,7 @@ const ChipAvatarList = ({ data, style, ...otherProp }) => {
           key={index}
           label={name}
           source={{ uri: avatarUrl }}
-          style={index !== 0 ? styles.notFirstChild : {}}
+          style={index !== 0 ? styles.notFirst6ttyytChild : {}}
         />
       ))}
     </View>
@@ -19,10 +19,12 @@ const ChipAvatarList = ({ data, style, ...otherProp }) => {
 };
 
 ChipAvatarList.propTypes = {
-  data: PropTypes.arrayOf({
-    name: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-  }),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
+    }),
+  ),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 

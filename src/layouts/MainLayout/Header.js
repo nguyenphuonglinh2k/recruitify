@@ -5,15 +5,20 @@ import { NotificationIcon } from "icons";
 import { CommonIconButton } from "components";
 import { ImageSource } from "assets";
 import { COLORS } from "utils";
+import { isValidElement } from "react";
 
-const Header = ({ style, iconProps, ...otherProps }) => {
+const Header = ({ style, iconProps, headerRight, ...otherProps }) => {
   return (
     <View style={[styles.root, style]} {...otherProps}>
       <Image source={ImageSource.LogoDarkImage} style={styles.logo} />
 
-      <CommonIconButton>
-        <NotificationIcon {...iconProps} />
-      </CommonIconButton>
+      {isValidElement(headerRight) ? (
+        headerRight
+      ) : (
+        <CommonIconButton>
+          <NotificationIcon {...iconProps} />
+        </CommonIconButton>
+      )}
     </View>
   );
 };
@@ -21,6 +26,7 @@ const Header = ({ style, iconProps, ...otherProps }) => {
 Header.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   iconProps: PropTypes.object,
+  headerRight: PropTypes.node,
 };
 
 const styles = StyleSheet.create({
