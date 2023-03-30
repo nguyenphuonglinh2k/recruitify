@@ -5,6 +5,7 @@ import { ToastProvider } from "react-native-toast-notifications";
 import DrawerNavigator from "navigation/DrawerNavigator";
 import { AuthStack } from "navigation/StackNavigator";
 import { COLORS } from "utils";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const navTheme = {
   ...DefaultTheme,
@@ -39,7 +40,9 @@ const App = () => {
         animationType="slide-in"
       >
         <NavigationContainer theme={navTheme}>
-          {isLoggedIn ? <DrawerNavigator /> : <AuthStack />}
+          <BottomSheetModalProvider>
+            {isLoggedIn ? <DrawerNavigator /> : <AuthStack />}
+          </BottomSheetModalProvider>
         </NavigationContainer>
       </ToastProvider>
     </SafeAreaProvider>

@@ -17,6 +17,7 @@ const CommonChip = ({
     <TouchableOpacity
       activeOpacity={onPress ? 0.7 : 1}
       style={[styles.wrapper(color), style]}
+      onPress={onPress}
       {...otherProps}
     >
       {startAdornment}

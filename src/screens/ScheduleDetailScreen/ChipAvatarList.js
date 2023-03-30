@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { CommonAvatarChip } from "components";
 
-const ChipAvatarList = ({ data, style, ...otherProp }) => {
+const ChipAvatarList = ({ data, style, onPress, ...otherProp }) => {
   return (
     <View style={[styles.root, style]} {...otherProp}>
       {data?.map(({ name, avatarUrl }, index) => (
@@ -11,7 +11,8 @@ const ChipAvatarList = ({ data, style, ...otherProp }) => {
           key={index}
           label={name}
           source={{ uri: avatarUrl }}
-          style={index !== 0 ? styles.notFirst6ttyytChild : {}}
+          style={index !== 0 ? styles.notFirstChild : {}}
+          onPress={onPress}
         />
       ))}
     </View>
@@ -26,6 +27,7 @@ ChipAvatarList.propTypes = {
     }),
   ),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  onPress: PropTypes.func,
 };
 
 export default ChipAvatarList;

@@ -25,7 +25,7 @@ const DrawerNavigator = () => {
         },
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}
-      initialRouteName={DRAWER_TAB_NAME.profileScreen}
+      // initialRouteName={DRAWER_TAB_NAME.profileScreen}
     >
       <Drawer.Screen
         name={DRAWER_TAB_NAME.recruitmentProcess}

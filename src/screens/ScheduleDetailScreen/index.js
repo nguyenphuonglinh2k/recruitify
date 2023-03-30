@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import { MainLayout } from "layouts";
 import { useRoute } from "@react-navigation/core";
 import { useState } from "react";
@@ -9,62 +9,77 @@ import { COLORS } from "utils";
 import ChipAvatarList from "./ChipAvatarList";
 import moment from "moment";
 import { AppConstant } from "const";
+import ProfileBottomSheetModal from "./ProfileBottomSheetModal";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const ScheduleDetailScreen = () => {
   const route = useRoute();
   const { id } = route.params;
 
+  const bottomSheetModalRef = useRef();
+
   const [data, setData] = useState(MOCK_DATA);
+
+  const onOpenProfileModal = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
 
   useEffect(() => {
     // TODO: call API by id
   }, [id, setData]);
 
   return (
-    <MainLayout isBackScreen headerProps={{ title: data.title }}>
-      <ScrollView style={styles.root}>
-        <DetailItemRow
-          label="Schedule date"
-          content={moment(data.date).format(AppConstant.DATE_FORMAT_WITH_DAY)}
-        />
-        <DetailItemRow label="Schedule time" content={data.time} />
-        <DetailItemRow label="Description" content={data.description} />
+    <BottomSheetModalProvider>
+      <MainLayout isBackScreen headerProps={{ title: data.title }}>
+        <ScrollView style={styles.root}>
+          <DetailItemRow
+            label="Schedule date"
+            content={moment(data.date).format(AppConstant.DATE_FORMAT_WITH_DAY)}
+          />
+          <DetailItemRow label="Schedule time" content={data.time} />
+          <DetailItemRow label="Description" content={data.description} />
 
-        <DetailItemRow
-          label="Candidate"
-          content={
-            <View style={styles.contentSpacing}>
-              <CommonAvatarChip
-                label={MOCK_CANDIDATE.name}
-                source={{ uri: MOCK_CANDIDATE.avatarUrl }}
+          <DetailItemRow
+            label="Candidate"
+            content={
+              <View style={styles.contentSpacing}>
+                <CommonAvatarChip
+                  label={MOCK_CANDIDATE.name}
+                  source={{ uri: MOCK_CANDIDATE.avatarUrl }}
+                  onPress={onOpenProfileModal}
+                />
+              </View>
+            }
+          />
+          <DetailItemRow label="Position" content={MOCK_CANDIDATE.position} />
+
+          <DetailItemRow
+            label="Attendees"
+            content={
+              <ChipAvatarList
+                data={data.assignees}
+                style={styles.contentSpacing}
+                onPress={onOpenProfileModal}
               />
-            </View>
-          }
-        />
-        <DetailItemRow label="Position" content={MOCK_CANDIDATE.position} />
+            }
+          />
+          <DetailItemRow
+            label="Schedule creator"
+            content={
+              <ChipAvatarList
+                data={[MOCK_CREATOR]}
+                style={styles.contentSpacing}
+                onPress={onOpenProfileModal}
+              />
+            }
+          />
+        </ScrollView>
 
-        <DetailItemRow
-          label="Attendees"
-          content={
-            <ChipAvatarList
-              data={data.assignees}
-              style={styles.contentSpacing}
-            />
-          }
-        />
-        <DetailItemRow
-          label="Schedule creator"
-          content={
-            <ChipAvatarList
-              data={[MOCK_CREATOR]}
-              style={styles.contentSpacing}
-            />
-          }
-        />
-      </ScrollView>
+        <CommonFloatButton icon={<PencilIcon color={COLORS.white} />} />
 
-      <CommonFloatButton icon={<PencilIcon color={COLORS.white} />} />
-    </MainLayout>
+        <ProfileBottomSheetModal ref={bottomSheetModalRef} />
+      </MainLayout>
+    </BottomSheetModalProvider>
   );
 };
 

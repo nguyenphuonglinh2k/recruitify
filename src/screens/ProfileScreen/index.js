@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import React from "react";
 import { MainLayout } from "layouts";
 import { CommonIconButton } from "components";
@@ -27,5 +27,3 @@ const ProfileScreen = () => {
 };
 
 export default ProfileScreen;
-
-const styles = StyleSheet.create({});
