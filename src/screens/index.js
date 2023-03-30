@@ -12,6 +12,8 @@ import ScheduleScreen from "./ScheduleScreen";
 import ScheduleListScreen from "./ScheduleListScreen";
 import ScheduleDetailScreen from "./ScheduleDetailScreen";
 
+import ProfileScreen from "./ProfileScreen";
+
 export {
   SignInScreen,
   JobsScreen,
@@ -22,4 +24,5 @@ export {
   ScheduleScreen,
   ScheduleListScreen,
   ScheduleDetailScreen,
+  ProfileScreen,
 };

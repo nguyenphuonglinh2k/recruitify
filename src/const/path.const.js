@@ -5,6 +5,13 @@ export const TAB_NAME = {
   scheduled: "scheduled",
 };
 
+export const DRAWER_TAB_NAME = {
+  profileScreen: "profileScreen",
+  recruitmentProcess: "recruitmentProcess",
+  candidateTraining: "candidateTraining",
+  settingScreen: "settingScreen",
+};
+
 export const SCREEN_NAME = {
   signInScreen: "signInScreen",
   jobScreen: "jobScreen",

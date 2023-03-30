@@ -1,6 +1,7 @@
 export default {
   white: "white",
   black: "#013243",
+  lightBlack: "rgba(1, 50, 67, 0.15)",
   green: "#02e079",
   lightGreen: "rgba(2, 224, 121, 0.15)",
   blue: {

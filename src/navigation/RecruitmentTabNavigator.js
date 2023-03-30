@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator() {
+export default function RecruitmentTabNavigator() {
   const insets = useSafeAreaInsets();
 
   // const onPressTab = (tabName, screenName, params) => {
