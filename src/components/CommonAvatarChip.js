@@ -19,6 +19,7 @@ const CommonAvatarChip = ({ source, style, avatarStyle, ...otherProps }) => {
 };
 
 CommonAvatarChip.propTypes = {
+  label: PropTypes.string,
   source: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   avatarStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

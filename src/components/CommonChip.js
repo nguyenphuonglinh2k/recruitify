@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { COLORS } from "utils";
@@ -20,9 +20,9 @@ const CommonChip = ({
       onPress={onPress}
       {...otherProps}
     >
-      {startAdornment}
+      {startAdornment ? startAdornment : <Fragment />}
       <Text style={[styles.label, labelStyle]}>{label}</Text>
-      {endAdornment}
+      {endAdornment ? endAdornment : <Fragment />}
     </TouchableOpacity>
   );
 };

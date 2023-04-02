@@ -3,19 +3,25 @@ import React from "react";
 import { MainLayout } from "layouts";
 import { CommonFloatButton } from "components";
 import ScheduleItem from "./ScheduleItem";
-import { useRoute } from "@react-navigation/core";
+import { useNavigation, useRoute } from "@react-navigation/core";
 import { useMemo } from "react";
 import moment from "moment";
 import { AppConstant } from "const";
+import { SCREEN_NAME } from "const/path.const";
 
 const ScheduleListScreen = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const { date } = route.params;
 
   const formattedDate = useMemo(
     () => moment(date).format(AppConstant.FORMAT_DATE_WITH_SLASH),
     [date],
   );
+
+  const onNavigateToCreationScreen = () => {
+    navigation.navigate(SCREEN_NAME.scheduleAddition, { date: formattedDate });
+  };
 
   return (
     <MainLayout
@@ -32,7 +38,7 @@ const ScheduleListScreen = () => {
         ))}
       </View>
 
-      <CommonFloatButton />
+      <CommonFloatButton onPress={onNavigateToCreationScreen} />
     </MainLayout>
   );
 };

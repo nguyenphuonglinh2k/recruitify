@@ -22,4 +22,5 @@ export const SCREEN_NAME = {
   scheduleScreen: "scheduleScreen",
   scheduleListScreen: "scheduleListScreen",
   scheduleDetailScreen: "scheduleDetailScreen",
+  scheduleAddition: "scheduleAddition",
 };
