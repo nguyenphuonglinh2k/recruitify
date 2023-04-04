@@ -13,6 +13,7 @@ import {
   ScheduleAddition,
   ScheduleDetailEditingScreen,
   ProjectScreen,
+  ProjectDetailScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -98,6 +99,10 @@ const ProjectStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.projectScreen}
         component={ProjectScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.projectDetailScreen}
+        component={ProjectDetailScreen}
       />
     </Stack.Navigator>
   );

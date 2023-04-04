@@ -21,16 +21,15 @@ export default function TrainingTabNavigator() {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: true,
       }}
-      initialRouteName={TAB_NAME.dashboard}
     >
       <Tab.Screen
-        name={TAB_NAME.dashboard}
+        name={TAB_NAME.trainingOverview}
         component={DashboardStack}
         options={onGetTabScreenOptions(HomeIcon, { tabBarLabel: "Overview" })}
       />
 
       <Tab.Screen
-        name={TAB_NAME.position}
+        name={TAB_NAME.project}
         component={ProjectStack}
         options={onGetTabScreenOptions(ProjectIcon, {
           tabBarLabel: "Project",
@@ -38,7 +37,7 @@ export default function TrainingTabNavigator() {
       />
 
       <Tab.Screen
-        name={TAB_NAME.application}
+        name={TAB_NAME.task}
         component={TaskStack}
         options={onGetTabScreenOptions(TaskIcon, {
           tabBarLabel: "Task",

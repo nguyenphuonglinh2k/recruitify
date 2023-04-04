@@ -1,16 +1,16 @@
 import {
   APPLICATION_STATUS,
-  PROJECT_AND_TASK_STATUS,
+  PROGRESS_STATUS,
   USER_ROLE,
 } from "const/app.const";
 
 export const onGetProjectAndTaskStatusLabel = status => {
   switch (status) {
-    case PROJECT_AND_TASK_STATUS.new:
+    case PROGRESS_STATUS.new:
       return "New";
-    case PROJECT_AND_TASK_STATUS.doing:
+    case PROGRESS_STATUS.doing:
       return "Doing";
-    case PROJECT_AND_TASK_STATUS.done:
+    case PROGRESS_STATUS.done:
       return "Done";
     default:
       return "Undefined";

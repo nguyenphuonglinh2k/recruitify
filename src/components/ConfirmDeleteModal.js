@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { COLORS } from "utils";
 
 const ConfirmDeleteModal = props => {
-  const { title, isVisible, onCancel, onOK, modalStyle } = props;
+  const { title, description, isVisible, onCancel, onOK, modalStyle } = props;
 
   if (!isVisible) return null;
 
@@ -17,7 +17,7 @@ const ConfirmDeleteModal = props => {
     >
       <View style={styles.container}>
         <Text style={styles.title}>{`"${title}"`}</Text>
-        <Text style={styles.description}>Do you really want to delete?</Text>
+        <Text style={styles.description}>{description}</Text>
         <View style={styles.buttons}>
           <CommonButton
             onPress={onCancel}
@@ -44,6 +44,7 @@ export default memo(ConfirmDeleteModal);
 ConfirmDeleteModal.propTypes = {
   title: PropTypes.string,
   isVisible: PropTypes.bool,
+  description: PropTypes.string,
   onCancel: PropTypes.func,
   onOK: PropTypes.func,
   modalStyle: PropTypes.object,
@@ -51,6 +52,7 @@ ConfirmDeleteModal.propTypes = {
 
 ConfirmDeleteModal.defaultProps = {
   modalStyle: {},
+  description: "Do you really want to delete?",
 };
 
 const styles = StyleSheet.create({

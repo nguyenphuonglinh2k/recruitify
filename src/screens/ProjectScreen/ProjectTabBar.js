@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { CommonTabs } from "components";
-import { PROJECT_AND_TASK_STATUS } from "const/app.const";
+import { PROGRESS_STATUS } from "const/app.const";
 import { onGetProjectAndTaskStatusLabel } from "utils/label.utils";
 
 const ProjectTabBar = ({ activatedTab, setActivatedTab, ...otherProps }) => {
@@ -24,15 +24,15 @@ ProjectTabBar.propTypes = {
 
 export const TAB_DATA = [
   {
-    label: onGetProjectAndTaskStatusLabel(PROJECT_AND_TASK_STATUS.new),
-    tabValue: PROJECT_AND_TASK_STATUS.new,
+    label: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.new),
+    tabValue: PROGRESS_STATUS.new,
   },
   {
-    label: onGetProjectAndTaskStatusLabel(PROJECT_AND_TASK_STATUS.doing),
-    tabValue: PROJECT_AND_TASK_STATUS.doing,
+    label: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.doing),
+    tabValue: PROGRESS_STATUS.doing,
   },
   {
-    label: onGetProjectAndTaskStatusLabel(PROJECT_AND_TASK_STATUS.done),
-    tabValue: PROJECT_AND_TASK_STATUS.done,
+    label: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.done),
+    tabValue: PROGRESS_STATUS.done,
   },
 ];

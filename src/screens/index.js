@@ -17,6 +17,7 @@ import ScheduleDetailEditingScreen from "./ScheduleDetailEditingScreen";
 import ProfileScreen from "./ProfileScreen";
 
 import ProjectScreen from "./ProjectScreen";
+import ProjectDetailScreen from "./ProjectDetailScreen";
 
 export {
   SignInScreen,
@@ -32,4 +33,5 @@ export {
   ScheduleAddition,
   ScheduleDetailEditingScreen,
   ProjectScreen,
+  ProjectDetailScreen,
 };

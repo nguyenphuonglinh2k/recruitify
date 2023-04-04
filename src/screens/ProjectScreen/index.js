@@ -1,13 +1,13 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { MainLayout } from "layouts";
 import Header from "./Header";
 import ProjectTabBar from "./ProjectTabBar";
-import { PROJECT_AND_TASK_STATUS } from "const/app.const";
+import { PROGRESS_STATUS } from "const/app.const";
 import ProjectList from "./ProjectList";
 
 const ProjectScreen = () => {
-  const [activatedTab, setActivatedTab] = useState(PROJECT_AND_TASK_STATUS.new);
+  const [activatedTab, setActivatedTab] = useState(PROGRESS_STATUS.new);
 
   return (
     <MainLayout>

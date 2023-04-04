@@ -3,6 +3,9 @@ export const TAB_NAME = {
   position: "position",
   application: "application",
   scheduled: "scheduled",
+  trainingOverview: "trainingOverview",
+  project: "project",
+  task: "task",
 };
 
 export const DRAWER_TAB_NAME = {
@@ -27,4 +30,5 @@ export const SCREEN_NAME = {
   projectScreen: "projectScreen",
   taskScreen: "taskScreen",
   projectDetailScreen: "projectDetailScreen",
+  projectInfoEditingScreen: "projectInfoEditingScreen",
 };

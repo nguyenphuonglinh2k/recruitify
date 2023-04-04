@@ -37,7 +37,7 @@ export const USER_ROLE = {
   candidate: 4,
 };
 
-export const PROJECT_AND_TASK_STATUS = {
+export const PROGRESS_STATUS = {
   new: 1,
   doing: 2,
   done: 3,
