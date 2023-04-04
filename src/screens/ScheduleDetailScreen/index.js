@@ -1,9 +1,14 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import { MainLayout } from "layouts";
-import { useRoute } from "@react-navigation/core";
-import { useState } from "react";
-import { CommonAvatarChip, CommonFloatButton, DetailItemRow } from "components";
+import { useNavigation, useRoute } from "@react-navigation/core";
+import {
+  CommonAvatarChip,
+  CommonDeleteButton,
+  CommonFloatButton,
+  ConfirmDeleteModal,
+  DetailItemRow,
+} from "components";
 import { PencilIcon } from "icons";
 import { COLORS } from "utils";
 import ChipAvatarList from "./ChipAvatarList";
@@ -11,8 +16,10 @@ import moment from "moment";
 import { AppConstant } from "const";
 import ProfileBottomSheetModal from "./ProfileBottomSheetModal";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { SCREEN_NAME } from "const/path.const";
 
 const ScheduleDetailScreen = () => {
+  const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params;
 
@@ -24,6 +31,10 @@ const ScheduleDetailScreen = () => {
     bottomSheetModalRef.current?.present();
   }, []);
 
+  const handleNavigateToEditScreen = () => {
+    navigation.navigate(SCREEN_NAME.scheduleDetailEditingScreen, { id });
+  };
+
   useEffect(() => {
     // TODO: call API by id
   }, [id, setData]);
@@ -33,10 +44,10 @@ const ScheduleDetailScreen = () => {
       <MainLayout isBackScreen headerProps={{ title: data.title }}>
         <ScrollView style={styles.root}>
           <DetailItemRow
-            label="Schedule date"
+            label="Date"
             content={moment(data.date).format(AppConstant.DATE_FORMAT_WITH_DAY)}
           />
-          <DetailItemRow label="Schedule time" content={data.time} />
+          <DetailItemRow label="Time" content={data.time} />
           <DetailItemRow label="Description" content={data.description} />
 
           <DetailItemRow
@@ -73,9 +84,15 @@ const ScheduleDetailScreen = () => {
               />
             }
           />
+          <CommonDeleteButton style={{ margin: 10 }} />
         </ScrollView>
 
-        <CommonFloatButton icon={<PencilIcon color={COLORS.white} />} />
+        <ConfirmDeleteModal />
+
+        <CommonFloatButton
+          icon={<PencilIcon color={COLORS.white} />}
+          onPress={handleNavigateToEditScreen}
+        />
 
         <ProfileBottomSheetModal ref={bottomSheetModalRef} />
       </MainLayout>

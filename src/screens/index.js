@@ -12,6 +12,7 @@ import ScheduleScreen from "./ScheduleScreen";
 import ScheduleListScreen from "./ScheduleListScreen";
 import ScheduleDetailScreen from "./ScheduleDetailScreen";
 import ScheduleAddition from "./ScheduleAddition";
+import ScheduleDetailEditingScreen from "./ScheduleDetailEditingScreen";
 
 import ProfileScreen from "./ProfileScreen";
 
@@ -27,4 +28,5 @@ export {
   ScheduleDetailScreen,
   ProfileScreen,
   ScheduleAddition,
+  ScheduleDetailEditingScreen,
 };

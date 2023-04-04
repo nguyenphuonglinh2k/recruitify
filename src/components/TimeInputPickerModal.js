@@ -33,7 +33,7 @@ const TimeInputPickerModal = ({
   };
 
   const onSaveTime = () => {
-    setValue(pickedTime);
+    if (setValue) setValue(pickedTime);
     if (setIsVisible) setIsVisible(false);
   };
 

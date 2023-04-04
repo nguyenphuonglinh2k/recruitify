@@ -18,6 +18,7 @@ import DownloadIcon from "./DownloadIcon";
 import TeacherIcon from "./TeacherIcon";
 import ClockIcon from "./ClockIcon";
 import TrashIcon from "./TrashIcon";
+import CaretIcon from "./CaretIcon";
 
 export {
   HomeIcon,
@@ -40,4 +41,5 @@ export {
   TeacherIcon,
   ClockIcon,
   TrashIcon,
+  CaretIcon,
 };
