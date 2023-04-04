@@ -36,3 +36,9 @@ export const USER_ROLE = {
   manager: 3,
   candidate: 4,
 };
+
+export const PROJECT_AND_TASK_STATUS = {
+  new: 1,
+  doing: 2,
+  done: 3,
+};

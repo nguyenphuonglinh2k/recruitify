@@ -12,6 +12,7 @@ import {
   ScheduleDetailScreen,
   ScheduleAddition,
   ScheduleDetailEditingScreen,
+  ProjectScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -91,4 +92,31 @@ const ScheduleStack = () => {
   );
 };
 
-export { AuthStack, DashboardStack, ApplicationStack, JobStack, ScheduleStack };
+const ProjectStack = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name={SCREEN_NAME.projectScreen}
+        component={ProjectScreen}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const TaskStack = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen name={SCREEN_NAME.taskScreen} component={ProjectScreen} />
+    </Stack.Navigator>
+  );
+};
+
+export {
+  AuthStack,
+  DashboardStack,
+  ApplicationStack,
+  JobStack,
+  ScheduleStack,
+  ProjectStack,
+  TaskStack,
+};

@@ -62,7 +62,7 @@ export default function RecruitmentTabNavigator() {
         name={TAB_NAME.position}
         component={JobStack}
         options={onGetTabScreenOptions(BriefcaseIcon, {
-          tabBarLabel: "Jobs",
+          tabBarLabel: "Job",
         })}
         // listeners={() => ({
         //   tabPress: onPressTab(TabName.search, RouteName.search),
@@ -73,7 +73,7 @@ export default function RecruitmentTabNavigator() {
         name={TAB_NAME.application}
         component={ApplicationStack}
         options={onGetTabScreenOptions(ApplicationIcon, {
-          tabBarLabel: "Candidates",
+          tabBarLabel: "Candidate",
         })}
       />
 

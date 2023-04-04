@@ -1,31 +1,21 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import RecruitmentTabNavigator from "./RecruitmentTabNavigator";
 import { DRAWER_TAB_NAME } from "const/path.const";
 import { ProfileScreen } from "screens";
-import CustomDrawerContent from "./CustomDrawerContent";
 import { BriefcaseIcon, SettingIcon, TeacherIcon, UserIcon } from "icons";
 import { COLORS } from "utils";
+import CustomDrawerContent from "./CustomDrawerContent";
+import TrainingTabNavigator from "./TrainingTabNavigator";
+import RecruitmentTabNavigator from "./RecruitmentTabNavigator";
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
-      screenOptions={{
-        headerShown: false,
-        drawerStyle: { width: "75%" },
-        drawerActiveBackgroundColor: COLORS.lightBlack,
-        drawerActiveTintColor: COLORS.black,
-        drawerInactiveTintColor: COLORS.black,
-        drawerLabelStyle: {
-          marginLeft: -20,
-          fontWeight: "600",
-          fontSize: 16,
-        },
-      }}
+      screenOptions={drawerScreenOptions}
       drawerContent={props => <CustomDrawerContent {...props} />}
-      // initialRouteName={DRAWER_TAB_NAME.profileScreen}
+      initialRouteName={DRAWER_TAB_NAME.candidateTraining} // TODO
     >
       <Drawer.Screen
         name={DRAWER_TAB_NAME.recruitmentProcess}
@@ -37,7 +27,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name={DRAWER_TAB_NAME.candidateTraining}
-        component={ProfileScreen}
+        component={TrainingTabNavigator}
         options={{
           drawerLabel: "Candidate Training",
           drawerIcon: () => <TeacherIcon />,
@@ -61,6 +51,19 @@ const DrawerNavigator = () => {
       />
     </Drawer.Navigator>
   );
+};
+
+const drawerScreenOptions = {
+  headerShown: false,
+  drawerStyle: { width: "75%" },
+  drawerActiveBackgroundColor: COLORS.lightBlack,
+  drawerActiveTintColor: COLORS.black,
+  drawerInactiveTintColor: COLORS.black,
+  drawerLabelStyle: {
+    marginLeft: -20,
+    fontWeight: "600",
+    fontSize: 16,
+  },
 };
 
 export default DrawerNavigator;

@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import Svg, { Path } from "react-native-svg";
 import PropTypes from "prop-types";
+import { COLORS } from "utils";
 
 const FilterSearchIcon = ({ height, width, color, ...otherProps }) => {
   return (
@@ -28,7 +29,7 @@ FilterSearchIcon.propTypes = {
 };
 
 FilterSearchIcon.defaultProps = {
-  color: "#B9B9B9",
+  color: COLORS.grey[100],
   width: 24,
   height: 24,
 };
