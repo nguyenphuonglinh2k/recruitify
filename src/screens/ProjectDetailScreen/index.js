@@ -10,6 +10,7 @@ import { COLORS } from "utils";
 import { useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import TaskTab from "./TaskTab";
+import MemberTab from "./MemberTab";
 
 const ProjectDetailScreen = () => {
   const navigation = useNavigation();
@@ -25,14 +26,16 @@ const ProjectDetailScreen = () => {
   const onRenderHeaderRight = () => {
     switch (activatedTab) {
       case PROJECT_DETAIL_TAB_VALUES.info:
+      case PROJECT_DETAIL_TAB_VALUES.member:
         return (
           <CommonIconButton onPress={onNavigateToEditScreen}>
             <PencilIcon color={COLORS.green} />
           </CommonIconButton>
         );
+
       case PROJECT_DETAIL_TAB_VALUES.task:
         return (
-          <CommonIconButton onPress={onNavigateToEditScreen}>
+          <CommonIconButton>
             <PlusIcon color={COLORS.green} />
           </CommonIconButton>
         );
@@ -55,6 +58,7 @@ const ProjectDetailScreen = () => {
       />
       {activatedTab === PROJECT_DETAIL_TAB_VALUES.info && <InfoTab />}
       {activatedTab === PROJECT_DETAIL_TAB_VALUES.task && <TaskTab />}
+      {activatedTab === PROJECT_DETAIL_TAB_VALUES.member && <MemberTab />}
     </MainLayout>
   );
 };
