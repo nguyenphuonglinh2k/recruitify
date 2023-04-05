@@ -73,10 +73,6 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: COLORS.grey[300],
   },
-  top: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   title: {
     color: COLORS.black,
     fontSize: 16,

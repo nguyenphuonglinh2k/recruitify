@@ -2,16 +2,16 @@ import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { MainLayout } from "layouts";
 import Header from "./Header";
-import ProjectTabBar from "./ProjectTabBar";
 import { PROGRESS_STATUS } from "const/app.const";
 import ProjectList from "./ProjectList";
+import { ProgressTabBar } from "components";
 
 const ProjectScreen = () => {
   const [activatedTab, setActivatedTab] = useState(PROGRESS_STATUS.new);
 
   return (
     <MainLayout>
-      <ProjectTabBar
+      <ProgressTabBar
         activatedTab={activatedTab}
         setActivatedTab={setActivatedTab}
       />

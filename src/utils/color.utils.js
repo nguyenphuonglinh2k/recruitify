@@ -26,3 +26,11 @@ export const onGetUserRoleBackgroundColor = role => {
       return COLORS.blue[100];
   }
 };
+
+export const onGetProgressBarColor = progress => {
+  if (progress === 1) {
+    return COLORS.darkGreen;
+  } else {
+    return COLORS.orange.dark;
+  }
+};
