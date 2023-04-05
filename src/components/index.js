@@ -30,6 +30,7 @@ import EditAttendeeBlock from "./EditAttendeeBlock";
 import SelectUserModal from "./SelectUserModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import ProgressTabBar from "./ProgressTabBar";
+import ChipAvatarList from "./ChipAvatarList";
 
 export {
   CommonButton,
@@ -63,4 +64,5 @@ export {
   TextInputSelectBlock,
   ConfirmDeleteModal,
   ProgressTabBar,
+  ChipAvatarList,
 };

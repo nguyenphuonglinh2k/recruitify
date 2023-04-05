@@ -15,6 +15,7 @@ import {
   ProjectScreen,
   ProjectDetailScreen,
   TaskScreen,
+  TaskDetailScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -113,6 +114,10 @@ const TaskStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name={SCREEN_NAME.taskScreen} component={TaskScreen} />
+      <Stack.Screen
+        name={SCREEN_NAME.taskDetailScreen}
+        component={TaskDetailScreen}
+      />
     </Stack.Navigator>
   );
 };

@@ -8,10 +8,10 @@ import {
   CommonFloatButton,
   ConfirmDeleteModal,
   DetailItemRow,
+  ChipAvatarList,
 } from "components";
 import { PencilIcon } from "icons";
 import { COLORS } from "utils";
-import ChipAvatarList from "./ChipAvatarList";
 import moment from "moment";
 import { AppConstant } from "const";
 import ProfileBottomSheetModal from "./ProfileBottomSheetModal";

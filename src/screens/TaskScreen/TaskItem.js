@@ -6,14 +6,23 @@ import { StarIcon } from "icons";
 import { CommonChip, CommonProgressBar } from "components";
 import moment from "moment";
 import { AppConstant } from "const";
+import { useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
 const TaskItem = ({ style, data, ...otherProps }) => {
-  const { isPriority, name, progress, endDate, projectName } = data;
+  const navigation = useNavigation();
+
+  const { id, isPriority, name, progress, endDate, projectName } = data;
+
+  const onNavigateToDetail = () => {
+    navigation.navigate(SCREEN_NAME.taskDetailScreen, { id });
+  };
 
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={[styles.root, style]}
+      onPress={onNavigateToDetail}
       {...otherProps}
     >
       <View style={styles.top}>
@@ -47,6 +56,7 @@ const TaskItem = ({ style, data, ...otherProps }) => {
 TaskItem.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   data: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
     progress: PropTypes.number,
     endDate: PropTypes.oneOfType([

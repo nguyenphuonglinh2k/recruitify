@@ -20,6 +20,7 @@ import ProjectScreen from "./ProjectScreen";
 import ProjectDetailScreen from "./ProjectDetailScreen";
 
 import TaskScreen from "./TaskScreen";
+import TaskDetailScreen from "./TaskDetailScreen";
 
 export {
   SignInScreen,
@@ -37,4 +38,5 @@ export {
   ProjectScreen,
   ProjectDetailScreen,
   TaskScreen,
+  TaskDetailScreen,
 };
