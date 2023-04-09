@@ -19,3 +19,16 @@ export const STT_UNAUTHORIZED = 401;
 export const STT_FORBIDDEN = 403;
 export const STT_NOT_FOUND = 404;
 export const STT_INTERNAL_SERVER = 500;
+
+// Auth
+export const POST_SIGN_IN = "/auth/login";
+export const POST_SIGN_UP = "/auth/signup";
+
+// User
+export const GET_USERS = "/users";
+export const GET_USER_INFO = "/user/{userId}";
+export const PUT_USER_INFO = "/profile/{userId}";
+
+// Job
+export const GET_JOBS = "/jobs";
+export const GET_JOB_DETAIL = "/job/{jobId}";
