@@ -3,10 +3,21 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import Header from "./Header";
 import { MainLayout } from "layouts";
 import JobItem from "./JobItem";
+import { CommonIconButton } from "components";
+import { PlusIcon } from "icons";
+import { COLORS } from "utils";
 
 const JobsScreen = () => {
   return (
-    <MainLayout>
+    <MainLayout
+      headerProps={{
+        headerRight: (
+          <CommonIconButton>
+            <PlusIcon color={COLORS.green} />
+          </CommonIconButton>
+        ),
+      }}
+    >
       <ScrollView style={styles.root}>
         <Header />
 

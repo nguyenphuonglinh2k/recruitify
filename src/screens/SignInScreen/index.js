@@ -25,7 +25,8 @@ const SignInScreen = () => {
         <Image source={ImageSource.LogoImage} style={styles.logo} />
         <Text style={styles.title}>Sign in</Text>
         <Text style={styles.subTitle}>
-          Sign in and start managing your candidates
+          Sign in and start managing your candidates and training your new
+          employees
         </Text>
 
         <CommonTextInput
@@ -65,10 +66,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   logo: {
-    width: 147,
-    height: 42,
+    width: 175,
+    height: 50,
     marginTop: 70,
-    marginBottom: 40,
+    marginBottom: 50,
   },
   title: {
     color: "white",

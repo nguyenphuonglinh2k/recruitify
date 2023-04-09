@@ -15,7 +15,7 @@ const DrawerNavigator = () => {
     <Drawer.Navigator
       screenOptions={drawerScreenOptions}
       drawerContent={props => <CustomDrawerContent {...props} />}
-      initialRouteName={DRAWER_TAB_NAME.candidateTraining} // TODO
+      initialRouteName={DRAWER_TAB_NAME.recruitmentProcess}
     >
       <Drawer.Screen
         name={DRAWER_TAB_NAME.recruitmentProcess}

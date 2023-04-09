@@ -21,6 +21,7 @@ const TaskDetailScreen = () => {
       }}
     >
       <DetailItemRow label="Project" content={MOCK_TASK.projectName} />
+      <DetailItemRow label="Description" content={MOCK_TASK.description} />
       <DetailItemRow
         label="Progress"
         content={`${MOCK_TASK.progress * 100}%`}
@@ -57,6 +58,7 @@ const MOCK_ASSIGNEE = [
 const MOCK_TASK = {
   isPriority: true,
   name: "Create design version 01",
+  description: "Task to design one frame",
   progress: 0.3,
   startDate: "2023-04-15",
   endDate: "2023-04-28",
