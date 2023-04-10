@@ -35,6 +35,7 @@ const ApiContainer = class {
       const response = await axiosInstance.get(endpoint, params);
       return response;
     } catch (error) {
+      console.log("error get", error);
       this.handleError(error);
     }
   }

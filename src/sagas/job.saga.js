@@ -2,18 +2,17 @@ import { call, put } from "redux-saga/effects";
 import { ApiConstant } from "const";
 import { JobService } from "services";
 import JobActions from "reduxStore/job.redux";
-import { FormatUtils } from "utils";
 
-export function* getJobsRequest() {
+export function* getJobsRequest(action) {
+  const data = action.data;
+
   try {
-    const response = yield call(JobService.getJobs);
+    const response = yield call(JobService.getJobs, data);
 
     if (response.status === ApiConstant.STT_OK) {
-      const responseData = FormatUtils.toCamel(response.data.data);
-
       yield put(
         JobActions.jobSuccess({
-          jobs: responseData.data,
+          jobs: response.data,
         }),
       );
     } else {
@@ -31,7 +30,7 @@ export function* getJobDetailRequest(action) {
     const response = yield call(JobService.getJobDetail, jobId);
 
     if (response.status === ApiConstant.STT_OK) {
-      const responseData = FormatUtils.toCamel(response.data.data);
+      const responseData = response.data;
 
       yield put(
         JobActions.jobSuccess({

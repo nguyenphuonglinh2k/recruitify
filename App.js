@@ -6,6 +6,8 @@ import DrawerNavigator from "navigation/DrawerNavigator";
 import { AuthStack } from "navigation/StackNavigator";
 import { COLORS } from "utils";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { LoadingSpinner } from "./src/components";
+import { useSelector } from "react-redux";
 
 const navTheme = {
   ...DefaultTheme,
@@ -20,6 +22,11 @@ const navTheme = {
 const App = () => {
   const [splash, setSplash] = useState(true);
   const isLoggedIn = true;
+
+  const isFetching = useSelector(
+    ({ authRedux, userRedux, jobRedux }) =>
+      authRedux.isFetching || userRedux.isFetching || jobRedux.isFetching,
+  );
 
   useEffect(() => {
     const splashTimeout = setTimeout(() => {
@@ -44,6 +51,8 @@ const App = () => {
             {isLoggedIn ? <DrawerNavigator /> : <AuthStack />}
           </BottomSheetModalProvider>
         </NavigationContainer>
+
+        <LoadingSpinner isVisible={isFetching} />
       </ToastProvider>
     </SafeAreaProvider>
   );

@@ -2,7 +2,6 @@ import { call, put } from "redux-saga/effects";
 import { ApiConstant } from "const";
 import { UserService } from "services";
 import UserActions from "reduxStore/user.redux";
-import { FormatUtils } from "utils";
 
 export function* getUserInfoRequest(action) {
   try {
@@ -11,7 +10,7 @@ export function* getUserInfoRequest(action) {
     const response = yield call(UserService.getUserInfo, data);
 
     if (response.data.status === ApiConstant.STT_OK) {
-      const responseData = FormatUtils.toCamel(response.data.data);
+      const responseData = response.data;
 
       yield put(
         UserActions.userSuccess({

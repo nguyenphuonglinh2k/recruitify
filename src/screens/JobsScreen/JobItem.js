@@ -11,8 +11,9 @@ const JobItem = ({ data, style }) => {
   const navigation = useNavigation();
 
   const {
+    _id: jobId,
     isPriority,
-    title,
+    name,
     appliedResumeTotal,
     startDate,
     endDate,
@@ -20,7 +21,7 @@ const JobItem = ({ data, style }) => {
   } = data;
 
   const onNavigateToDetail = () => {
-    navigation.navigate(PathConstant.SCREEN_NAME.jobDetailScreen);
+    navigation.navigate(PathConstant.SCREEN_NAME.jobDetailScreen, { jobId });
   };
 
   return (
@@ -34,16 +35,18 @@ const JobItem = ({ data, style }) => {
           {isPriority && (
             <StarIcon style={styles.startIcon} color={COLORS.yellow} />
           )}
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>{name}</Text>
         </View>
 
-        <CommonBadge value={appliedResumeTotal} />
+        <CommonBadge value={appliedResumeTotal ?? 0} />
       </View>
 
       <View style={styles.center}>
-        <Text style={[styles.label, { marginBottom: 4 }]}>Assignee:</Text>
+        <Text style={[styles.label, { marginBottom: 4 }]}>
+          Assignee: {assignees ? "" : "null"}
+        </Text>
         <CommonAvatarGroup
-          data={assignees.map(({ avatarUrl }) => ({
+          data={assignees?.map(({ avatarUrl }) => ({
             uri: avatarUrl,
           }))}
         />
@@ -52,11 +55,11 @@ const JobItem = ({ data, style }) => {
       <View style={styles.bottom}>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>Start date</Text>
-          <Text style={styles.dateContent}>{startDate}</Text>
+          <Text style={styles.dateContent}>{startDate ?? "null"}</Text>
         </View>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>End date</Text>
-          <Text style={styles.dateContent}>{endDate}</Text>
+          <Text style={styles.dateContent}>{endDate ?? "null"}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -65,8 +68,9 @@ const JobItem = ({ data, style }) => {
 
 JobItem.propTypes = {
   data: PropTypes.shape({
+    _id: PropTypes.string,
     isPriority: PropTypes.bool,
-    title: PropTypes.string,
+    name: PropTypes.string,
     appliedResumeTotal: PropTypes.number,
     startDate: PropTypes.string,
     endDate: PropTypes.string,

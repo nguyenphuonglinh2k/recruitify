@@ -2,16 +2,16 @@ import { call, put } from "redux-saga/effects";
 import { ApiConstant, AppConstant } from "const";
 import { AuthService } from "services";
 import AuthActions from "reduxStore/auth.redux";
-import { FormatUtils, StorageUtils } from "utils";
+import { StorageUtils } from "utils";
 
 export function* postLoginRequest(action) {
   try {
     const response = yield call(AuthService.postSignIn, action.data);
 
     if (response.status === ApiConstant.STT_OK) {
-      const { accessToken } = FormatUtils.toCamel(response.data);
+      const { token } = response.data;
 
-      const bearToken = `Bearer ${accessToken}`;
+      const bearToken = `Bearer ${token}`;
       StorageUtils.set(AppConstant.AUTH_TOKEN_KEY, bearToken);
 
       yield put(

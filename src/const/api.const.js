@@ -1,14 +1,14 @@
-export const BASE_URL = "http://10.5.9.98:5000/api";
+export const BASE_URL = "https://recruitify-backend.vercel.app/api";
 
 export const HEADER_DEFAULT = {
   Accept: "application/json",
-  "Content-Type": "application/json",
+  "content-Type": "application/json",
 };
 
 export const TIMEOUT = 15000;
 
 export const HEADER_FORM_DATA_DEFAULT = {
-  "Content-Type": "multipart/form-data",
+  "content-Type": "multipart/form-data",
 };
 
 // HTTP Status
