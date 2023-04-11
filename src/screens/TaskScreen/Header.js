@@ -3,11 +3,12 @@ import { FilterSearchIcon, SearchIcon } from "icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { COLORS } from "utils";
+import PropTypes from "prop-types";
 
-const Header = () => {
+const Header = ({ totalTask }) => {
   return (
     <View style={styles.header}>
-      <Text style={styles.title}>Task (3)</Text>
+      <Text style={styles.title}>Task ({totalTask ?? 0})</Text>
       <View style={styles.icons}>
         <CommonIconButton style={styles.notLastIcon}>
           <SearchIcon />
@@ -21,6 +22,10 @@ const Header = () => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  totalTask: PropTypes.number,
+};
 
 const styles = StyleSheet.create({
   header: {

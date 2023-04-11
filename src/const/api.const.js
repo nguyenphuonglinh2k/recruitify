@@ -32,3 +32,11 @@ export const PUT_USER_INFO = "/profile/{userId}";
 // Job
 export const GET_JOBS = "/jobs";
 export const GET_JOB_DETAIL = "/job/{jobId}";
+
+// Project
+export const GET_PROJECTS = "/projects/{userId}";
+export const GET_PROJECT_DETAIL = "/project/{projectId}";
+
+// Task
+export const GET_TASKS = "/member/{userId}/tasks";
+export const GET_TASK_DETAIL = "/task/{tasksId}/{userId}";

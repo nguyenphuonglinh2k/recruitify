@@ -2,7 +2,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import PropTypes from "prop-types";
 import { COLORS } from "utils";
-import { StarIcon } from "icons";
 import { CommonChip, CommonProgressBar } from "components";
 import moment from "moment";
 import { AppConstant } from "const";
@@ -12,10 +11,10 @@ import { SCREEN_NAME } from "const/path.const";
 const TaskItem = ({ style, data, ...otherProps }) => {
   const navigation = useNavigation();
 
-  const { id, isPriority, name, progress, endDate, projectName } = data;
+  const { name, progress, endDate, projectId } = data;
 
   const onNavigateToDetail = () => {
-    navigation.navigate(SCREEN_NAME.taskDetailScreen, { id });
+    navigation.navigate(SCREEN_NAME.taskDetailScreen, { task: data });
   };
 
   return (
@@ -26,27 +25,28 @@ const TaskItem = ({ style, data, ...otherProps }) => {
       {...otherProps}
     >
       <View style={styles.top}>
-        {isPriority && (
-          <StarIcon style={styles.startIcon} color={COLORS.yellow} />
-        )}
         <View>
           <Text style={styles.title}>{name}</Text>
-          <Text style={styles.projectName}>{projectName}</Text>
+          <Text style={styles.projectName}>
+            {projectId?.name ?? "No project"}
+          </Text>
         </View>
       </View>
 
       <View style={styles.center}>
         <View style={styles.progressLabelWrapper}>
           <Text style={styles.progressLabel}>Progress</Text>
-          <Text style={styles.progressValue}>{progress * 10}/10</Text>
+          <Text style={styles.progressValue}>{progress}/10</Text>
         </View>
-        <CommonProgressBar progress={progress} />
+        <CommonProgressBar progress={progress / 10} />
       </View>
 
       <CommonChip
-        label={`Due ${moment(endDate).format(
-          AppConstant.FORMAT_DATE_WITH_SLASH,
-        )}`}
+        label={`Due ${
+          endDate
+            ? moment(endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+            : "null"
+        }`}
         color={COLORS.grey[500]}
       />
     </TouchableOpacity>
@@ -56,15 +56,13 @@ const TaskItem = ({ style, data, ...otherProps }) => {
 TaskItem.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   data: PropTypes.shape({
-    id: PropTypes.number,
     name: PropTypes.string,
     progress: PropTypes.number,
     endDate: PropTypes.oneOfType([
       PropTypes.instanceOf(Date),
       PropTypes.string,
     ]),
-    projectName: PropTypes.string,
-    isPriority: PropTypes.bool,
+    projectId: PropTypes.object,
   }),
 };
 
@@ -109,7 +107,7 @@ const styles = StyleSheet.create({
   },
   progressLabel: {
     fontWeight: "500",
-    color: COLORS.grey[400],
+    color: COLORS.grey[600],
   },
   progressValue: {
     color: COLORS.black,

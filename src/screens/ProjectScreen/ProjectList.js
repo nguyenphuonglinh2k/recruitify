@@ -1,28 +1,24 @@
 import { FlatList, StyleSheet } from "react-native";
 import React from "react";
+import PropTypes from "prop-types";
 import ProjectItem from "./ProjectItem";
 
-const ProjectList = props => {
+const ProjectList = ({ data, ...otherProps }) => {
   return (
     <FlatList
-      data={MOCK_DATA}
+      data={data}
       renderItem={({ item }) => <ProjectItem data={item} style={styles.item} />}
       keyExtractor={(_, index) => index}
-      {...props}
+      {...otherProps}
     />
   );
 };
 
-const MOCK_DATA = Array.from(new Array(3)).map(() => ({
-  title: "Recruitify mobile app project",
-  isPriority: true,
-  startDate: "01/03/2023",
-  endDate: "01/04/2023",
-  memberTotal: 2,
-  taskTotal: 10,
-}));
-
 export default ProjectList;
+
+ProjectList.propTypes = {
+  data: PropTypes.array,
+};
 
 const styles = StyleSheet.create({
   item: {

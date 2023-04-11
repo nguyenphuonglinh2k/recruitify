@@ -32,6 +32,7 @@ import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import ProgressTabBar from "./ProgressTabBar";
 import ChipAvatarList from "./ChipAvatarList";
 import LoadingSpinner from "./LoadingSpinner";
+import ProgressStatus from "./ProgressStatus";
 
 export {
   CommonButton,
@@ -67,4 +68,5 @@ export {
   ProgressTabBar,
   ChipAvatarList,
   LoadingSpinner,
+  ProgressStatus,
 };

@@ -8,6 +8,7 @@ import { COLORS } from "utils";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { LoadingSpinner } from "./src/components";
 import { useSelector } from "react-redux";
+import { createContext } from "react";
 
 const navTheme = {
   ...DefaultTheme,

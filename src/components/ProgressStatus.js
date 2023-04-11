@@ -5,7 +5,7 @@ import { PROGRESS_STATUS } from "const/app.const";
 import { COLORS } from "utils";
 import { onGetProjectAndTaskStatusLabel } from "utils/label.utils";
 
-const ProjectStatus = ({ value, style }) => {
+const ProgressStatus = ({ value, style }) => {
   return (
     <Text style={[styles.root, onGetStatusStyle(value), style]}>
       {onGetProjectAndTaskStatusLabel(value)}
@@ -26,12 +26,12 @@ const onGetStatusStyle = status => {
   }
 };
 
-ProjectStatus.propTypes = {
+ProgressStatus.propTypes = {
   value: PropTypes.oneOf(Object.values(PROGRESS_STATUS)),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-export default ProjectStatus;
+export default ProgressStatus;
 
 const styles = StyleSheet.create({
   root: {
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
   },
   notStartedLabel: {
     color: COLORS.black,
-    backgroundColor: COLORS.grey[400],
+    backgroundColor: COLORS.grey[200],
   },
 });

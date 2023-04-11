@@ -9,11 +9,20 @@ import { PathConstant } from "const";
 const ProjectItem = ({ data, style }) => {
   const navigation = useNavigation();
 
-  const { isPriority, title, startDate, endDate, memberTotal, taskTotal } =
-    data;
+  const {
+    _id: projectId,
+    isPriority,
+    name,
+    startDate,
+    endDate,
+    taskTotal,
+    memberIds,
+  } = data;
 
   const onNavigateToDetail = () => {
-    navigation.navigate(PathConstant.SCREEN_NAME.projectDetailScreen);
+    navigation.navigate(PathConstant.SCREEN_NAME.projectDetailScreen, {
+      projectId,
+    });
   };
 
   return (
@@ -26,24 +35,24 @@ const ProjectItem = ({ data, style }) => {
         {isPriority && (
           <StarIcon style={styles.startIcon} color={COLORS.yellow} />
         )}
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{name}</Text>
       </View>
 
       <Text style={[styles.statistic, { marginTop: 8 }]}>
-        Total task: {taskTotal}
+        Total task: {taskTotal ?? 0}
       </Text>
       <Text style={[styles.statistic, { marginTop: 4 }]}>
-        Total member: {memberTotal}
+        Total member: {memberIds?.length ?? 1}
       </Text>
 
       <View style={styles.bottom}>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>Start date</Text>
-          <Text style={styles.dateContent}>{startDate}</Text>
+          <Text style={styles.dateContent}>{startDate ?? "null"}</Text>
         </View>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>End date</Text>
-          <Text style={styles.dateContent}>{endDate}</Text>
+          <Text style={styles.dateContent}>{endDate ?? "null"}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -52,10 +61,11 @@ const ProjectItem = ({ data, style }) => {
 
 ProjectItem.propTypes = {
   data: PropTypes.shape({
+    _id: PropTypes.string,
     isPriority: PropTypes.bool,
-    title: PropTypes.string,
+    name: PropTypes.string,
     taskTotal: PropTypes.number,
-    memberTotal: PropTypes.number,
+    memberIds: PropTypes.array,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
   }),

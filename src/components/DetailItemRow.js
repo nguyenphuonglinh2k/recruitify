@@ -21,7 +21,7 @@ const DetailItemRow = ({
       {isValidElement(content) ? (
         content
       ) : (
-        <Text style={[styles.content, styles.padding]}>{content}</Text>
+        <Text style={[styles.content, styles.padding]}>{content ?? ""}</Text>
       )}
     </View>
   );

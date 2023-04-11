@@ -1,7 +1,6 @@
 import { ScrollView, View } from "react-native";
 import React from "react";
-import { CommonDeleteButton, DetailItemRow } from "components";
-import ProjectStatus from "./ProjectStatus";
+import { CommonDeleteButton, DetailItemRow, ProgressStatus } from "components";
 import { paddingStyle } from "components/DetailItemRow";
 
 const InfoTab = () => {
@@ -12,7 +11,7 @@ const InfoTab = () => {
           label="Status"
           content={
             <View style={paddingStyle}>
-              <ProjectStatus value={MOCK_PROJECT.status} />
+              <ProgressStatus value={MOCK_PROJECT.status} />
             </View>
           }
         />
