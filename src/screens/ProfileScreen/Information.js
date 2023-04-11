@@ -1,28 +1,28 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { DetailItemRow } from "components";
 import { COLORS } from "utils";
 import { contentStyle, paddingStyle } from "components/DetailItemRow";
+import { useSelector } from "react-redux";
 
-const Information = ({ style }) => {
+const Information = ({ data, style }) => {
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
+
+  const user = useMemo(() => data ?? authUser, [data, authUser]);
+
   return (
     <View style={[styles.root, style]}>
-      <DetailItemRow label="Email" content={MOCK_INFO.email} />
-      <DetailItemRow
-        label="Phone number"
-        content={APPLICATION_INFO.phoneNumber}
-      />
-      <DetailItemRow
-        label="Current Address"
-        content={APPLICATION_INFO.currentAddress}
-      />
+      <DetailItemRow label="Email" content={user.email} />
+      <DetailItemRow label="Phone number" content={user?.phoneNumber} />
+      <DetailItemRow label="Current Address" content={user?.address} />
       <DetailItemRow
         label="Application link"
         content={
           <View style={paddingStyle}>
             <TouchableOpacity>
               <Text style={styles.resumeName}>
+                {/* TODO */}
                 {APPLICATION_INFO.resumeName}
               </Text>
             </TouchableOpacity>
@@ -33,20 +33,14 @@ const Information = ({ style }) => {
   );
 };
 
+Information.propTypes = {
+  data: PropTypes.object,
+};
+
 const APPLICATION_INFO = {
   currentAddress: "Cali, Poland",
   phoneNumber: "0123456789",
   resumeName: "Arnolu_Chafe_resume",
-};
-
-const MOCK_INFO = {
-  name: "Arnoly Chafe",
-  email: "arnolyChafe@gmail.com",
-  avatarUrl:
-    "https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-  role: 4,
-  createdAt: "12/03/2023",
-  applicationId: 1,
 };
 
 Information.propTypes = {

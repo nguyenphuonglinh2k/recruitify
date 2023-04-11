@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { MainLayout } from "layouts";
 import { COLORS } from "utils";
 import {
@@ -6,6 +6,7 @@ import {
   DetailItemRow,
   ChipAvatarList,
   ProgressStatus,
+  ProfileBottomSheetModal,
 } from "components";
 import { PencilIcon } from "icons";
 import { paddingStyle } from "components/DetailItemRow";
@@ -17,6 +18,11 @@ import { View } from "react-native";
 const TaskDetailScreen = () => {
   const router = useRoute();
   const task = router.params?.task ?? {};
+  const profileBottomSheetRef = useRef();
+
+  const handleOpenBottomSheet = () => {
+    profileBottomSheetRef.current?.present();
+  };
 
   return (
     <MainLayout
@@ -56,8 +62,16 @@ const TaskDetailScreen = () => {
       <DetailItemRow
         label="Assignee"
         content={
-          <ChipAvatarList data={[task.assigneeId]} style={paddingStyle} />
+          <ChipAvatarList
+            data={[task.assigneeId]}
+            style={paddingStyle}
+            onPress={handleOpenBottomSheet}
+          />
         }
+      />
+      <ProfileBottomSheetModal
+        ref={profileBottomSheetRef}
+        userId={task.assigneeId._id}
       />
     </MainLayout>
   );

@@ -5,10 +5,8 @@ import { ToastProvider } from "react-native-toast-notifications";
 import DrawerNavigator from "navigation/DrawerNavigator";
 import { AuthStack } from "navigation/StackNavigator";
 import { COLORS } from "utils";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { LoadingSpinner } from "./src/components";
 import { useSelector } from "react-redux";
-import { createContext } from "react";
 
 const navTheme = {
   ...DefaultTheme,
@@ -22,8 +20,8 @@ const navTheme = {
 
 const App = () => {
   const [splash, setSplash] = useState(true);
-  const isLoggedIn = true;
 
+  const isLoggedIn = useSelector(({ authRedux }) => authRedux.isLoggedIn);
   const isFetching = useSelector(
     ({ authRedux, userRedux, jobRedux }) =>
       authRedux.isFetching || userRedux.isFetching || jobRedux.isFetching,
@@ -48,9 +46,7 @@ const App = () => {
         animationType="slide-in"
       >
         <NavigationContainer theme={navTheme}>
-          <BottomSheetModalProvider>
-            {isLoggedIn ? <DrawerNavigator /> : <AuthStack />}
-          </BottomSheetModalProvider>
+          {isLoggedIn ? <DrawerNavigator /> : <AuthStack />}
         </NavigationContainer>
 
         <LoadingSpinner isVisible={isFetching} />

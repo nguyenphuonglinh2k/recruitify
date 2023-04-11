@@ -9,7 +9,7 @@ export function* postLoginRequest(action) {
     const response = yield call(AuthService.postSignIn, action.data);
 
     if (response.status === ApiConstant.STT_OK) {
-      const { token } = response.data;
+      const { token, user } = response.data;
 
       const bearToken = `Bearer ${token}`;
       StorageUtils.set(AppConstant.AUTH_TOKEN_KEY, bearToken);
@@ -18,6 +18,7 @@ export function* postLoginRequest(action) {
         AuthActions.authSuccess({
           token: bearToken,
           isLoggedIn: true,
+          user,
         }),
       );
     } else {

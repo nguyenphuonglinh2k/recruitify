@@ -14,8 +14,7 @@ import { PencilIcon } from "icons";
 import { COLORS } from "utils";
 import moment from "moment";
 import { AppConstant } from "const";
-import ProfileBottomSheetModal from "./ProfileBottomSheetModal";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { ProfileBottomSheetModal } from "components";
 import { SCREEN_NAME } from "const/path.const";
 
 const ScheduleDetailScreen = () => {
@@ -40,63 +39,61 @@ const ScheduleDetailScreen = () => {
   }, [id, setData]);
 
   return (
-    <BottomSheetModalProvider>
-      <MainLayout isBackScreen headerProps={{ title: data.title }}>
-        <ScrollView style={styles.root}>
-          <DetailItemRow
-            label="Date"
-            content={moment(data.date).format(AppConstant.DATE_FORMAT_WITH_DAY)}
-          />
-          <DetailItemRow label="Time" content={data.time} />
-          <DetailItemRow label="Description" content={data.description} />
-
-          <DetailItemRow
-            label="Candidate"
-            content={
-              <View style={styles.contentSpacing}>
-                <CommonAvatarChip
-                  label={MOCK_CANDIDATE.name}
-                  source={{ uri: MOCK_CANDIDATE.avatarUrl }}
-                  onPress={onOpenProfileModal}
-                />
-              </View>
-            }
-          />
-          <DetailItemRow label="Position" content={MOCK_CANDIDATE.position} />
-
-          <DetailItemRow
-            label="Attendees"
-            content={
-              <ChipAvatarList
-                data={data.assignees}
-                style={styles.contentSpacing}
-                onPress={onOpenProfileModal}
-              />
-            }
-          />
-          <DetailItemRow
-            label="Schedule creator"
-            content={
-              <ChipAvatarList
-                data={[MOCK_CREATOR]}
-                style={styles.contentSpacing}
-                onPress={onOpenProfileModal}
-              />
-            }
-          />
-          <CommonDeleteButton style={{ margin: 10 }} />
-        </ScrollView>
-
-        <ConfirmDeleteModal />
-
-        <CommonFloatButton
-          icon={<PencilIcon color={COLORS.white} />}
-          onPress={handleNavigateToEditScreen}
+    <MainLayout isBackScreen headerProps={{ title: data.title }}>
+      <ScrollView style={styles.root}>
+        <DetailItemRow
+          label="Date"
+          content={moment(data.date).format(AppConstant.DATE_FORMAT_WITH_DAY)}
         />
+        <DetailItemRow label="Time" content={data.time} />
+        <DetailItemRow label="Description" content={data.description} />
 
-        <ProfileBottomSheetModal ref={bottomSheetModalRef} />
-      </MainLayout>
-    </BottomSheetModalProvider>
+        <DetailItemRow
+          label="Candidate"
+          content={
+            <View style={styles.contentSpacing}>
+              <CommonAvatarChip
+                label={MOCK_CANDIDATE.name}
+                source={{ uri: MOCK_CANDIDATE.avatarUrl }}
+                onPress={onOpenProfileModal}
+              />
+            </View>
+          }
+        />
+        <DetailItemRow label="Position" content={MOCK_CANDIDATE.position} />
+
+        <DetailItemRow
+          label="Attendees"
+          content={
+            <ChipAvatarList
+              data={data.assignees}
+              style={styles.contentSpacing}
+              onPress={onOpenProfileModal}
+            />
+          }
+        />
+        <DetailItemRow
+          label="Schedule creator"
+          content={
+            <ChipAvatarList
+              data={[MOCK_CREATOR]}
+              style={styles.contentSpacing}
+              onPress={onOpenProfileModal}
+            />
+          }
+        />
+        <CommonDeleteButton style={{ margin: 10 }} />
+      </ScrollView>
+
+      <ConfirmDeleteModal />
+
+      <CommonFloatButton
+        icon={<PencilIcon color={COLORS.white} />}
+        onPress={handleNavigateToEditScreen}
+      />
+
+      <ProfileBottomSheetModal ref={bottomSheetModalRef} />
+    </MainLayout>
   );
 };
 

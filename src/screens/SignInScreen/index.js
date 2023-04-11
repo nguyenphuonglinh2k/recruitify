@@ -8,12 +8,18 @@ import {
 } from "react-native";
 import { ImageSource } from "assets";
 import { CommonButton, CommonTextButton, CommonTextInput } from "components";
+import { useDispatch } from "react-redux";
+import AuthActions from "reduxStore/auth.redux";
 
 const SignInScreen = () => {
-  const [username, onChangeUsername] = useState("user");
+  const dispatch = useDispatch();
+
+  const [email, onChangeEmail] = useState("dpeach1@gmail.com");
   const [password, onChangePassword] = useState("123456");
 
-  const onLogin = () => {};
+  const onLogin = () => {
+    dispatch(AuthActions.postLoginRequest({ email, password }));
+  };
 
   return (
     <ImageBackground
@@ -30,8 +36,8 @@ const SignInScreen = () => {
         </Text>
 
         <CommonTextInput
-          value={username}
-          onChangeText={onChangeUsername}
+          value={email}
+          onChangeText={onChangeEmail}
           style={styles.input}
           keyboardType="email-address"
         />

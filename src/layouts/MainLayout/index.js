@@ -2,6 +2,8 @@ import React, { memo } from "react";
 import { StyleSheet, View } from "react-native";
 import PropTypes from "prop-types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+
 import Header from "./Header";
 import HeaderBackButton from "./HeaderBackButton";
 
@@ -15,14 +17,16 @@ const MainLayout = ({
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container(insets), style]} {...otherProps}>
-      {isBackScreen ? (
-        <HeaderBackButton {...headerProps} />
-      ) : (
-        <Header {...headerProps} />
-      )}
-      {children}
-    </View>
+    <BottomSheetModalProvider>
+      <View style={[styles.container(insets), style]} {...otherProps}>
+        {isBackScreen ? (
+          <HeaderBackButton {...headerProps} />
+        ) : (
+          <Header {...headerProps} />
+        )}
+        {children}
+      </View>
+    </BottomSheetModalProvider>
   );
 };
 

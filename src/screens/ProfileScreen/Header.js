@@ -1,37 +1,40 @@
 import { ImageBackground, StyleSheet, Text } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
 import { ImageSource } from "assets";
 import { CommonAvatar, Role } from "components";
 import { COLORS } from "utils";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { AppConstant } from "const";
 
-const Header = () => {
+const Header = ({ data }) => {
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
+
+  const user = useMemo(() => data ?? authUser, [data, authUser]);
+
   return (
     <>
       <ImageBackground
         source={ImageSource.ProfileHeaderBannerImage}
         style={{ height: 150, marginBottom: 30 }}
       >
-        <CommonAvatar
-          style={styles.avatar}
-          source={{ uri: MOCK_INFO.avatarUrl }}
-        />
+        <CommonAvatar style={styles.avatar} source={{ uri: user.avatarUrl }} />
       </ImageBackground>
 
-      <Role value={MOCK_INFO.role} style={{ marginTop: 10 }} />
-      <Text style={styles.name}>{MOCK_INFO.name}</Text>
-      <Text style={styles.joinedTime}>Joined {MOCK_INFO.createdAt}</Text>
+      <Role value={user.role} style={{ marginTop: 10 }} />
+      <Text style={styles.name}>{user.name}</Text>
+      <Text style={styles.joinedTime}>
+        {`Joined ${moment(user.createdAt).format(
+          AppConstant.FORMAT_DATE_WITH_SLASH,
+        )}`}
+      </Text>
     </>
   );
 };
 
-const MOCK_INFO = {
-  name: "Arnoly Chafe",
-  email: "arnolyChafe@gmail.com",
-  avatarUrl:
-    "https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
-  role: 4,
-  createdAt: "12/03/2023",
-  applicationId: 1,
+Header.propTypes = {
+  data: PropTypes.object,
 };
 
 export default Header;

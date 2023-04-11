@@ -35,8 +35,7 @@ const ApiContainer = class {
       const response = await axiosInstance.get(endpoint, params);
       return response;
     } catch (error) {
-      console.log("error get", error);
-      this.handleError(error);
+      this.handleError(error, endpoint);
     }
   }
 
@@ -45,7 +44,7 @@ const ApiContainer = class {
       const response = await axiosInstance.post(endpoint, body, params);
       return response;
     } catch (error) {
-      this.handleError(error);
+      this.handleError(error, endpoint);
       return error.response;
     }
   }
@@ -55,7 +54,7 @@ const ApiContainer = class {
       const response = await axiosInstance.put(endpoint, body, params);
       return response;
     } catch (error) {
-      this.handleError(error);
+      this.handleError(error, endpoint);
     }
   }
 
@@ -64,11 +63,11 @@ const ApiContainer = class {
       const response = await axiosInstance.delete(endpoint, { data: body });
       return response;
     } catch (error) {
-      this.handleError(error);
+      this.handleError(error, endpoint);
     }
   }
 
-  handleError(error) {
+  handleError(error, endpoint) {
     if (
       error.response &&
       error.response.status === ApiConstant.STT_UNAUTHORIZED
@@ -88,7 +87,7 @@ const ApiContainer = class {
       // delay(1000);
       error.recall = true;
     } else {
-      console.log("handleError", error);
+      console.log("handleError", error, endpoint);
     }
   }
 };

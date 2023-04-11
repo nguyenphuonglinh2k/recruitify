@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.orange.light,
   },
   notStartedLabel: {
-    color: COLORS.black,
-    backgroundColor: COLORS.grey[200],
+    color: COLORS.blue.neutral,
+    backgroundColor: COLORS.blue[100],
   },
 });
