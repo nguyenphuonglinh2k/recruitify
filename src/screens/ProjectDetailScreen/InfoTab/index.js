@@ -1,9 +1,46 @@
 import { ScrollView, View } from "react-native";
-import React from "react";
-import { CommonDeleteButton, DetailItemRow, ProgressStatus } from "components";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import {
+  CommonDeleteButton,
+  ConfirmDeleteModal,
+  DetailItemRow,
+  ProgressStatus,
+} from "components";
 import { paddingStyle } from "components/DetailItemRow";
+import moment from "moment";
+import { ApiConstant, AppConstant } from "const";
+import { ProjectService } from "services";
+import { useNavigation } from "@react-navigation/core";
+import { useToast } from "react-native-toast-notifications";
 
-const InfoTab = () => {
+const InfoTab = ({ data }) => {
+  const navigation = useNavigation();
+  const toast = useToast();
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleOpenConfirmDeleteModal = () => {
+    setIsVisible(true);
+  };
+
+  const handleCloseConfirmDeleteModal = () => {
+    setIsVisible(false);
+  };
+
+  const handleDeleteTask = async () => {
+    try {
+      const response = await ProjectService.deleteProject(data._id);
+
+      if (response.status === ApiConstant.STT_OK) {
+        navigation.goBack();
+        toast.show("Delete successfully", { type: "success" });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -11,27 +48,42 @@ const InfoTab = () => {
           label="Status"
           content={
             <View style={paddingStyle}>
-              <ProgressStatus value={MOCK_PROJECT.status} />
+              <ProgressStatus value={data.status} />
             </View>
           }
         />
 
-        <DetailItemRow label="Description" content={MOCK_PROJECT.description} />
-        <DetailItemRow label="Starting date" content={MOCK_PROJECT.startDate} />
-        <DetailItemRow label="Ending date" content={MOCK_PROJECT.startDate} />
+        <DetailItemRow label="Description" content={data.description} />
+        <DetailItemRow
+          label="Starting date"
+          content={moment(data.startDate).format(
+            AppConstant.FORMAT_DATE_WITH_SLASH,
+          )}
+        />
+        <DetailItemRow
+          label="Ending date"
+          content={moment(data.endDate).format(
+            AppConstant.FORMAT_DATE_WITH_SLASH,
+          )}
+        />
       </ScrollView>
 
-      <CommonDeleteButton style={{ margin: 10 }} />
+      <CommonDeleteButton
+        style={{ margin: 10 }}
+        onPress={handleOpenConfirmDeleteModal}
+      />
+      <ConfirmDeleteModal
+        title={data.name}
+        isVisible={isVisible}
+        onCancel={handleCloseConfirmDeleteModal}
+        onOK={handleDeleteTask}
+      />
     </View>
   );
 };
 
-const MOCK_PROJECT = {
-  name: "Design recruitify mobile",
-  status: 2,
-  startDate: "12/02/2023",
-  endDate: "12/03/2023",
-  description: "This is project about recruitment process",
+InfoTab.propTypes = {
+  data: PropTypes.object,
 };
 
 export default InfoTab;

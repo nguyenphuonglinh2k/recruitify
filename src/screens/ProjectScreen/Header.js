@@ -3,15 +3,16 @@ import { StyleSheet, Text, View } from "react-native";
 import { COLORS } from "utils";
 import PropTypes from "prop-types";
 
-const Header = ({ style }) => {
+const Header = ({ total, style }) => {
   return (
     <View style={[styles.header, style]}>
-      <Text style={styles.title}>Project (3)</Text>
+      <Text style={styles.title}>Project ({total})</Text>
     </View>
   );
 };
 
 Header.propTypes = {
+  total: PropTypes.number,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 

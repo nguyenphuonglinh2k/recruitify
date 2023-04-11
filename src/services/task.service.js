@@ -7,3 +7,6 @@ export const getTasks = (userId, params) =>
 
 export const getTaskDetail = (userId, taskId) =>
   Api.get(StringFormat(ApiConstant.GET_TASK_DETAIL, { userId, taskId }));
+
+export const deleteTask = taskId =>
+  Api.delete(StringFormat(ApiConstant.DELETE_TASK, { taskId }));

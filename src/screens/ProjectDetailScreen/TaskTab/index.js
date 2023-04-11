@@ -1,11 +1,37 @@
 import { StyleSheet, TextInput, View } from "react-native";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { SearchIcon } from "icons";
 import { COLORS } from "utils";
 import FilterButton from "./FilterButton";
 import TaskList from "./TaskList";
+import { ProjectService } from "services";
+import { ApiConstant } from "const";
+import { LoadingSpinner } from "components";
 
-const TaskTab = () => {
+const TaskTab = ({ projectId }) => {
+  const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGetTasks = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await ProjectService.getTasksOfProject(projectId);
+
+      if (response.status === ApiConstant.STT_OK) {
+        setTasks(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [projectId]);
+
+  useEffect(() => {
+    handleGetTasks();
+  }, [handleGetTasks]);
+
   return (
     <View style={styles.container}>
       <View style={styles.filterBox}>
@@ -21,9 +47,15 @@ const TaskTab = () => {
         <TextInput style={styles.input} placeholder="Search..." />
       </View>
 
-      <TaskList />
+      <TaskList data={tasks} />
+
+      <LoadingSpinner isVisible={isLoading} />
     </View>
   );
+};
+
+TaskTab.propTypes = {
+  projectId: PropTypes.number.isRequired,
 };
 
 export default TaskTab;

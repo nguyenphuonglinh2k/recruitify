@@ -7,3 +7,12 @@ export const getProjects = (userId, params) =>
 
 export const getProjectDetail = projectId =>
   Api.get(StringFormat(ApiConstant.GET_PROJECT_DETAIL, { projectId }));
+
+export const getTasksOfProject = (projectId, params) =>
+  Api.get(
+    StringFormat(ApiConstant.GET_TASKS_OF_PROJECT, { projectId }),
+    params,
+  );
+
+export const deleteProject = projectId =>
+  Api.delete(StringFormat(ApiConstant.DELETE_PROJECT, { projectId }));

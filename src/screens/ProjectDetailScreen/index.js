@@ -7,13 +7,15 @@ import InfoTab from "./InfoTab";
 import { CommonIconButton } from "components";
 import { PencilIcon, PlusIcon } from "icons";
 import { COLORS } from "utils";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation, useRoute } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import TaskTab from "./TaskTab";
 import MemberTab from "./MemberTab";
 
 const ProjectDetailScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const project = route.params?.project;
 
   const [activatedTab, setActivatedTab] = useState(
     PROJECT_DETAIL_TAB_VALUES.info,
@@ -48,7 +50,7 @@ const ProjectDetailScreen = () => {
     <MainLayout
       isBackScreen
       headerProps={{
-        title: MOCK_PROJECT.title,
+        title: project.name,
         headerRight: onRenderHeaderRight(),
       }}
     >
@@ -56,15 +58,17 @@ const ProjectDetailScreen = () => {
         activatedTab={activatedTab}
         setActivatedTab={setActivatedTab}
       />
-      {activatedTab === PROJECT_DETAIL_TAB_VALUES.info && <InfoTab />}
-      {activatedTab === PROJECT_DETAIL_TAB_VALUES.task && <TaskTab />}
-      {activatedTab === PROJECT_DETAIL_TAB_VALUES.member && <MemberTab />}
+      {activatedTab === PROJECT_DETAIL_TAB_VALUES.info && (
+        <InfoTab data={project} />
+      )}
+      {activatedTab === PROJECT_DETAIL_TAB_VALUES.task && (
+        <TaskTab projectId={project._id} />
+      )}
+      {activatedTab === PROJECT_DETAIL_TAB_VALUES.member && (
+        <MemberTab data={project.memberIds} />
+      )}
     </MainLayout>
   );
-};
-
-const MOCK_PROJECT = {
-  title: "Design recruitify mobile",
 };
 
 export default ProjectDetailScreen;

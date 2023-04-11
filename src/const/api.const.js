@@ -36,7 +36,11 @@ export const GET_JOB_DETAIL = "/job/{jobId}";
 // Project
 export const GET_PROJECTS = "/projects/{userId}";
 export const GET_PROJECT_DETAIL = "/project/{projectId}";
+export const DELETE_PROJECT = "/project/{projectId}";
+export const GET_TASKS_OF_PROJECT = "/project/{projectId}/tasks";
 
 // Task
 export const GET_TASKS = "/member/{userId}/tasks";
 export const GET_TASK_DETAIL = "/task/{tasksId}/{userId}";
+export const PUT_TASK = "/task/{tasksId}";
+export const DELETE_TASK = "/task/{tasksId}";

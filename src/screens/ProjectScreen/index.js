@@ -37,7 +37,7 @@ const ProjectScreen = () => {
         activatedTab={activatedTab}
         setActivatedTab={setActivatedTab}
       />
-      <Header style={styles.header} />
+      <Header style={styles.header} total={projects.length} />
       <ProjectList data={projects} style={{ marginHorizontal: 16 }} />
 
       <LoadingSpinner isVisible={isLoading} />

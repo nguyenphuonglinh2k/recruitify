@@ -9,19 +9,11 @@ import { PathConstant } from "const";
 const ProjectItem = ({ data, style }) => {
   const navigation = useNavigation();
 
-  const {
-    _id: projectId,
-    isPriority,
-    name,
-    startDate,
-    endDate,
-    taskTotal,
-    memberIds,
-  } = data;
+  const { isPriority, name, startDate, endDate, taskTotal, memberIds } = data;
 
   const onNavigateToDetail = () => {
     navigation.navigate(PathConstant.SCREEN_NAME.projectDetailScreen, {
-      projectId,
+      project: data,
     });
   };
 
