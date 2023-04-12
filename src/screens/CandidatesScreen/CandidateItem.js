@@ -2,18 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "utils";
-import { CommonAvatar, CommonRating } from "components";
+import { CommonAvatar } from "components";
 import { useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
-import { APPLICATION_STATUS } from "const/app.const";
 
 const CandidateItem = ({ data, style }) => {
   const navigation = useNavigation();
 
-  const { avatarUrl, name, star, email, position, status } = data;
+  const { applicantInfo, jobId, _id } = data;
 
   const onNavigateToDetail = () => {
-    navigation.navigate(SCREEN_NAME.candidateDetailScreen);
+    navigation.navigate(SCREEN_NAME.candidateDetailScreen, {
+      applicationId: _id,
+    });
   };
 
   return (
@@ -23,16 +24,19 @@ const CandidateItem = ({ data, style }) => {
       style={[styles.root, style]}
     >
       <View style={styles.top}>
-        <CommonAvatar source={{ uri: avatarUrl }} style={styles.left} />
+        <CommonAvatar
+          source={{ uri: applicantInfo?.avatarUrl }}
+          style={styles.left}
+        />
         <View style={styles.right}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.email}>{email}</Text>
-          <Text style={styles.position}>{position}</Text>
-          {[
+          <Text style={styles.name}>{applicantInfo?.name}</Text>
+          <Text style={styles.email}>{applicantInfo?.email}</Text>
+          <Text style={styles.position}>{jobId?.name}</Text>
+          {/* {[
             APPLICATION_STATUS.interview,
             APPLICATION_STATUS.hire,
             APPLICATION_STATUS.reject,
-          ].includes(status) && <CommonRating value={star} />}
+          ].includes(status) && <CommonRating value={star} />} */}
         </View>
       </View>
     </TouchableOpacity>
@@ -41,13 +45,13 @@ const CandidateItem = ({ data, style }) => {
 
 CandidateItem.propTypes = {
   data: PropTypes.shape({
-    avatarUrl: PropTypes.string,
-    name: PropTypes.string,
-    status: PropTypes.number,
-    star: PropTypes.number,
-    email: PropTypes.string,
-    position: PropTypes.string,
-    dueDate: PropTypes.string,
+    _id: PropTypes.string,
+    applicantInfo: PropTypes.shape({
+      avatarUrl: PropTypes.string,
+      name: PropTypes.string,
+      email: PropTypes.string,
+    }),
+    jobId: PropTypes.object,
   }),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
   },
   position: {
     fontWeight: "500",
-    marginVertical: 4,
+    marginTop: 4,
   },
   bottom: {
     flexDirection: "row",

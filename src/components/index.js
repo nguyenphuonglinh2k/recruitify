@@ -34,6 +34,7 @@ import ChipAvatarList from "./ChipAvatarList";
 import LoadingSpinner from "./LoadingSpinner";
 import ProgressStatus from "./ProgressStatus";
 import ProfileBottomSheetModal from "./ProfileBottomSheetModal";
+import ApplicationProcessStatus from "./ApplicationProcessStatus";
 
 export {
   CommonButton,
@@ -71,4 +72,5 @@ export {
   LoadingSpinner,
   ProgressStatus,
   ProfileBottomSheetModal,
+  ApplicationProcessStatus,
 };

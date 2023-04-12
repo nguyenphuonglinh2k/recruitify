@@ -5,16 +5,25 @@ import { COLORS } from "utils";
 import { StarIcon } from "icons";
 import { CommonBadge } from "components";
 import { useNavigation } from "@react-navigation/core";
-import { PathConstant } from "const";
+import { AppConstant, PathConstant } from "const";
+import moment from "moment";
 
 const PositionItem = ({ data, style }) => {
   const navigation = useNavigation();
 
-  const { isPriority, title, appliedResumeTotal, startDate, endDate } = data;
+  const {
+    isPriority,
+    name,
+    applicationTotal,
+    startDate,
+    endDate,
+    _id: jobId,
+  } = data;
 
   const onNavigateToDetail = () => {
     navigation.navigate(PathConstant.TAB_NAME.position, {
       screen: PathConstant.SCREEN_NAME.jobDetailScreen,
+      params: { jobId },
     });
   };
 
@@ -29,20 +38,28 @@ const PositionItem = ({ data, style }) => {
           {isPriority && (
             <StarIcon style={styles.startIcon} color={COLORS.yellow} />
           )}
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>{name}</Text>
         </View>
 
-        <CommonBadge value={appliedResumeTotal} />
+        <CommonBadge value={applicationTotal} />
       </View>
 
       <View style={styles.bottom}>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>Start date</Text>
-          <Text style={styles.dateContent}>{startDate}</Text>
+          <Text style={styles.dateContent}>
+            {startDate
+              ? moment(startDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+              : "None"}
+          </Text>
         </View>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>End date</Text>
-          <Text style={styles.dateContent}>{endDate}</Text>
+          <Text style={styles.dateContent}>
+            {endDate
+              ? moment(endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+              : "None"}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -52,10 +69,11 @@ const PositionItem = ({ data, style }) => {
 PositionItem.propTypes = {
   data: PropTypes.shape({
     isPriority: PropTypes.bool,
-    title: PropTypes.string,
-    appliedResumeTotal: PropTypes.number,
+    name: PropTypes.string,
+    applicationTotal: PropTypes.number,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
+    _id: PropTypes.number,
   }),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };

@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 import { StyleSheet, Text, View } from "react-native";
 import { COLORS } from "utils";
 
-const Header = ({ style }) => {
+const Header = ({ style, total }) => {
   return (
     <View style={[styles.header, style]}>
-      <Text style={styles.title}>Candidate (3)</Text>
+      <Text style={styles.title}>Candidate ({total})</Text>
       <View style={styles.icons}>
         <CommonIconButton style={styles.notLastIcon}>
           <SearchIcon />
@@ -24,6 +24,7 @@ const Header = ({ style }) => {
 export default Header;
 
 Header.propTypes = {
+  total: PropTypes.number,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 

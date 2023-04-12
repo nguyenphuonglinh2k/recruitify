@@ -1,14 +1,29 @@
-import { ScrollView, StyleSheet } from "react-native";
-import React from "react";
-import { CommonFloatButton, DetailItemRow } from "components";
+import { ScrollView, StyleSheet, View } from "react-native";
+import React, { useContext } from "react";
+import {
+  ApplicationProcessStatus,
+  CommonFloatButton,
+  DetailItemRow,
+} from "components";
 import { PencilIcon } from "icons";
 import { COLORS } from "utils";
+import { paddingStyle } from "components/DetailItemRow";
+import { CandidateDetailContext } from "..";
 
 const ProcessTab = () => {
+  const { application } = useContext(CandidateDetailContext);
+
   return (
     <>
       <ScrollView style={styles.root}>
-        <DetailItemRow label="Status" content="On reviewing" />
+        <DetailItemRow
+          label="Status"
+          content={
+            <View style={paddingStyle}>
+              <ApplicationProcessStatus value={application.status} />
+            </View>
+          }
+        />
         <DetailItemRow label="Responsible for interviewing" content="" />
         <DetailItemRow
           label="Schedule time for interview"

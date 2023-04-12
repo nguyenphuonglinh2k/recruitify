@@ -1,10 +1,15 @@
 import { ScrollView, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { CommonAvatar, DetailItemRow } from "components";
 import Skills from "./Skills";
+import { CandidateDetailContext } from "../index";
+import moment from "moment";
+import { AppConstant } from "const";
 
 const InformationTab = ({ style }) => {
+  const { application } = useContext(CandidateDetailContext);
+
   return (
     <ScrollView style={[styles.root, style]}>
       <DetailItemRow
@@ -12,33 +17,31 @@ const InformationTab = ({ style }) => {
         content={
           <CommonAvatar
             source={{
-              uri: "https://khoinguonsangtao.vn/wp-content/uploads/2022/07/hinh-anh-avatar-tiktok-cute.jpg",
+              uri: application.applicantInfo?.avatarUrl,
             }}
             style={styles.avatar}
           />
         }
       />
 
-      <DetailItemRow label="Email" content={MOCK_INFORMATION.email} />
+      <DetailItemRow label="Email" content={application.applicantInfo?.email} />
       <DetailItemRow
         label="Phone number"
-        content={MOCK_INFORMATION.phoneNumber}
+        content={application.applicantInfo?.phoneNumber}
       />
       <DetailItemRow
         label="Current Address"
-        content={MOCK_INFORMATION.currentAddress}
+        content={application.applicantInfo?.address}
       />
       <Skills />
-      <DetailItemRow label="Updated at" content={MOCK_INFORMATION.updatedAt} />
+      <DetailItemRow
+        label="Updated at"
+        content={moment(application.updatedAt).format(
+          AppConstant.FORMAT_DATE_TIME_WITH_SLASH,
+        )}
+      />
     </ScrollView>
   );
-};
-
-const MOCK_INFORMATION = {
-  email: "PaulHarris@gmail.com",
-  phoneNumber: "0123456789",
-  currentAddress: "Warsaw, Poland",
-  updatedAt: "15/03/2022 8:56 AM",
 };
 
 InformationTab.propTypes = {

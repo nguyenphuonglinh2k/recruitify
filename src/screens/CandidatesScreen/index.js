@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import React, { useCallback, useEffect } from "react";
+import { FlatList, RefreshControl, StyleSheet } from "react-native";
 import Header from "./Header";
 import { MainLayout } from "layouts";
 import CandidateItem from "./CandidateItem";
@@ -9,11 +9,37 @@ import { APPLICATION_STATUS } from "const/app.const";
 import CandidateTabBar from "./CandidateTabBar";
 import { PencilIcon } from "icons";
 import { COLORS } from "utils";
+import { ApplicationService } from "services";
+import { ApiConstant } from "const";
 
 const CandidatesScreen = () => {
   const [activatedTab, setActivatedTab] = useState(
     APPLICATION_STATUS.screening,
   );
+
+  const [applications, setApplications] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGetApplications = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await ApplicationService.getApplications({
+        status: activatedTab,
+      });
+
+      if (response.status === ApiConstant.STT_OK) {
+        setApplications(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [activatedTab]);
+
+  useEffect(() => {
+    handleGetApplications();
+  }, [handleGetApplications]);
 
   return (
     <MainLayout
@@ -29,45 +55,31 @@ const CandidatesScreen = () => {
         activatedTab={activatedTab}
         setActivatedTab={setActivatedTab}
       />
-      <ScrollView style={[styles.root]}>
-        <Header style={{ marginTop: 16 }} />
+      <Header style={{ margin: 16 }} total={applications.length} />
 
-        {activatedTab === APPLICATION_STATUS.screening && (
-          <View style={styles.positions}>
-            {MOCK_CANDIDATES.map((data, index) => (
-              <CandidateItem
-                key={index}
-                data={data}
-                style={styles.marginBottom}
-              />
-            ))}
-          </View>
+      <FlatList
+        data={applications}
+        renderItem={({ item }) => (
+          <CandidateItem data={item} style={styles.marginBottom} />
         )}
-      </ScrollView>
+        keyExtractor={(_, index) => index}
+        style={styles.root}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={handleGetApplications}
+          />
+        }
+      />
     </MainLayout>
   );
 };
-
-const MOCK_CANDIDATES = Array.from(new Array(7)).map(() => ({
-  name: "Alexandar Greg",
-  email: "grek@gmail.com",
-  avatarUrl:
-    "https://khoinguonsangtao.vn/wp-content/uploads/2022/07/hinh-anh-avatar-tiktok-cute.jpg",
-  status: 1,
-  star: 2,
-  position: "Junior Cloud Computing",
-}));
 
 export default CandidatesScreen;
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
     paddingHorizontal: 16,
-  },
-  positions: {
-    flex: 1,
-    marginTop: 16,
   },
   marginBottom: {
     marginBottom: 10,

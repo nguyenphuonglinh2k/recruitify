@@ -1,11 +1,14 @@
 import { FlatList, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import PositionItem from "./PositionItem";
+import { CandidateDetailContext } from "..";
 
 const PositionTab = () => {
+  const { application } = useContext(CandidateDetailContext);
+
   return (
     <FlatList
-      data={MOCK_DATA}
+      data={[application.jobId]}
       renderItem={({ item }) => (
         <PositionItem data={item} style={styles.item} />
       )}
@@ -16,14 +19,6 @@ const PositionTab = () => {
 };
 
 export default PositionTab;
-
-const MOCK_DATA = Array.from(new Array(3)).map(() => ({
-  title: "Font-end Engineer",
-  isPriority: true,
-  appliedResumeTotal: 7,
-  startDate: "01/03/2023",
-  endDate: "01/04/2023",
-}));
 
 const styles = StyleSheet.create({
   root: {

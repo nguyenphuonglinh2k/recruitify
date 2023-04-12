@@ -24,9 +24,10 @@ export default {
   orange: {
     neutral: "#F5A623",
     dark: "#F9690E",
-    light: "#FFEBC9",
+    light: "#FEE1CF",
   },
   pink: "#FF4E71",
+  lightPink: "#FFDCE3",
   purple: "#4950E5",
   red: "#DF1717",
 };
