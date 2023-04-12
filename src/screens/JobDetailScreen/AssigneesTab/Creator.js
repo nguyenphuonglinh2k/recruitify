@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 import React from "react";
 import { CommonAvatar } from "components";
 import { COLORS } from "utils";
+import { useSelector } from "react-redux";
 
 const Creator = ({ style }) => {
+  const job = useSelector(({ jobRedux }) => jobRedux.job);
+
   return (
     <View style={style}>
       <Text style={styles.label}>Creator</Text>
@@ -12,17 +15,15 @@ const Creator = ({ style }) => {
       <View style={styles.contentWrapper}>
         <CommonAvatar
           source={{
-            uri: "https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg",
+            uri: job.creatorId?.avatarUrl,
           }}
           style={styles.avatar}
         />
-        <Text style={styles.textValue}>{MOCK_CREATOR}</Text>
+        <Text style={styles.textValue}>{job.creatorId?.name}</Text>
       </View>
     </View>
   );
 };
-
-const MOCK_CREATOR = "Natallia Borum";
 
 Creator.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

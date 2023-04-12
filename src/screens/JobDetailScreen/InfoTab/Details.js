@@ -3,40 +3,34 @@ import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { COLORS } from "utils";
 import { DetailItemRow } from "components";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { AppConstant } from "const";
 
 const Details = ({ style }) => {
+  const job = useSelector(({ jobRedux }) => jobRedux.job);
+
   return (
     <View style={style}>
       <Text style={styles.label}>Details</Text>
 
       <DetailItemRow
         label="Starting date"
-        content={MOCK_JOB_DETAILS.startDate}
-      />
-      <DetailItemRow label="Ending date" content={MOCK_JOB_DETAILS.endDate} />
-      <DetailItemRow
-        label="Creation time"
-        content={MOCK_JOB_DETAILS.creationTime}
+        content={moment(job.startDate).format(
+          AppConstant.FORMAT_DATE_WITH_SLASH,
+        )}
       />
       <DetailItemRow
-        label="Responsible person"
-        content={MOCK_JOB_DETAILS.responsiblePerson.name}
+        label="Ending date"
+        content={moment(job.endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)}
       />
+      <DetailItemRow label="Creation time" content={job.createdAt} />
     </View>
   );
 };
 
 Details.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-};
-
-const MOCK_JOB_DETAILS = {
-  startDate: "01/03/2023",
-  endDate: "01/04/2023",
-  creationTime: "01/03/2023 14:30",
-  responsiblePerson: {
-    name: "Mat Lamin",
-  },
 };
 
 export default memo(Details);

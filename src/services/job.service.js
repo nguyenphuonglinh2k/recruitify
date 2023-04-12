@@ -6,3 +6,6 @@ export const getJobs = params => Api.get(ApiConstant.GET_JOBS, params);
 
 export const getJobDetail = jobId =>
   Api.get(StringFormat(ApiConstant.GET_JOB_DETAIL, { jobId }));
+
+export const deleteJob = jobId =>
+  Api.delete(StringFormat(ApiConstant.DELETE_JOB, { jobId }));

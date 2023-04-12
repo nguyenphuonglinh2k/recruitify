@@ -2,14 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "utils";
-import { CommonAvatar, CommonChip, CommonRating } from "components";
+import { CommonAvatar, CommonRating } from "components";
 import { useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
+import { APPLICATION_STATUS } from "const/app.const";
 
 const CandidateItem = ({ data, style }) => {
   const navigation = useNavigation();
 
-  const { avatarUrl, name, star, email, position } = data;
+  const { avatarUrl, name, star, email, position, status } = data;
 
   const onNavigateToDetail = () => {
     navigation.navigate(SCREEN_NAME.candidateDetailScreen);
@@ -27,12 +28,12 @@ const CandidateItem = ({ data, style }) => {
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.email}>{email}</Text>
           <Text style={styles.position}>{position}</Text>
+          {[
+            APPLICATION_STATUS.interview,
+            APPLICATION_STATUS.hire,
+            APPLICATION_STATUS.reject,
+          ].includes(status) && <CommonRating value={star} />}
         </View>
-      </View>
-
-      <View style={styles.bottom}>
-        <CommonRating value={star} />
-        <CommonChip label={"Due date Mar, 31"} color={COLORS.grey[100]} />
       </View>
     </TouchableOpacity>
   );
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   },
   position: {
     fontWeight: "500",
-    marginTop: 4,
+    marginVertical: 4,
   },
   bottom: {
     flexDirection: "row",

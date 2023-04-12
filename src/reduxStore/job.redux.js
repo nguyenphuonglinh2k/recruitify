@@ -2,7 +2,7 @@ import { createReducer, createActions } from "reduxsauce";
 
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
-  getJobsRequest: [],
+  getJobsRequest: ["data"],
   getJobDetailRequest: ["data"],
 
   jobSuccess: ["data"],

@@ -5,7 +5,8 @@ import { COLORS } from "utils";
 import { StarIcon } from "icons";
 import { CommonAvatarGroup, CommonBadge } from "components";
 import { useNavigation } from "@react-navigation/core";
-import { PathConstant } from "const";
+import { AppConstant, PathConstant } from "const";
+import moment from "moment";
 
 const JobItem = ({ data, style }) => {
   const navigation = useNavigation();
@@ -14,14 +15,16 @@ const JobItem = ({ data, style }) => {
     _id: jobId,
     isPriority,
     name,
-    appliedResumeTotal,
+    applicationTotal,
     startDate,
     endDate,
-    assignees,
+    assigneeIds,
   } = data;
 
   const onNavigateToDetail = () => {
-    navigation.navigate(PathConstant.SCREEN_NAME.jobDetailScreen, { jobId });
+    navigation.navigate(PathConstant.SCREEN_NAME.jobDetailScreen, {
+      jobId,
+    });
   };
 
   return (
@@ -38,15 +41,15 @@ const JobItem = ({ data, style }) => {
           <Text style={styles.title}>{name}</Text>
         </View>
 
-        <CommonBadge value={appliedResumeTotal ?? 0} />
+        <CommonBadge value={applicationTotal} />
       </View>
 
       <View style={styles.center}>
         <Text style={[styles.label, { marginBottom: 4 }]}>
-          Assignee: {assignees ? "" : "null"}
+          Assignee: {assigneeIds ? "" : "null"}
         </Text>
         <CommonAvatarGroup
-          data={assignees?.map(({ avatarUrl }) => ({
+          data={assigneeIds?.map(({ avatarUrl }) => ({
             uri: avatarUrl,
           }))}
         />
@@ -55,11 +58,19 @@ const JobItem = ({ data, style }) => {
       <View style={styles.bottom}>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>Start date</Text>
-          <Text style={styles.dateContent}>{startDate ?? "null"}</Text>
+          <Text style={styles.dateContent}>
+            {startDate
+              ? moment(startDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+              : "None"}
+          </Text>
         </View>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>End date</Text>
-          <Text style={styles.dateContent}>{endDate ?? "null"}</Text>
+          <Text style={styles.dateContent}>
+            {endDate
+              ? moment(endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+              : "None"}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -71,10 +82,10 @@ JobItem.propTypes = {
     _id: PropTypes.string,
     isPriority: PropTypes.bool,
     name: PropTypes.string,
-    appliedResumeTotal: PropTypes.number,
+    applicationTotal: PropTypes.number,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
-    assignees: PropTypes.arrayOf(
+    assigneeIds: PropTypes.arrayOf(
       PropTypes.shape({
         avatarUrl: PropTypes.string,
       }),

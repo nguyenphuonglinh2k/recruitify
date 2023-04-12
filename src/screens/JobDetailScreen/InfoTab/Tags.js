@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { COLORS } from "utils";
 import { CommonChip } from "components";
+import { useSelector } from "react-redux";
 
 const Tags = ({ style }) => {
+  const job = useSelector(({ jobRedux }) => jobRedux.job);
+
   return (
     <View style={[styles.root, style]}>
       <Text style={styles.label}>Tags</Text>
 
       <View style={styles.tags}>
-        {MOCK_TAGS.map((label, index) => (
+        {(job.tags ?? []).map((label, index) => (
           <CommonChip
             key={index}
             label={label}
@@ -21,8 +24,6 @@ const Tags = ({ style }) => {
     </View>
   );
 };
-
-const MOCK_TAGS = ["React", "HTML", "CSS"];
 
 Tags.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

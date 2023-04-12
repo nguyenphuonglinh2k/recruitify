@@ -3,12 +3,15 @@ import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { COLORS } from "utils";
 import { LocationIcon } from "icons";
+import { useSelector } from "react-redux";
 
 const Locations = ({ style }) => {
+  const job = useSelector(({ jobRedux }) => jobRedux.job);
+
   return (
     <View style={style}>
       <Text style={styles.label}>Locations</Text>
-      {MOCK_LOCATIONS.map((location, index) => (
+      {(job.locations ?? []).map((location, index) => (
         <View key={index} style={styles.itemWrapper}>
           <LocationIcon color={COLORS.grey[400]} />
           <Text style={styles.content}>{location}</Text>
@@ -17,8 +20,6 @@ const Locations = ({ style }) => {
     </View>
   );
 };
-
-const MOCK_LOCATIONS = ["Warsaw, Poland", "Krakow, Poland"];
 
 Locations.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

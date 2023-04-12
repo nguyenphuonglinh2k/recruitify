@@ -32,6 +32,14 @@ export const PUT_USER_INFO = "/profile/{userId}";
 // Job
 export const GET_JOBS = "/jobs";
 export const GET_JOB_DETAIL = "/job/{jobId}";
+export const DELETE_JOB = "/job/{jobId}";
+
+// Application
+export const GET_APPLICATIONS = "/applications";
+export const GET_APPLICATION_DETAIL = "/application/{applicationId}";
+export const POST_APPLICATION = "/application/{applicationId}";
+export const PUT_APPLICATION = "/application/{applicationId}";
+export const DELETE_APPLICATION = "/application/{applicationId}";
 
 // Project
 export const GET_PROJECTS = "/projects/{userId}";

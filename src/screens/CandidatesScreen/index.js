@@ -3,10 +3,12 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import Header from "./Header";
 import { MainLayout } from "layouts";
 import CandidateItem from "./CandidateItem";
-import { CommonFloatButton } from "components";
+import { CommonIconButton } from "components";
 import { useState } from "react";
 import { APPLICATION_STATUS } from "const/app.const";
 import CandidateTabBar from "./CandidateTabBar";
+import { PencilIcon } from "icons";
+import { COLORS } from "utils";
 
 const CandidatesScreen = () => {
   const [activatedTab, setActivatedTab] = useState(
@@ -14,7 +16,15 @@ const CandidatesScreen = () => {
   );
 
   return (
-    <MainLayout>
+    <MainLayout
+      headerProps={{
+        headerRight: (
+          <CommonIconButton>
+            <PencilIcon color={COLORS.black} />
+          </CommonIconButton>
+        ),
+      }}
+    >
       <CandidateTabBar
         activatedTab={activatedTab}
         setActivatedTab={setActivatedTab}
@@ -34,7 +44,6 @@ const CandidatesScreen = () => {
           </View>
         )}
       </ScrollView>
-      <CommonFloatButton />
     </MainLayout>
   );
 };

@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 import React from "react";
 import { CommonAvatar } from "components";
 import { COLORS } from "utils";
+import { useSelector } from "react-redux";
 
 const Assignees = ({ style }) => {
+  const job = useSelector(({ jobRedux }) => jobRedux.job);
+
   return (
     <View style={style}>
       <Text style={styles.label}>Assignees</Text>
 
       <View>
-        {MOCK_ASSIGNEES.map(({ avatarUrl, name }, index) => (
+        {job?.assigneeIds.map(({ avatarUrl, name }, index) => (
           <View key={index} style={styles.itemWrapper}>
             <CommonAvatar source={{ uri: avatarUrl }} style={styles.avatar} />
             <Text style={styles.name}>{name}</Text>
@@ -20,24 +23,6 @@ const Assignees = ({ style }) => {
     </View>
   );
 };
-
-const MOCK_ASSIGNEES = [
-  {
-    name: "Alexandar Greg",
-    avatarUrl:
-      "https://khoinguonsangtao.vn/wp-content/uploads/2022/07/hinh-anh-avatar-tiktok-cute.jpg",
-  },
-  {
-    name: "Alexandar Greg",
-    avatarUrl:
-      "https://toigingiuvedep.vn/wp-content/uploads/2022/01/hinh-avatar-cute-nu.jpg",
-  },
-  {
-    name: "Alexandar Greg",
-    avatarUrl:
-      "https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl=1",
-  },
-];
 
 Assignees.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

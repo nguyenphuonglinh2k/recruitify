@@ -6,10 +6,24 @@ import {
 import PropTypes from "prop-types";
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { ImageSource } from "assets";
-import { COLORS } from "utils";
+import { COLORS, StorageUtils } from "utils";
 import LogoutIcon from "icons/LogoutIcon";
+import { AppConstant } from "const";
+import { useDispatch } from "react-redux";
+import AuthActions from "reduxStore/auth.redux";
 
 const CustomDrawerContent = props => {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(
+      AuthActions.authSuccess({
+        isLoggedIn: false,
+      }),
+    );
+    StorageUtils.remove(AppConstant.AUTH_TOKEN_KEY);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -27,6 +41,7 @@ const CustomDrawerContent = props => {
         </View>
 
         <ButtonItem
+          onPress={handleLogout}
           label="Log out"
           icon={<LogoutIcon />}
           labelStyle={{ color: COLORS.red }}

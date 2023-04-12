@@ -24,7 +24,7 @@ export function* getJobsRequest(action) {
 }
 
 export function* getJobDetailRequest(action) {
-  const { jobId } = action.data;
+  const jobId = action.data;
 
   try {
     const response = yield call(JobService.getJobDetail, jobId);
