@@ -1,25 +1,46 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useCallback } from "react";
 import { MainLayout } from "layouts";
 import ProjectDetailTabBar, {
   PROJECT_DETAIL_TAB_VALUES,
 } from "./ProjectDetailTabBar";
 import InfoTab from "./InfoTab";
-import { CommonIconButton } from "components";
+import { CommonIconButton, LoadingSpinner } from "components";
 import { PencilIcon, PlusIcon } from "icons";
 import { COLORS } from "utils";
 import { useNavigation, useRoute } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import TaskTab from "./TaskTab";
 import MemberTab from "./MemberTab";
+import { ProjectService } from "services";
+import { ApiConstant } from "const";
+import { useEffect } from "react";
 
 const ProjectDetailScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const project = route.params?.project;
+  const projectId = route.params?.projectId;
 
   const [activatedTab, setActivatedTab] = useState(
     PROJECT_DETAIL_TAB_VALUES.info,
   );
+  const [project, setProject] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGetProjectDetail = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await ProjectService.getProjectDetail(projectId);
+
+      if (response.status === ApiConstant.STT_OK) {
+        setProject(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [projectId]);
 
   const onNavigateToEditScreen = () => {
     navigation.navigate(SCREEN_NAME.projectInfoEditingScreen);
@@ -46,6 +67,10 @@ const ProjectDetailScreen = () => {
     }
   };
 
+  useEffect(() => {
+    handleGetProjectDetail();
+  }, [handleGetProjectDetail]);
+
   return (
     <MainLayout
       isBackScreen
@@ -67,6 +92,8 @@ const ProjectDetailScreen = () => {
       {activatedTab === PROJECT_DETAIL_TAB_VALUES.member && (
         <MemberTab data={project.memberIds} />
       )}
+
+      <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };

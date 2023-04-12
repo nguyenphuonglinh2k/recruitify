@@ -6,13 +6,21 @@ import { PencilIcon, TrashIcon } from "icons";
 import { CommonIconButton } from "components";
 import { useMemo } from "react";
 import { COLORS } from "utils";
+import { AppConstant } from "const";
+import { useSelector } from "react-redux";
 
 const TaskItem = ({ data, style }) => {
-  const { name, assigneeName, endDate, isSelf } = data;
+  const { name, assigneeId, endDate } = data;
+
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
 
   const isPassedDeadline = useMemo(() => {
     return moment(endDate).isBefore(moment());
   }, [endDate]);
+
+  const isSelf = useMemo(() => {
+    return authUser._id === assigneeId._id;
+  }, [authUser, assigneeId]);
 
   return (
     <View style={[styles.root, style]}>
@@ -21,7 +29,7 @@ const TaskItem = ({ data, style }) => {
 
         <View style={styles.contentWrapper}>
           <Text style={styles.label}>Assignee: </Text>
-          <Text style={styles.content}>{assigneeName}</Text>
+          <Text style={styles.content}>{assigneeId?.name}</Text>
         </View>
 
         <View style={[styles.contentWrapper]}>
@@ -29,7 +37,11 @@ const TaskItem = ({ data, style }) => {
           <Text
             style={[styles.content, isPassedDeadline && styles.passedDeadline]}
           >
-            {`${endDate ?? "None"}`}
+            {`${
+              endDate
+                ? moment(endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+                : "None"
+            }`}
           </Text>
         </View>
       </View>

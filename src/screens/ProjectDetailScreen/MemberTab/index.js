@@ -2,6 +2,7 @@ import { FlatList, StyleSheet } from "react-native";
 import React from "react";
 import PropTypes from "prop-types";
 import MemberItem from "./MemberItem";
+import { COLORS } from "utils";
 
 const MemberTab = ({ data, style, ...otherProps }) => {
   return (
@@ -24,7 +25,8 @@ export default MemberTab;
 
 const styles = StyleSheet.create({
   root: {
-    // margin: 16,
+    borderTopWidth: 1,
+    borderColor: COLORS.grey[200],
   },
   item: {
     // marginBottom: 10,

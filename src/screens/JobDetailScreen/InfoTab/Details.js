@@ -16,15 +16,26 @@ const Details = ({ style }) => {
 
       <DetailItemRow
         label="Starting date"
-        content={moment(job.startDate).format(
-          AppConstant.FORMAT_DATE_WITH_SLASH,
-        )}
+        content={
+          job.startDate
+            ? moment(job.startDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+            : "None"
+        }
       />
       <DetailItemRow
         label="Ending date"
-        content={moment(job.endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)}
+        content={
+          job.endDate
+            ? moment(job.endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+            : "None"
+        }
       />
-      <DetailItemRow label="Creation time" content={job.createdAt} />
+      <DetailItemRow
+        label="Creation time"
+        content={moment(job.createdAt).format(
+          AppConstant.FORMAT_DATE_TIME_WITH_SLASH,
+        )}
+      />
     </View>
   );
 };

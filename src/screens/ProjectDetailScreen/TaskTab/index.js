@@ -55,7 +55,7 @@ const TaskTab = ({ projectId }) => {
 };
 
 TaskTab.propTypes = {
-  projectId: PropTypes.number.isRequired,
+  projectId: PropTypes.string.isRequired,
 };
 
 export default TaskTab;

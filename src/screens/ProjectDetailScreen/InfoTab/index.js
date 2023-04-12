@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import {
   CommonDeleteButton,
@@ -13,12 +13,23 @@ import { ApiConstant, AppConstant } from "const";
 import { ProjectService } from "services";
 import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
+import { useSelector } from "react-redux";
 
 const InfoTab = ({ data }) => {
   const navigation = useNavigation();
   const toast = useToast();
 
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
+
   const [isVisible, setIsVisible] = useState(false);
+
+  // Only admin or creator has permission to delete
+  const canDeleted = useMemo(() => {
+    return (
+      authUser.role === AppConstant.USER_ROLE.admin ||
+      data.creatorId?._id === authUser._id
+    );
+  }, [authUser._id, authUser.role, data.creatorId?._id]);
 
   const handleOpenConfirmDeleteModal = () => {
     setIsVisible(true);
@@ -56,22 +67,30 @@ const InfoTab = ({ data }) => {
         <DetailItemRow label="Description" content={data.description} />
         <DetailItemRow
           label="Starting date"
-          content={moment(data.startDate).format(
-            AppConstant.FORMAT_DATE_WITH_SLASH,
-          )}
+          content={
+            data.startDate
+              ? moment(data.startDate).format(
+                  AppConstant.FORMAT_DATE_WITH_SLASH,
+                )
+              : "None"
+          }
         />
         <DetailItemRow
           label="Ending date"
-          content={moment(data.endDate).format(
-            AppConstant.FORMAT_DATE_WITH_SLASH,
-          )}
+          content={
+            data.endDate
+              ? moment(data.endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+              : "None"
+          }
         />
       </ScrollView>
 
-      <CommonDeleteButton
-        style={{ margin: 10 }}
-        onPress={handleOpenConfirmDeleteModal}
-      />
+      {canDeleted && (
+        <CommonDeleteButton
+          style={{ margin: 10 }}
+          onPress={handleOpenConfirmDeleteModal}
+        />
+      )}
       <ConfirmDeleteModal
         title={data.name}
         isVisible={isVisible}
