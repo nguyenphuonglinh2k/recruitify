@@ -19,6 +19,7 @@ import ProfileScreen from "./ProfileScreen";
 import ProjectScreen from "./ProjectScreen";
 import ProjectDetailScreen from "./ProjectDetailScreen";
 import ProjectCreationScreen from "./ProjectCreationScreen";
+import ProjectEditingScreen from "./ProjectEditingScreen";
 
 import TaskScreen from "./TaskScreen";
 import TaskDetailScreen from "./TaskDetailScreen";
@@ -38,6 +39,7 @@ export {
   ScheduleDetailEditingScreen,
   ProjectScreen,
   ProjectDetailScreen,
+  ProjectEditingScreen,
   TaskScreen,
   TaskDetailScreen,
   ProjectCreationScreen,

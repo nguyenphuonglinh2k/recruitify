@@ -1,12 +1,12 @@
 import { ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import PropTypes from "prop-types";
-import NoDocument from "./NoDocument";
+import { EmptyData } from "components";
 
 const DocumentTab = ({ style }) => {
   return (
     <ScrollView style={[styles.root, style]}>
-      <NoDocument />
+      <EmptyData description="There is no documents!" />
     </ScrollView>
   );
 };

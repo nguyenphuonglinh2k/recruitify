@@ -4,7 +4,12 @@ import { MainLayout } from "layouts";
 import Header from "./Header";
 import { PROGRESS_STATUS } from "const/app.const";
 import ProjectList from "./ProjectList";
-import { CommonIconButton, LoadingSpinner, ProgressTabBar } from "components";
+import {
+  CommonIconButton,
+  EmptyData,
+  LoadingSpinner,
+  ProgressTabBar,
+} from "components";
 import { ProjectService } from "services";
 import { ApiConstant, AppConstant } from "const";
 import { PlusIcon } from "icons";
@@ -13,7 +18,7 @@ import { COLORS } from "utils";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 
-const ProjectCreationScreen = () => {
+const ProjectScreen = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
@@ -73,14 +78,19 @@ const ProjectCreationScreen = () => {
         setActivatedTab={setActivatedTab}
       />
       <Header style={styles.header} total={projects.length} />
-      <ProjectList data={projects} style={{ marginHorizontal: 16 }} />
+
+      {projects.length ? (
+        <ProjectList data={projects} style={{ marginHorizontal: 16 }} />
+      ) : (
+        <EmptyData description="No project found!" />
+      )}
 
       <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };
 
-export default ProjectCreationScreen;
+export default ProjectScreen;
 
 const styles = StyleSheet.create({
   header: {

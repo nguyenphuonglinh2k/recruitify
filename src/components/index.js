@@ -36,6 +36,7 @@ import ProgressStatus from "./ProgressStatus";
 import ProfileBottomSheetModal from "./ProfileBottomSheetModal";
 import ApplicationProcessStatus from "./ApplicationProcessStatus";
 import StatusOptionsModal from "./StatusOptionsModal";
+import EmptyData from "./EmptyData";
 
 export {
   CommonButton,
@@ -75,4 +76,5 @@ export {
   ProfileBottomSheetModal,
   ApplicationProcessStatus,
   StatusOptionsModal,
+  EmptyData,
 };

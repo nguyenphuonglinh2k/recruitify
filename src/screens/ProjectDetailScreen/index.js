@@ -1,4 +1,10 @@
-import React, { useState, Fragment, useCallback, useEffect } from "react";
+import React, {
+  useState,
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { MainLayout } from "layouts";
 import ProjectDetailTabBar, {
   PROJECT_DETAIL_TAB_VALUES,
@@ -7,16 +13,19 @@ import InfoTab from "./InfoTab";
 import { CommonIconButton, LoadingSpinner } from "components";
 import { PencilIcon, PlusIcon } from "icons";
 import { COLORS } from "utils";
-import { useNavigation, useRoute } from "@react-navigation/core";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import TaskTab from "./TaskTab";
 import MemberTab from "./MemberTab";
 import { ProjectService } from "services";
-import { ApiConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
+import { useSelector } from "react-redux";
 
 const ProjectDetailScreen = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const route = useRoute();
+
   const projectId = route.params?.projectId;
 
   const [activatedTab, setActivatedTab] = useState(
@@ -24,6 +33,15 @@ const ProjectDetailScreen = () => {
   );
   const [project, setProject] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
+
+  const hasPermission = useMemo(() => {
+    return [
+      AppConstant.USER_ROLE.admin,
+      AppConstant.USER_ROLE.manager,
+    ].includes(authUser.role);
+  }, [authUser.role]);
 
   const handleGetProjectDetail = useCallback(async () => {
     setIsLoading(true);
@@ -42,13 +60,19 @@ const ProjectDetailScreen = () => {
   }, [projectId]);
 
   const onNavigateToEditScreen = () => {
-    navigation.navigate(SCREEN_NAME.projectInfoEditingScreen);
+    navigation.navigate(SCREEN_NAME.projectEditingScreen, { project });
   };
 
   const onRenderHeaderRight = () => {
     switch (activatedTab) {
-      case PROJECT_DETAIL_TAB_VALUES.info:
       case PROJECT_DETAIL_TAB_VALUES.member:
+        return (
+          <CommonIconButton>
+            <PencilIcon color={COLORS.green} />
+          </CommonIconButton>
+        );
+
+      case PROJECT_DETAIL_TAB_VALUES.info:
         return (
           <CommonIconButton onPress={onNavigateToEditScreen}>
             <PencilIcon color={COLORS.green} />
@@ -67,15 +91,17 @@ const ProjectDetailScreen = () => {
   };
 
   useEffect(() => {
-    handleGetProjectDetail();
-  }, [handleGetProjectDetail]);
+    if (isFocused) {
+      handleGetProjectDetail();
+    }
+  }, [handleGetProjectDetail, isFocused]);
 
   return (
     <MainLayout
       isBackScreen
       headerProps={{
         title: project.name,
-        headerRight: onRenderHeaderRight(),
+        headerRight: hasPermission ? onRenderHeaderRight() : null,
       }}
     >
       <ProjectDetailTabBar

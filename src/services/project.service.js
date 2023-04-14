@@ -7,6 +7,9 @@ export const getProjects = (userId, params) =>
 
 export const postProject = data => Api.post(ApiConstant.POST_PROJECT, data);
 
+export const putProject = (projectId, data) =>
+  Api.put(StringFormat(ApiConstant.PUT_PROJECT, { projectId }), data);
+
 export const getProjectDetail = projectId =>
   Api.get(StringFormat(ApiConstant.GET_PROJECT_DETAIL, { projectId }));
 
