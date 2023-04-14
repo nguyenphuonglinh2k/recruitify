@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useCallback } from "react";
+import React, { useState, Fragment, useCallback, useEffect } from "react";
 import { MainLayout } from "layouts";
 import ProjectDetailTabBar, {
   PROJECT_DETAIL_TAB_VALUES,
@@ -13,7 +13,6 @@ import TaskTab from "./TaskTab";
 import MemberTab from "./MemberTab";
 import { ProjectService } from "services";
 import { ApiConstant } from "const";
-import { useEffect } from "react";
 
 const ProjectDetailScreen = () => {
   const navigation = useNavigation();
@@ -87,7 +86,7 @@ const ProjectDetailScreen = () => {
         <InfoTab data={project} />
       )}
       {activatedTab === PROJECT_DETAIL_TAB_VALUES.task && (
-        <TaskTab projectId={project._id} />
+        <TaskTab projectId={project._id} setIsLoading={setIsLoading} />
       )}
       {activatedTab === PROJECT_DETAIL_TAB_VALUES.member && (
         <MemberTab data={project.memberIds} />

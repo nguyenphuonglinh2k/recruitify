@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
 import { useSelector } from "react-redux";
 
-const InfoTab = ({ data }) => {
+const InfoTab = ({ data, setIsLoading }) => {
   const navigation = useNavigation();
   const toast = useToast();
 
@@ -40,6 +40,8 @@ const InfoTab = ({ data }) => {
   };
 
   const handleDeleteTask = async () => {
+    if (setIsLoading) setIsLoading(true);
+
     try {
       const response = await ProjectService.deleteProject(data._id);
 
@@ -49,6 +51,8 @@ const InfoTab = ({ data }) => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      if (setIsLoading) setIsLoading(false);
     }
   };
 
@@ -103,6 +107,7 @@ const InfoTab = ({ data }) => {
 
 InfoTab.propTypes = {
   data: PropTypes.object,
+  setIsLoading: PropTypes.func,
 };
 
 export default InfoTab;
