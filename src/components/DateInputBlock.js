@@ -13,16 +13,13 @@ const DateInputBlock = ({ value, setValue, label, ...otherProps }) => {
     setIsVisible(true);
   };
 
-  const onChangeDatePicker = date => {
-    const formattedDate = moment(date).format(
-      AppConstant.FORMAT_DATE_TIME_WITH_SLASH,
-    );
-    if (setValue) setValue(formattedDate);
-    onCloseDatePicker();
-  };
-
   const onCloseDatePicker = () => {
     setIsVisible(false);
+  };
+
+  const onChangeDatePicker = date => {
+    if (setValue) setValue(date);
+    onCloseDatePicker();
   };
 
   return (
@@ -35,14 +32,18 @@ const DateInputBlock = ({ value, setValue, label, ...otherProps }) => {
             onPress={onOpenModal}
             style={paddingStyle}
           >
-            <Text style={contentStyle}>{value}</Text>
+            <Text style={contentStyle}>
+              {value
+                ? moment(value).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+                : ""}
+            </Text>
           </TouchableOpacity>
         }
         {...otherProps}
       />
       <CommonTimePickerModal
         isVisible={isVisible}
-        value={moment(value).format(AppConstant.FORMAT_DATE_TIME_WITH_HYPHEN)}
+        value={value}
         onChange={onChangeDatePicker}
         onClose={onCloseDatePicker}
         mode="date"
@@ -53,7 +54,7 @@ const DateInputBlock = ({ value, setValue, label, ...otherProps }) => {
 
 DateInputBlock.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.instanceOf(Date),
+  value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
   setValue: PropTypes.func,
 };
 

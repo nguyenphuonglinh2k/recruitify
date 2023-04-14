@@ -4,7 +4,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "utils";
 import { StarIcon } from "icons";
 import { useNavigation } from "@react-navigation/core";
-import { PathConstant } from "const";
+import { AppConstant, PathConstant } from "const";
+import moment from "moment";
 
 const ProjectItem = ({ data, style }) => {
   const navigation = useNavigation();
@@ -48,11 +49,19 @@ const ProjectItem = ({ data, style }) => {
       <View style={styles.bottom}>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>Start date</Text>
-          <Text style={styles.dateContent}>{startDate ?? "null"}</Text>
+          <Text style={styles.dateContent}>
+            {startDate
+              ? moment(startDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+              : "null"}
+          </Text>
         </View>
         <View style={styles.dateColumn}>
           <Text style={styles.label}>End date</Text>
-          <Text style={styles.dateContent}>{endDate ?? "null"}</Text>
+          <Text style={styles.dateContent}>
+            {endDate
+              ? moment(endDate).format(AppConstant.FORMAT_DATE_WITH_SLASH)
+              : "null"}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

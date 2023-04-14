@@ -18,6 +18,7 @@ import ProfileScreen from "./ProfileScreen";
 
 import ProjectScreen from "./ProjectScreen";
 import ProjectDetailScreen from "./ProjectDetailScreen";
+import ProjectCreationScreen from "./ProjectCreationScreen";
 
 import TaskScreen from "./TaskScreen";
 import TaskDetailScreen from "./TaskDetailScreen";
@@ -39,4 +40,5 @@ export {
   ProjectDetailScreen,
   TaskScreen,
   TaskDetailScreen,
+  ProjectCreationScreen,
 };

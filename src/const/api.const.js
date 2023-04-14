@@ -43,6 +43,7 @@ export const DELETE_APPLICATION = "/application/{applicationId}";
 
 // Project
 export const GET_PROJECTS = "/projects/{userId}";
+export const POST_PROJECT = "/project";
 export const GET_PROJECT_DETAIL = "/project/{projectId}";
 export const DELETE_PROJECT = "/project/{projectId}";
 export const GET_TASKS_OF_PROJECT = "/project/{projectId}/tasks";

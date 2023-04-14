@@ -22,7 +22,7 @@ const CommonTimePickerModal = ({
       mode="time"
       onConfirm={onConfirm}
       onCancel={onClose}
-      is24Hour={true}
+      is24Hour
       locale="en_GB"
       cancelTextIOS="Cancel"
       confirmTextIOS="OK"

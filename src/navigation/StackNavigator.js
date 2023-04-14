@@ -14,6 +14,7 @@ import {
   ScheduleDetailEditingScreen,
   ProjectScreen,
   ProjectDetailScreen,
+  ProjectCreationScreen,
   TaskScreen,
   TaskDetailScreen,
 } from "screens";
@@ -105,6 +106,10 @@ const ProjectStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.projectDetailScreen}
         component={ProjectDetailScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.projectCreationScreen}
+        component={ProjectCreationScreen}
       />
     </Stack.Navigator>
   );

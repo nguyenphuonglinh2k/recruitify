@@ -35,6 +35,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import ProgressStatus from "./ProgressStatus";
 import ProfileBottomSheetModal from "./ProfileBottomSheetModal";
 import ApplicationProcessStatus from "./ApplicationProcessStatus";
+import StatusOptionsModal from "./StatusOptionsModal";
 
 export {
   CommonButton,
@@ -73,4 +74,5 @@ export {
   ProgressStatus,
   ProfileBottomSheetModal,
   ApplicationProcessStatus,
+  StatusOptionsModal,
 };

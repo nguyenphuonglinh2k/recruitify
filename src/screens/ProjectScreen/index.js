@@ -1,38 +1,73 @@
 import { StyleSheet } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MainLayout } from "layouts";
 import Header from "./Header";
 import { PROGRESS_STATUS } from "const/app.const";
 import ProjectList from "./ProjectList";
-import { LoadingSpinner, ProgressTabBar } from "components";
+import { CommonIconButton, LoadingSpinner, ProgressTabBar } from "components";
 import { ProjectService } from "services";
-import { ApiConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
+import { PlusIcon } from "icons";
+import { useSelector } from "react-redux";
+import { COLORS } from "utils";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
-const ProjectScreen = () => {
-  const userId = "642edb08c2e9557ef486fab9"; // TODO: admin
+const ProjectCreationScreen = () => {
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
+  const authUser = useSelector(({ authRedux }) => authRedux.user);
 
   const [activatedTab, setActivatedTab] = useState(PROGRESS_STATUS.new);
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const canCreateProject = useMemo(() => {
+    return [
+      AppConstant.USER_ROLE.admin,
+      AppConstant.USER_ROLE.manager,
+    ].includes(authUser.role);
+  }, [authUser.role]);
+
   const handleGetProjects = useCallback(async () => {
     setIsLoading(true);
-    const response = await ProjectService.getProjects(userId, {
-      params: { status: activatedTab },
-    });
 
-    if (response.status === ApiConstant.STT_OK) {
-      setProjects(response.data);
+    try {
+      const response = await ProjectService.getProjects(authUser._id, {
+        params: { status: activatedTab },
+      });
+
+      if (response.status === ApiConstant.STT_OK) {
+        setProjects(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }, [userId, activatedTab]);
+  }, [authUser._id, activatedTab]);
+
+  const handleNavigateToCreationScreen = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.projectCreationScreen);
+  }, [navigation]);
 
   useEffect(() => {
-    handleGetProjects();
-  }, [handleGetProjects]);
+    if (isFocused) {
+      handleGetProjects();
+    }
+  }, [handleGetProjects, isFocused]);
 
   return (
-    <MainLayout>
+    <MainLayout
+      headerProps={{
+        headerRight: canCreateProject ? (
+          <CommonIconButton onPress={handleNavigateToCreationScreen}>
+            <PlusIcon color={COLORS.green} />
+          </CommonIconButton>
+        ) : null,
+      }}
+    >
       <ProgressTabBar
         activatedTab={activatedTab}
         setActivatedTab={setActivatedTab}
@@ -45,7 +80,7 @@ const ProjectScreen = () => {
   );
 };
 
-export default ProjectScreen;
+export default ProjectCreationScreen;
 
 const styles = StyleSheet.create({
   header: {
