@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import MemberItem from "./MemberItem";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
@@ -6,15 +6,19 @@ import { useSelector } from "react-redux";
 const MemberList = ({ data, onPress, ...otherProps }) => {
   const PROJECT = useSelector(({ projectRedux }) => projectRedux.project);
 
-  return data.map((item, index) => (
-    <MemberItem
-      key={index}
-      data={item}
-      isCreator={item._id === PROJECT.creatorId?._id}
-      onPress={() => onPress(index)}
-      {...otherProps}
-    />
-  ));
+  return data.length ? (
+    data.map((item, index) => (
+      <MemberItem
+        key={index}
+        data={item}
+        isCreator={item._id === PROJECT.creatorId?._id}
+        onPress={() => onPress(index)}
+        {...otherProps}
+      />
+    ))
+  ) : (
+    <Fragment />
+  );
 };
 
 MemberList.propTypes = {
@@ -25,6 +29,7 @@ MemberList.propTypes = {
       avatarUrl: PropTypes.string,
     }),
   ),
+  onPress: PropTypes.func,
 };
 
 export default MemberList;

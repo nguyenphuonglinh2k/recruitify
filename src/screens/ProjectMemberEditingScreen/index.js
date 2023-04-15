@@ -51,6 +51,14 @@ const ProjectMemberEditingScreen = () => {
           isChecked: true,
         }));
 
+        newProjectUsers.sort(user => {
+          if (user._id === PROJECT.creatorId?._id) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
+
         const projectUserIds = usersProjectResponseData.map(user => user._id);
 
         const newOtherUsers = [...usersResponseData].reduce(
@@ -78,7 +86,7 @@ const ProjectMemberEditingScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [PROJECT._id]);
+  }, [PROJECT]);
 
   const handleToggleMembers = useCallback(
     index => {

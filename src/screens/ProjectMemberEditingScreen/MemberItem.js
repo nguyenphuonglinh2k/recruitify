@@ -7,7 +7,7 @@ import { COLORS } from "utils";
 const MemberItem = ({ isCreator, data, style, ...otherProps }) => {
   return (
     <CommonCheckbox
-      isChecked={isCreator ?? data.isChecked}
+      isChecked={data.isChecked}
       disabled={isCreator}
       textComponent={
         <View style={styles.left}>

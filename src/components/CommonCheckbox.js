@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import React from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { COLORS } from "utils";
@@ -14,5 +13,3 @@ CommonCheckbox.propTypes = {
   isChecked: PropTypes.bool,
   onPress: PropTypes.func,
 };
-
-const styles = StyleSheet.create({});
