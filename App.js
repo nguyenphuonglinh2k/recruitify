@@ -23,8 +23,11 @@ const App = () => {
 
   const isLoggedIn = useSelector(({ authRedux }) => authRedux.isLoggedIn);
   const isFetching = useSelector(
-    ({ authRedux, userRedux, jobRedux }) =>
-      authRedux.isFetching || userRedux.isFetching || jobRedux.isFetching,
+    ({ authRedux, userRedux, jobRedux, projectRedux }) =>
+      authRedux.isFetching ||
+      userRedux.isFetching ||
+      jobRedux.isFetching ||
+      projectRedux.isFetching,
   );
 
   useEffect(() => {

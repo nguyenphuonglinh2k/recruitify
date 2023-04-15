@@ -3,6 +3,8 @@ import { ApiConstant } from "const";
 import StringFormat from "string-format";
 import axios from "axios";
 
+export const getUsers = () => Api.get(ApiConstant.GET_USERS);
+
 export const getUserInfo = async userId => {
   return Api.get(StringFormat(ApiConstant.GET_USER_INFO, { userId }));
 };

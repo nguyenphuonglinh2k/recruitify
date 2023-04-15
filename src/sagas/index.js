@@ -8,11 +8,13 @@ import { all, takeLatest } from "redux-saga/effects";
 import { UserTypes } from "reduxStore/user.redux";
 import { JobTypes } from "reduxStore/job.redux";
 import { AuthTypes } from "reduxStore/auth.redux";
+import { ProjectTypes } from "reduxStore/project.redux";
 
 /* ------------- Sagas ------------- */
 import { getUserInfoRequest } from "./user.saga";
 import { getJobsRequest, getJobDetailRequest } from "./job.saga";
 import { postLoginRequest } from "./auth.saga";
+import { getProjectDetailRequest } from "./project.saga";
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
@@ -26,5 +28,11 @@ export default function* root() {
     // Job
     takeLatest(JobTypes.GET_JOBS_REQUEST, getJobsRequest),
     takeLatest(JobTypes.GET_JOB_DETAIL_REQUEST, getJobDetailRequest),
+
+    // Project
+    takeLatest(
+      ProjectTypes.GET_PROJECT_DETAIL_REQUEST,
+      getProjectDetailRequest,
+    ),
   ]);
 }

@@ -10,6 +10,13 @@ export const postProject = data => Api.post(ApiConstant.POST_PROJECT, data);
 export const putProject = (projectId, data) =>
   Api.put(StringFormat(ApiConstant.PUT_PROJECT, { projectId }), data);
 
+export const putProjectMembers = (projectId, data) => {
+  return Api.put(
+    StringFormat(ApiConstant.PUT_PROJECT_MEMBERS, { projectId }),
+    data,
+  );
+};
+
 export const getProjectDetail = projectId =>
   Api.get(StringFormat(ApiConstant.GET_PROJECT_DETAIL, { projectId }));
 
@@ -18,6 +25,9 @@ export const getTasksOfProject = (projectId, params) =>
     StringFormat(ApiConstant.GET_TASKS_OF_PROJECT, { projectId }),
     params,
   );
+
+export const getProjectMembers = projectId =>
+  Api.get(StringFormat(ApiConstant.GET_PROJECT_MEMBERS, { projectId }));
 
 export const deleteProject = projectId =>
   Api.delete(StringFormat(ApiConstant.DELETE_PROJECT, { projectId }));

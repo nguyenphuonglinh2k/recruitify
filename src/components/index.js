@@ -17,6 +17,7 @@ import CommonTimePickerModal from "./CommonTimePickerModal";
 import CommonModal from "./CommonModal";
 import CommonDeleteButton from "./CommonDeleteButton";
 import CommonProgressBar from "./CommonProgressBar";
+import CommonCheckbox from "./CommonCheckbox";
 
 import TitleWithStatus from "./TitleWithStatus";
 import DetailItemRow from "./DetailItemRow";
@@ -58,6 +59,7 @@ export {
   CommonTimePickerModal,
   CommonModal,
   CommonProgressBar,
+  CommonCheckbox,
   TitleWithStatus,
   DetailItemRow,
   Role,

@@ -45,9 +45,11 @@ export const DELETE_APPLICATION = "/application/{applicationId}";
 export const GET_PROJECTS = "/projects/{userId}";
 export const POST_PROJECT = "/project";
 export const PUT_PROJECT = "/project/{projectId}";
+export const PUT_PROJECT_MEMBERS = "/project/{projectId}/members";
 export const GET_PROJECT_DETAIL = "/project/{projectId}";
 export const DELETE_PROJECT = "/project/{projectId}";
 export const GET_TASKS_OF_PROJECT = "/project/{projectId}/tasks";
+export const GET_PROJECT_MEMBERS = "/project/{projectId}/members";
 
 // Task
 export const GET_TASKS = "/member/{userId}/tasks";

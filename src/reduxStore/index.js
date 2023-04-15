@@ -5,12 +5,14 @@ import rootSaga from "sagas";
 import * as JobRedux from "./job.redux";
 import * as AuthRedux from "./auth.redux";
 import * as UserRedux from "./user.redux";
+import * as ProjectRedux from "./project.redux";
 
 /* ------------- Assemble The Reducers ------------- */
 export const appReducer = combineReducers({
   jobRedux: JobRedux.reducer,
   authRedux: AuthRedux.reducer,
   userRedux: UserRedux.reducer,
+  projectRedux: ProjectRedux.reducer,
 });
 
 export const rootReducer = (state, action) => {

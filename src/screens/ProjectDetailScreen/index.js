@@ -17,24 +17,24 @@ import { useIsFocused, useNavigation, useRoute } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import TaskTab from "./TaskTab";
 import MemberTab from "./MemberTab";
-import { ProjectService } from "services";
-import { ApiConstant, AppConstant } from "const";
-import { useSelector } from "react-redux";
+import { AppConstant } from "const";
+import { useDispatch, useSelector } from "react-redux";
+import ProjectActions from "reduxStore/project.redux";
 
 const ProjectDetailScreen = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const route = useRoute();
-
   const projectId = route.params?.projectId;
 
   const [activatedTab, setActivatedTab] = useState(
     PROJECT_DETAIL_TAB_VALUES.info,
   );
-  const [project, setProject] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const authUser = useSelector(({ authRedux }) => authRedux.user);
+  const project = useSelector(({ projectRedux }) => projectRedux.project);
 
   const hasPermission = useMemo(() => {
     return [
@@ -43,31 +43,23 @@ const ProjectDetailScreen = () => {
     ].includes(authUser.role);
   }, [authUser.role]);
 
-  const handleGetProjectDetail = useCallback(async () => {
-    setIsLoading(true);
-
-    try {
-      const response = await ProjectService.getProjectDetail(projectId);
-
-      if (response.status === ApiConstant.STT_OK) {
-        setProject(response.data);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [projectId]);
+  const handleGetProjectDetail = useCallback(() => {
+    dispatch(ProjectActions.getProjectDetailRequest(projectId));
+  }, [projectId, dispatch]);
 
   const onNavigateToEditScreen = () => {
     navigation.navigate(SCREEN_NAME.projectEditingScreen, { project });
+  };
+
+  const onNavigateToEditMemberScreen = () => {
+    navigation.navigate(SCREEN_NAME.projectMemberEditingScreen, { projectId });
   };
 
   const onRenderHeaderRight = () => {
     switch (activatedTab) {
       case PROJECT_DETAIL_TAB_VALUES.member:
         return (
-          <CommonIconButton>
+          <CommonIconButton onPress={onNavigateToEditMemberScreen}>
             <PencilIcon color={COLORS.green} />
           </CommonIconButton>
         );

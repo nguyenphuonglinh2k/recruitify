@@ -73,7 +73,7 @@ const ProjectEditingScreen = () => {
   }, [handleSetDefaultFields]);
 
   return (
-    <MainLayout headerProps={{ title: "Create new project" }}>
+    <MainLayout headerProps={{ title: `Edit project "${PROJECT.name}"` }}>
       <ScrollView>
         <DetailItemRow
           label="Status"
