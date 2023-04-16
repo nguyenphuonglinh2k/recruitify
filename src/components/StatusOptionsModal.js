@@ -38,10 +38,10 @@ StatusOptionsModal.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      value: PropTypes.number,
+      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     }),
   ),
-  value: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   setValue: PropTypes.func,
   isVisible: PropTypes.bool.isRequired,
   onCloseModal: PropTypes.func.isRequired,

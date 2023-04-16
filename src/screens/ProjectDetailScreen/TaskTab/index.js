@@ -1,20 +1,81 @@
-import { StyleSheet, TextInput, View } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import { SearchIcon } from "icons";
-import { COLORS } from "utils";
 import FilterButton from "./FilterButton";
 import TaskList from "./TaskList";
 import { ProjectService } from "services";
 import { ApiConstant } from "const";
-import { EmptyData, LoadingSpinner } from "components";
+import {
+  EmptyData,
+  LoadingSpinner,
+  SearchBox,
+  StatusOptionsModal,
+} from "components";
 import { useIsFocused } from "@react-navigation/core";
+import { PROGRESS_STATUS } from "const/app.const";
+import { onGetProjectAndTaskStatusLabel } from "utils/label.utils";
+import { useSelector } from "react-redux";
 
 const TaskTab = ({ projectId }) => {
   const isFocused = useIsFocused();
 
+  const MEMBERS = useSelector(
+    ({ projectRedux }) => projectRedux.project.memberIds,
+  );
+
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
+
+  const CONVERTED_MEMBERS = useMemo(() => {
+    const members = MEMBERS.map(member => ({
+      label: member.name,
+      value: member._id,
+    }));
+
+    return [
+      {
+        label: "All member",
+        value: DEFAULT_FILTERS[FILTER_KEYS.member],
+      },
+      ...members,
+    ];
+  }, [MEMBERS]);
+
+  const isSelectedMember = useMemo(
+    () => filters.selected === FILTER_KEYS.member,
+    [filters.selected],
+  );
+
+  const handleGetUsername = useCallback(() => {
+    const user = CONVERTED_MEMBERS.find(mem => mem.value === filters.member);
+    return user.label;
+  }, [CONVERTED_MEMBERS, filters.member]);
+
+  const handleGetStatus = useCallback(() => {
+    const status = STATUS_DATA.find(item => item.value === filters.status);
+
+    return status.label;
+  }, [filters.status]);
+
+  const handleOpenModal = useCallback(
+    type => {
+      setFilters({ ...filters, selected: type });
+      setIsVisibleModal(true);
+    },
+    [filters],
+  );
+
+  const handleChangeFilter = useCallback(
+    newValue => {
+      setFilters({
+        ...filters,
+        ...(isSelectedMember ? { member: newValue } : { status: newValue }),
+      });
+    },
+    [filters, isSelectedMember],
+  );
 
   const handleGetTasks = useCallback(async () => {
     setIsLoading(true);
@@ -39,16 +100,18 @@ const TaskTab = ({ projectId }) => {
     <View style={styles.container}>
       <View style={styles.filterBox}>
         <FilterButton
-          label={"All member"}
+          label={handleGetUsername()}
           style={{ flex: 1, marginRight: 4 }}
+          onPress={() => handleOpenModal(FILTER_KEYS.member)}
         />
-        <FilterButton label={"All status"} style={{ flex: 1, marginLeft: 4 }} />
+        <FilterButton
+          label={handleGetStatus()}
+          style={{ flex: 1, marginLeft: 4 }}
+          onPress={() => handleOpenModal(FILTER_KEYS.status)}
+        />
       </View>
 
-      <View style={styles.searchBox}>
-        <SearchIcon />
-        <TextInput style={styles.input} placeholder="Search..." />
-      </View>
+      <SearchBox style={{ margin: 16, marginTop: 0 }} />
 
       {tasks.length ? (
         <TaskList
@@ -60,10 +123,48 @@ const TaskTab = ({ projectId }) => {
         <EmptyData description="No tasks found" />
       )}
 
+      <StatusOptionsModal
+        data={isSelectedMember ? CONVERTED_MEMBERS : STATUS_DATA}
+        isVisible={isVisibleModal}
+        onCloseModal={() => setIsVisibleModal(false)}
+        value={isSelectedMember ? filters.member : filters.status}
+        setValue={handleChangeFilter}
+      />
+
       <LoadingSpinner isVisible={isLoading} />
     </View>
   );
 };
+
+const FILTER_KEYS = {
+  member: "member",
+  status: "status",
+};
+
+const DEFAULT_FILTERS = {
+  [FILTER_KEYS.member]: null,
+  [FILTER_KEYS.status]: null,
+  selected: null, // FILTER_KEYS.member or FILTER_KEYS.status
+};
+
+const STATUS_DATA = [
+  {
+    value: DEFAULT_FILTERS[FILTER_KEYS.status],
+    label: "All status",
+  },
+  {
+    value: PROGRESS_STATUS.new,
+    label: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.new),
+  },
+  {
+    value: PROGRESS_STATUS.doing,
+    label: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.doing),
+  },
+  {
+    value: PROGRESS_STATUS.done,
+    label: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.done),
+  },
+];
 
 TaskTab.propTypes = {
   projectId: PropTypes.string.isRequired,
@@ -79,20 +180,5 @@ const styles = StyleSheet.create({
   filterBox: {
     flexDirection: "row",
     margin: 16,
-  },
-
-  searchBox: {
-    height: 40,
-    paddingHorizontal: 16,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: COLORS.grey[200],
-    borderRadius: 4,
-    marginHorizontal: 16,
-  },
-  input: {
-    marginLeft: 5,
-    flex: 1,
   },
 });
