@@ -51,7 +51,11 @@ const TaskTab = ({ projectId }) => {
       </View>
 
       {tasks.length ? (
-        <TaskList data={tasks} />
+        <TaskList
+          data={tasks}
+          setIsLoading={setIsLoading}
+          onRefetchData={handleGetTasks}
+        />
       ) : (
         <EmptyData description="No tasks found" />
       )}

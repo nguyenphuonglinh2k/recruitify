@@ -1,25 +1,92 @@
-import React from "react";
+import React, { memo, useCallback, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { ConfirmDeleteModal } from "components";
 import TaskItem from "./TaskItem";
+import { ProjectService } from "services";
+import { ApiConstant } from "const";
+import { useToast } from "react-native-toast-notifications";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const TaskList = props => {
+const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
+  const toast = useToast();
+
+  const PROJECT = useSelector(({ projectRedux }) => projectRedux.project);
+
+  const [isVisible, setIsVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
+
+  const handleOpenModal = useCallback(item => {
+    setSelectedItem(item);
+    setIsVisible(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
+  const handleDeleteTask = useCallback(async () => {
+    if (setIsLoading) setIsLoading(true);
+
+    try {
+      const response = await ProjectService.deleteTaskOutOfProject({
+        taskId: selectedItem._id,
+        projectId: PROJECT._id,
+      });
+
+      if (response.status === ApiConstant.STT_OK) {
+        toast.show("Delete successfully", { type: "success" });
+
+        if (onRefetchData) onRefetchData();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (setIsLoading) setIsLoading(false);
+      handleCloseModal();
+    }
+  }, [
+    PROJECT._id,
+    selectedItem._id,
+    setIsLoading,
+    toast,
+    onRefetchData,
+    handleCloseModal,
+  ]);
+
   return (
     <>
       <FlatList
-        renderItem={({ item }) => <TaskItem data={item} style={styles.item} />}
+        data={data}
+        renderItem={({ item }) => (
+          <TaskItem
+            data={item}
+            style={styles.item}
+            onPressTrash={() => handleOpenModal(item)}
+          />
+        )}
         keyExtractor={(_, index) => index}
         style={styles.root}
-        {...props}
+        {...otherProps}
       />
-      <ConfirmDeleteModal description="Do you really want to remove this task out of the project?" />
+      <ConfirmDeleteModal
+        title={selectedItem.name}
+        isVisible={isVisible}
+        onCancel={handleCloseModal}
+        onOK={handleDeleteTask}
+        description="Do you really want to remove this task out of this project?"
+      />
     </>
   );
 };
 
-export default TaskList;
+export default memo(TaskList);
 
-TaskList.propTypes = {};
+TaskList.propTypes = {
+  data: PropTypes.array,
+  setIsLoading: PropTypes.func,
+  onRefetchData: PropTypes.func,
+};
 
 const styles = StyleSheet.create({
   root: {

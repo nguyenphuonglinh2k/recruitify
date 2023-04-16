@@ -51,6 +51,7 @@ export const PUT_PROJECT_MEMBERS = "/project/{projectId}/members";
 export const PUT_PROJECT_TASKS = "/project/{projectId}/tasks";
 export const GET_PROJECT_DETAIL = "/project/{projectId}";
 export const DELETE_PROJECT = "/project/{projectId}";
+export const DELETE_TASK_OUT_OF_PROJECT = "/project/{projectId}/task/{taskId}";
 export const GET_TASKS_OF_PROJECT = "/project/{projectId}/tasks";
 export const GET_PROJECT_MEMBERS = "/project/{projectId}/members";
 

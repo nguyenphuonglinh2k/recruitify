@@ -39,3 +39,8 @@ export const getProjectMembers = projectId =>
 
 export const deleteProject = projectId =>
   Api.delete(StringFormat(ApiConstant.DELETE_PROJECT, { projectId }));
+
+export const deleteTaskOutOfProject = ({ projectId, taskId }) =>
+  Api.delete(
+    StringFormat(ApiConstant.DELETE_TASK_OUT_OF_PROJECT, { projectId, taskId }),
+  );

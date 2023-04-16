@@ -9,7 +9,7 @@ import { COLORS } from "utils";
 import { AppConstant } from "const";
 import { useSelector } from "react-redux";
 
-const TaskItem = ({ data, style }) => {
+const TaskItem = ({ data, onPressTrash, style }) => {
   const { name, assigneeId, endDate } = data;
 
   const authUser = useSelector(({ authRedux }) => authRedux.user);
@@ -52,7 +52,7 @@ const TaskItem = ({ data, style }) => {
             <PencilIcon color={COLORS.green} />
           </CommonIconButton>
         )}
-        <CommonIconButton>
+        <CommonIconButton onPress={onPressTrash}>
           <TrashIcon />
         </CommonIconButton>
       </View>
@@ -64,8 +64,8 @@ export default TaskItem;
 
 TaskItem.propTypes = {
   data: PropTypes.object,
-  isSelf: PropTypes.bool,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  onPressTrash: PropTypes.func,
 };
 
 TaskItem.defaultProps = {};
