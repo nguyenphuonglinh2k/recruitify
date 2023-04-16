@@ -58,5 +58,6 @@ export const GET_PROJECT_MEMBERS = "/project/{projectId}/members";
 // Task
 export const GET_TASKS = "/member/{userId}/tasks";
 export const GET_TASK_DETAIL = "/task/{tasksId}/{userId}";
+export const POST_TASK = "/task";
 export const PUT_TASK = "/task/{tasksId}";
 export const DELETE_TASK = "/task/{tasksId}";

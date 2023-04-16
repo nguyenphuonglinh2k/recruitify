@@ -3,13 +3,15 @@ import { FlatList, StyleSheet } from "react-native";
 import { ConfirmDeleteModal } from "components";
 import TaskItem from "./TaskItem";
 import { ProjectService } from "services";
-import { ApiConstant } from "const";
+import { ApiConstant, PathConstant } from "const";
 import { useToast } from "react-native-toast-notifications";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
 
 const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
   const toast = useToast();
+  const navigation = useNavigation();
 
   const PROJECT = useSelector(({ projectRedux }) => projectRedux.project);
 
@@ -54,6 +56,16 @@ const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
     handleCloseModal,
   ]);
 
+  const handleNavigateToDetail = useCallback(
+    item => {
+      navigation.navigate(PathConstant.TAB_NAME.task, {
+        screen: PathConstant.SCREEN_NAME.taskDetailScreen,
+        params: { task: item },
+      });
+    },
+    [navigation],
+  );
+
   return (
     <>
       <FlatList
@@ -63,6 +75,7 @@ const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
             data={item}
             style={styles.item}
             onPressTrash={() => handleOpenModal(item)}
+            onPressDetail={() => handleNavigateToDetail(item)}
           />
         )}
         keyExtractor={(_, index) => index}

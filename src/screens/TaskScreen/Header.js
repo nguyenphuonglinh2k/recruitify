@@ -1,5 +1,3 @@
-import { CommonIconButton } from "components";
-import { FilterSearchIcon, SearchIcon } from "icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { COLORS } from "utils";
@@ -9,14 +7,6 @@ const Header = ({ totalTask }) => {
   return (
     <View style={styles.header}>
       <Text style={styles.title}>Task ({totalTask ?? 0})</Text>
-      <View style={styles.icons}>
-        <CommonIconButton style={styles.notLastIcon}>
-          <SearchIcon />
-        </CommonIconButton>
-        <CommonIconButton>
-          <FilterSearchIcon />
-        </CommonIconButton>
-      </View>
     </View>
   );
 };

@@ -101,7 +101,10 @@ const TaskDetailScreen = () => {
         />
       </ScrollView>
 
-      <CommonDeleteButton onPress={handleOpenConfirmDeleteModal} />
+      <CommonDeleteButton
+        onPress={handleOpenConfirmDeleteModal}
+        style={{ margin: 10 }}
+      />
 
       <ConfirmDeleteModal
         title={task.name}

@@ -39,6 +39,7 @@ import ApplicationProcessStatus from "./ApplicationProcessStatus";
 import StatusOptionsModal from "./StatusOptionsModal";
 import EmptyData from "./EmptyData";
 import SearchBox from "./SearchBox";
+import SelectInputBlock from "./SelectInputBlock";
 
 export {
   CommonButton,
@@ -81,4 +82,5 @@ export {
   StatusOptionsModal,
   EmptyData,
   SearchBox,
+  SelectInputBlock,
 };

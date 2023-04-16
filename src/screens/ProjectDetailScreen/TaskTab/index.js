@@ -80,7 +80,12 @@ const TaskTab = ({ projectId }) => {
   const handleGetTasks = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await ProjectService.getTasksOfProject(projectId);
+      const response = await ProjectService.getTasksOfProject(projectId, {
+        params: {
+          status: filters.status,
+          memberId: filters.member,
+        },
+      });
 
       if (response.status === ApiConstant.STT_OK) {
         setTasks(response.data);
@@ -90,7 +95,7 @@ const TaskTab = ({ projectId }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [projectId]);
+  }, [filters.member, filters.status, projectId]);
 
   useEffect(() => {
     if (isFocused) handleGetTasks();

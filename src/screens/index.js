@@ -25,6 +25,7 @@ import ProjectTaskEditingScreen from "./ProjectTaskEditingScreen";
 
 import TaskScreen from "./TaskScreen";
 import TaskDetailScreen from "./TaskDetailScreen";
+import TaskCreationScreen from "./TaskCreationScreen";
 
 export {
   SignInScreen,
@@ -47,4 +48,5 @@ export {
   ProjectCreationScreen,
   ProjectMemberEditingScreen,
   ProjectTaskEditingScreen,
+  TaskCreationScreen,
 };
