@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   right: {
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "center",
   },
   name: {

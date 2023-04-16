@@ -38,6 +38,7 @@ import ProfileBottomSheetModal from "./ProfileBottomSheetModal";
 import ApplicationProcessStatus from "./ApplicationProcessStatus";
 import StatusOptionsModal from "./StatusOptionsModal";
 import EmptyData from "./EmptyData";
+import SearchBox from "./SearchBox";
 
 export {
   CommonButton,
@@ -79,4 +80,5 @@ export {
   ApplicationProcessStatus,
   StatusOptionsModal,
   EmptyData,
+  SearchBox,
 };

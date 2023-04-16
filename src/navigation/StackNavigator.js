@@ -19,6 +19,7 @@ import {
   TaskDetailScreen,
   ProjectEditingScreen,
   ProjectMemberEditingScreen,
+  ProjectTaskEditingScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -120,6 +121,10 @@ const ProjectStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.projectMemberEditingScreen}
         component={ProjectMemberEditingScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.projectTaskEditingScreen}
+        component={ProjectTaskEditingScreen}
       />
     </Stack.Navigator>
   );

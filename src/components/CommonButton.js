@@ -6,6 +6,8 @@ import { COLORS } from "utils";
 const CommonButton = ({
   color,
   label,
+  disabled,
+  onPress,
   style,
   labelStyle,
   startAdornment,
@@ -13,8 +15,9 @@ const CommonButton = ({
 }) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
-      style={[styles.wrapper(color), style]}
+      activeOpacity={disabled ? 1 : 0.7}
+      onPress={disabled ? null : onPress}
+      style={[styles.wrapper(color, disabled), style]}
       {...otherProps}
     >
       {startAdornment}
@@ -26,6 +29,7 @@ const CommonButton = ({
 CommonButton.propTypes = {
   label: PropTypes.string.isRequired,
   onPress: PropTypes.func,
+  disabled: PropTypes.bool,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   color: PropTypes.string,
@@ -37,8 +41,8 @@ CommonButton.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-  wrapper: color => ({
-    backgroundColor: color,
+  wrapper: (color, disabled) => ({
+    backgroundColor: disabled ? COLORS.grey[100] : color,
     borderRadius: 15,
     padding: 14,
     alignItems: "center",

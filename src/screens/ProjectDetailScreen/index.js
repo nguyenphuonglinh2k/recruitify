@@ -52,7 +52,11 @@ const ProjectDetailScreen = () => {
   };
 
   const onNavigateToEditMemberScreen = () => {
-    navigation.navigate(SCREEN_NAME.projectMemberEditingScreen, { projectId });
+    navigation.navigate(SCREEN_NAME.projectMemberEditingScreen);
+  };
+
+  const onNavigateToAddTaskScreen = () => {
+    navigation.navigate(SCREEN_NAME.projectTaskEditingScreen);
   };
 
   const onRenderHeaderRight = () => {
@@ -73,7 +77,7 @@ const ProjectDetailScreen = () => {
 
       case PROJECT_DETAIL_TAB_VALUES.task:
         return (
-          <CommonIconButton>
+          <CommonIconButton onPress={onNavigateToAddTaskScreen}>
             <PlusIcon color={COLORS.green} />
           </CommonIconButton>
         );

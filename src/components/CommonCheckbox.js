@@ -4,7 +4,17 @@ import { COLORS } from "utils";
 import PropTypes from "prop-types";
 
 const CommonCheckbox = props => {
-  return <BouncyCheckbox size={20} fillColor={COLORS.green} {...props} />;
+  return (
+    <BouncyCheckbox
+      size={20}
+      fillColor={COLORS.green}
+      innerIconStyle={{
+        borderRadius: 6,
+      }}
+      iconStyle={{ borderRadius: 6 }}
+      {...props}
+    />
+  );
 };
 
 export default CommonCheckbox;

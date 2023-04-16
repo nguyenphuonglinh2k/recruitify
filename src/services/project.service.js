@@ -5,6 +5,11 @@ import StringFormat from "string-format";
 export const getProjects = (userId, params) =>
   Api.get(StringFormat(ApiConstant.GET_PROJECTS, { userId }), params);
 
+export const getTasksOfMembersNotInProject = projectId =>
+  Api.get(
+    StringFormat(ApiConstant.GET_MEMBERS_TASKS_NOT_IN_PROJECT, { projectId }),
+  );
+
 export const postProject = data => Api.post(ApiConstant.POST_PROJECT, data);
 
 export const putProject = (projectId, data) =>
@@ -16,6 +21,9 @@ export const putProjectMembers = (projectId, data) => {
     data,
   );
 };
+
+export const putProjectTasks = (projectId, data) =>
+  Api.put(StringFormat(ApiConstant.PUT_PROJECT_TASKS, { projectId }), data);
 
 export const getProjectDetail = projectId =>
   Api.get(StringFormat(ApiConstant.GET_PROJECT_DETAIL, { projectId }));

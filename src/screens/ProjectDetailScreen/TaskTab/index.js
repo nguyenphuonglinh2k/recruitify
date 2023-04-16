@@ -7,9 +7,12 @@ import FilterButton from "./FilterButton";
 import TaskList from "./TaskList";
 import { ProjectService } from "services";
 import { ApiConstant } from "const";
-import { LoadingSpinner } from "components";
+import { EmptyData, LoadingSpinner } from "components";
+import { useIsFocused } from "@react-navigation/core";
 
 const TaskTab = ({ projectId }) => {
+  const isFocused = useIsFocused();
+
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,8 +32,8 @@ const TaskTab = ({ projectId }) => {
   }, [projectId]);
 
   useEffect(() => {
-    handleGetTasks();
-  }, [handleGetTasks]);
+    if (isFocused) handleGetTasks();
+  }, [handleGetTasks, isFocused]);
 
   return (
     <View style={styles.container}>
@@ -47,7 +50,11 @@ const TaskTab = ({ projectId }) => {
         <TextInput style={styles.input} placeholder="Search..." />
       </View>
 
-      <TaskList data={tasks} />
+      {tasks.length ? (
+        <TaskList data={tasks} />
+      ) : (
+        <EmptyData description="No tasks found" />
+      )}
 
       <LoadingSpinner isVisible={isLoading} />
     </View>

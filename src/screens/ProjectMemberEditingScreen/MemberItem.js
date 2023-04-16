@@ -19,10 +19,6 @@ const MemberItem = ({ isCreator, data, style, ...otherProps }) => {
         </View>
       }
       style={[styles.root, style]}
-      innerIconStyle={{
-        borderRadius: 6,
-      }}
-      iconStyle={{ borderRadius: 6 }}
       {...otherProps}
     />
   );

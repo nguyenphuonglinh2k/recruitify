@@ -34,4 +34,5 @@ export const SCREEN_NAME = {
   projectCreationScreen: "projectCreationScreen",
   projectEditingScreen: "projectEditingScreen",
   projectMemberEditingScreen: "projectMemberEditingScreen",
+  projectTaskEditingScreen: "projectTaskEditingScreen",
 };
