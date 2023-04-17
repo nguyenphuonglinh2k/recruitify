@@ -10,6 +10,7 @@ import { UserService } from "services";
 import { ApiConstant } from "const";
 import { useFocusEffect } from "@react-navigation/core";
 import LoadingSpinner from "./LoadingSpinner";
+import { Fragment } from "react";
 
 const ProfileBottomSheetModal = forwardRef(
   ({ userId, onChange, ...otherProps }, ref) => {
@@ -19,17 +20,19 @@ const ProfileBottomSheetModal = forwardRef(
     useFocusEffect(
       useCallback(() => {
         async function fetchData() {
-          setIsLoading(true);
-          try {
-            const response = await UserService.getUserInfo(userId);
+          if (userId) {
+            setIsLoading(true);
+            try {
+              const response = await UserService.getUserInfo(userId);
 
-            if (response.status === ApiConstant.STT_OK) {
-              setUserInfo(response.data);
+              if (response.status === ApiConstant.STT_OK) {
+                setUserInfo(response.data);
+              }
+            } catch (error) {
+              console.error(error);
+            } finally {
+              setIsLoading(false);
             }
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setIsLoading(false);
           }
         }
 
@@ -37,7 +40,7 @@ const ProfileBottomSheetModal = forwardRef(
       }, [userId]),
     );
 
-    return (
+    return userId ? (
       <BottomSheetModal
         enablePanDownToClose
         ref={ref}
@@ -58,6 +61,8 @@ const ProfileBottomSheetModal = forwardRef(
           <LoadingSpinner isVisible={isLoading} />
         </ScrollView>
       </BottomSheetModal>
+    ) : (
+      <Fragment />
     );
   },
 );

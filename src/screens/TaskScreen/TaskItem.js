@@ -11,10 +11,10 @@ import { SCREEN_NAME } from "const/path.const";
 const TaskItem = ({ style, data, ...otherProps }) => {
   const navigation = useNavigation();
 
-  const { name, progress, endDate, projectId } = data;
+  const { name, progress, endDate, projectId, _id: taskId } = data;
 
   const onNavigateToDetail = () => {
-    navigation.navigate(SCREEN_NAME.taskDetailScreen, { task: data });
+    navigation.navigate(SCREEN_NAME.taskDetailScreen, { taskId });
   };
 
   return (
@@ -62,6 +62,7 @@ TaskItem.propTypes = {
       PropTypes.instanceOf(Date),
       PropTypes.string,
     ]),
+    _id: PropTypes.string,
     projectId: PropTypes.object,
   }),
 };

@@ -65,17 +65,14 @@ const TaskScreen = () => {
         setActivatedTab={setActivatedTab}
       />
       <Header style={styles.header} totalTask={tasks.length} />
-      {tasks.length ? (
-        <TaskList
-          data={tasks}
-          style={{ marginHorizontal: 16 }}
-          refreshControl={
-            <RefreshControl refreshing={isLoading} onRefresh={handleGetTasks} />
-          }
-        />
-      ) : (
-        <EmptyData description="No task found!" />
-      )}
+      <TaskList
+        data={tasks}
+        style={{ marginHorizontal: 16 }}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={handleGetTasks} />
+        }
+        ListEmptyComponent={<EmptyData description="No task found!" />}
+      />
     </MainLayout>
   );
 };

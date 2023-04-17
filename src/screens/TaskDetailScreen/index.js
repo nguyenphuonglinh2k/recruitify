@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { MainLayout } from "layouts";
 import { COLORS } from "utils";
 import {
@@ -9,24 +9,32 @@ import {
   ProfileBottomSheetModal,
   CommonDeleteButton,
   ConfirmDeleteModal,
+  LoadingSpinner,
 } from "components";
 import { PencilIcon } from "icons";
 import { paddingStyle } from "components/DetailItemRow";
 import moment from "moment";
 import { ApiConstant, AppConstant } from "const";
-import { useNavigation, useRoute } from "@react-navigation/core";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
 import { ScrollView, View } from "react-native";
 import { TaskService } from "services";
+import { SCREEN_NAME } from "const/path.const";
+import { useSelector } from "react-redux";
 
 const TaskDetailScreen = () => {
   const toast = useToast();
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const router = useRoute();
-  const task = router.params?.task ?? {};
+  const TASK_ID = router.params?.taskId;
   const profileBottomSheetRef = useRef();
 
+  const AUTH_USER = useSelector(({ authRedux }) => authRedux.user);
+
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [task, setTask] = useState({});
 
   const handleOpenBottomSheet = () => {
     profileBottomSheetRef.current?.present();
@@ -40,9 +48,10 @@ const TaskDetailScreen = () => {
     setIsVisible(false);
   };
 
-  const handleDeleteTask = async () => {
+  const handleDeleteTask = useCallback(async () => {
+    setIsLoading(true);
     try {
-      const response = await TaskService.deleteTask(task._id);
+      const response = await TaskService.deleteTask(TASK_ID);
 
       if (response.status === ApiConstant.STT_OK) {
         navigation.goBack();
@@ -50,8 +59,36 @@ const TaskDetailScreen = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, [TASK_ID, navigation, toast]);
+
+  const handleNavigateToDetail = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.taskEditingScreen, { task });
+  }, [navigation, task]);
+
+  const handleGetTaskDetail = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await TaskService.getTaskDetail(AUTH_USER._id, TASK_ID);
+
+      if (response.status === ApiConstant.STT_OK) {
+        setTask(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [TASK_ID, AUTH_USER]);
+  console.log(task.assigneeId);
+
+  useEffect(() => {
+    if (isFocused) {
+      handleGetTaskDetail();
+    }
+  }, [handleGetTaskDetail, isFocused]);
 
   return (
     <MainLayout
@@ -59,7 +96,7 @@ const TaskDetailScreen = () => {
       headerProps={{
         title: task.name,
         headerRight: (
-          <CommonIconButton>
+          <CommonIconButton onPress={handleNavigateToDetail}>
             <PencilIcon color={COLORS.green} />
           </CommonIconButton>
         ),
@@ -93,7 +130,7 @@ const TaskDetailScreen = () => {
           label="Assignee"
           content={
             <ChipAvatarList
-              data={[task.assigneeId]}
+              data={task?.assigneeId ? [task?.assigneeId] : []}
               style={paddingStyle}
               onPress={handleOpenBottomSheet}
             />
@@ -115,8 +152,10 @@ const TaskDetailScreen = () => {
 
       <ProfileBottomSheetModal
         ref={profileBottomSheetRef}
-        userId={task.assigneeId._id}
+        userId={task.assigneeId?._id}
       />
+
+      <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };
