@@ -20,6 +20,7 @@ import MemberTab from "./MemberTab";
 import { AppConstant } from "const";
 import { useDispatch, useSelector } from "react-redux";
 import ProjectActions from "reduxStore/project.redux";
+import { createContext } from "react";
 
 const ProjectDetailScreen = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const ProjectDetailScreen = () => {
   };
 
   const onNavigateToAddTaskScreen = () => {
-    navigation.navigate(SCREEN_NAME.projectTaskEditingScreen);
+    navigation.navigate(SCREEN_NAME.projectTaskCreationScreen);
   };
 
   const onRenderHeaderRight = () => {
@@ -93,30 +94,34 @@ const ProjectDetailScreen = () => {
   }, [handleGetProjectDetail, isFocused]);
 
   return (
-    <MainLayout
-      isBackScreen
-      headerProps={{
-        title: project.name,
-        headerRight: hasPermission ? onRenderHeaderRight() : null,
-      }}
-    >
-      <ProjectDetailTabBar
-        activatedTab={activatedTab}
-        setActivatedTab={setActivatedTab}
-      />
-      {activatedTab === PROJECT_DETAIL_TAB_VALUES.info && (
-        <InfoTab data={project} />
-      )}
-      {activatedTab === PROJECT_DETAIL_TAB_VALUES.task && (
-        <TaskTab projectId={project._id} setIsLoading={setIsLoading} />
-      )}
-      {activatedTab === PROJECT_DETAIL_TAB_VALUES.member && (
-        <MemberTab data={project.memberIds} />
-      )}
+    <ProjectTaskContext.Provider value={{ hasPermission }}>
+      <MainLayout
+        isBackScreen
+        headerProps={{
+          title: project.name,
+          headerRight: hasPermission ? onRenderHeaderRight() : null,
+        }}
+      >
+        <ProjectDetailTabBar
+          activatedTab={activatedTab}
+          setActivatedTab={setActivatedTab}
+        />
+        {activatedTab === PROJECT_DETAIL_TAB_VALUES.info && (
+          <InfoTab data={project} />
+        )}
+        {activatedTab === PROJECT_DETAIL_TAB_VALUES.task && (
+          <TaskTab projectId={project._id} setIsLoading={setIsLoading} />
+        )}
+        {activatedTab === PROJECT_DETAIL_TAB_VALUES.member && (
+          <MemberTab data={project.memberIds} />
+        )}
 
-      <LoadingSpinner isVisible={isLoading} />
-    </MainLayout>
+        <LoadingSpinner isVisible={isLoading} />
+      </MainLayout>
+    </ProjectTaskContext.Provider>
   );
 };
+
+export const ProjectTaskContext = createContext();
 
 export default ProjectDetailScreen;

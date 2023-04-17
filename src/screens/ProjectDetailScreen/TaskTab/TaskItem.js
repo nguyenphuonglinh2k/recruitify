@@ -9,13 +9,13 @@ import { COLORS } from "utils";
 import { AppConstant } from "const";
 import { useSelector } from "react-redux";
 
-const TaskItem = ({ data, onPressTrash, onPressDetail, style }) => {
+const TaskItem = ({ data, onPressTrash, onPressDetail, style, hasDelete }) => {
   const { name, assigneeId, endDate } = data;
 
   const authUser = useSelector(({ authRedux }) => authRedux.user);
 
   const isPassedDeadline = useMemo(() => {
-    return moment(endDate).isBefore(moment());
+    return moment(endDate).isBefore(moment(), "day");
   }, [endDate]);
 
   const isSelf = useMemo(() => {
@@ -52,9 +52,11 @@ const TaskItem = ({ data, onPressTrash, onPressDetail, style }) => {
             <PencilIcon color={COLORS.green} />
           </CommonIconButton>
         )}
-        <CommonIconButton onPress={onPressTrash}>
-          <TrashIcon />
-        </CommonIconButton>
+        {hasDelete && (
+          <CommonIconButton onPress={onPressTrash}>
+            <TrashIcon />
+          </CommonIconButton>
+        )}
       </View>
     </View>
   );
@@ -67,6 +69,7 @@ TaskItem.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onPressTrash: PropTypes.func,
   onPressDetail: PropTypes.func,
+  hasDelete: PropTypes.bool,
 };
 
 TaskItem.defaultProps = {};

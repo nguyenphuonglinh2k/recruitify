@@ -20,6 +20,7 @@ import {
   ProjectEditingScreen,
   ProjectMemberEditingScreen,
   ProjectTaskEditingScreen,
+  ProjectTaskCreationScreen,
   TaskCreationScreen,
   TaskEditingScreen,
 } from "screens";
@@ -127,6 +128,10 @@ const ProjectStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.projectTaskEditingScreen}
         component={ProjectTaskEditingScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.projectTaskCreationScreen}
+        component={ProjectTaskCreationScreen}
       />
     </Stack.Navigator>
   );

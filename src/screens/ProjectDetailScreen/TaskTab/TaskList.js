@@ -8,10 +8,14 @@ import { useToast } from "react-native-toast-notifications";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
+import { useContext } from "react";
+import { ProjectTaskContext } from "..";
 
 const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
   const toast = useToast();
   const navigation = useNavigation();
+
+  const { hasPermission } = useContext(ProjectTaskContext);
 
   const PROJECT = useSelector(({ projectRedux }) => projectRedux.project);
 
@@ -60,7 +64,7 @@ const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
     item => {
       navigation.navigate(PathConstant.TAB_NAME.task, {
         screen: PathConstant.SCREEN_NAME.taskDetailScreen,
-        params: { task: item },
+        params: { taskId: item._id },
       });
     },
     [navigation],
@@ -76,6 +80,7 @@ const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
             style={styles.item}
             onPressTrash={() => handleOpenModal(item)}
             onPressDetail={() => handleNavigateToDetail(item)}
+            hasDelete={hasPermission}
           />
         )}
         keyExtractor={(_, index) => index}
@@ -99,6 +104,7 @@ TaskList.propTypes = {
   data: PropTypes.array,
   setIsLoading: PropTypes.func,
   onRefetchData: PropTypes.func,
+  hasPermission: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
