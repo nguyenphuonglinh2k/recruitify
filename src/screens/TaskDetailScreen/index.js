@@ -82,7 +82,6 @@ const TaskDetailScreen = () => {
       setIsLoading(false);
     }
   }, [TASK_ID, AUTH_USER]);
-  console.log(task.assigneeId);
 
   useEffect(() => {
     if (isFocused) {
@@ -113,7 +112,10 @@ const TaskDetailScreen = () => {
         />
         <DetailItemRow label="Project" content={task.projectId?.name} />
         <DetailItemRow label="Description" content={task.description} />
-        <DetailItemRow label="Progress" content={`${task.progress * 10}%`} />
+        <DetailItemRow
+          label="Progress"
+          content={`${task.progress ?? 0 * 10}%`}
+        />
         <DetailItemRow
           label="Starting date"
           content={moment(task.startDate).format(

@@ -14,7 +14,7 @@ const SelectInputBlock = ({ value, label, onPress, ...otherProps }) => {
           style={[paddingStyle, styles.content]}
           onPress={onPress}
         >
-          <Text style={contentStyle}>{value}</Text>
+          <Text style={contentStyle}>{value ?? ""}</Text>
           <CaretIcon />
         </TouchableOpacity>
       }

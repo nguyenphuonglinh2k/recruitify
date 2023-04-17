@@ -59,7 +59,7 @@ const TaskEditingScreen = () => {
   const selectedProjectName = useMemo(() => {
     if (fields.projectId) {
       const project = projectData.find(prj => prj.value === fields.projectId);
-      return project.label;
+      return project?.label;
     } else {
       return "";
     }
@@ -156,7 +156,7 @@ const TaskEditingScreen = () => {
   return (
     <MainLayout
       isBackScreen
-      headerProps={{ title: `Editing task ${TASK.name}` }}
+      headerProps={{ title: `Edit task "${TASK.name}"` }}
     >
       <ScrollView>
         <DetailItemRow
