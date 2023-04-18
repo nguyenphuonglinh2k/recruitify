@@ -37,7 +37,7 @@ export const DELETE_JOB = "/job/{jobId}";
 // Application
 export const GET_APPLICATIONS = "/applications";
 export const GET_APPLICATION_DETAIL = "/application/{applicationId}";
-export const POST_APPLICATION = "/application/{applicationId}";
+export const POST_APPLICATION = "/application";
 export const PUT_APPLICATION = "/application/{applicationId}";
 export const DELETE_APPLICATION = "/application/{applicationId}";
 
@@ -61,3 +61,6 @@ export const GET_TASK_DETAIL = "/task/{taskId}/{userId}";
 export const POST_TASK = "/task";
 export const PUT_TASK = "/task/{taskId}";
 export const DELETE_TASK = "/task/{taskId}";
+
+// Tag
+export const GET_TAGS = "/tags";

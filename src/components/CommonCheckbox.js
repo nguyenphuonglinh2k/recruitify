@@ -22,4 +22,5 @@ export default CommonCheckbox;
 CommonCheckbox.propTypes = {
   isChecked: PropTypes.bool,
   onPress: PropTypes.func,
+  textComponent: PropTypes.element,
 };

@@ -4,17 +4,22 @@ import PropTypes from "prop-types";
 import { ImageSource } from "assets";
 import { COLORS } from "utils";
 
-const EmptyData = ({ description, ...otherProps }) => {
+const EmptyData = ({ description, imageStyle, textStyle, ...otherProps }) => {
   return (
     <View {...otherProps}>
-      <Image source={ImageSource.NotFoundImage} style={styles.image} />
-      <Text style={styles.title}>{description}</Text>
+      <Image
+        source={ImageSource.NotFoundImage}
+        style={[styles.image, imageStyle]}
+      />
+      <Text style={[styles.title, textStyle]}>{description}</Text>
     </View>
   );
 };
 
 EmptyData.propTypes = {
   description: PropTypes.string,
+  imageStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  textStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 EmptyData.defaultProps = {

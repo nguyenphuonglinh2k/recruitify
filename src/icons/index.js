@@ -21,6 +21,7 @@ import TrashIcon from "./TrashIcon";
 import CaretIcon from "./CaretIcon";
 import TaskIcon from "./TaskIcon";
 import ProjectIcon from "./ProjectIcon";
+import CircleXMarkIcon from "./CircleXMarkIcon";
 
 export {
   HomeIcon,
@@ -46,4 +47,5 @@ export {
   CaretIcon,
   TaskIcon,
   ProjectIcon,
+  CircleXMarkIcon,
 };

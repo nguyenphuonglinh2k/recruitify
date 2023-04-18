@@ -3,41 +3,46 @@ import React, { createContext, useCallback, useEffect, useState } from "react";
 import CandidateDetailTabBar, {
   CANDIDATE_DETAIL_TAB_VALUES,
 } from "./CandidateDetailTabBar";
-import { TitleWithStatus } from "components";
+import { CommonIconButton, TitleWithStatus } from "components";
 import InformationTab from "./InformationTab";
 import AttachmentTab from "./AttachmentTab";
 import PositionTab from "./PositionTab";
 import ProcessTab from "./ProcessTab";
-import { useRoute } from "@react-navigation/core";
-import { ApplicationService } from "services";
-import { ApiConstant } from "const";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/core";
+import { useDispatch, useSelector } from "react-redux";
+import ApplicationActions from "reduxStore/application.redux";
+import { PencilIcon } from "icons";
+import { COLORS } from "utils";
+import { SCREEN_NAME } from "const/path.const";
 
 const CandidateDetailScreen = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const route = useRoute();
   const applicationId = route.params?.applicationId;
+
+  const application = useSelector(
+    ({ applicationRedux }) => applicationRedux.application,
+  );
 
   const [activatedTab, setActivatedTab] = useState(
     CANDIDATE_DETAIL_TAB_VALUES.information,
   );
-  const [application, setApplication] = useState({});
 
   const handleGetApplicationDetail = useCallback(async () => {
-    try {
-      const response = await ApplicationService.getApplicationDetail(
-        applicationId,
-      );
+    dispatch(ApplicationActions.getApplicationDetailRequest(applicationId));
+  }, [applicationId, dispatch]);
 
-      if (response.status === ApiConstant.STT_OK) {
-        setApplication(response.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [applicationId]);
+  const handleNavigateToDetail = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.candidateEditingInfoScreen);
+  }, [navigation]);
 
   useEffect(() => {
-    handleGetApplicationDetail();
-  }, [handleGetApplicationDetail]);
+    if (isFocused) {
+      handleGetApplicationDetail();
+    }
+  }, [handleGetApplicationDetail, isFocused]);
 
   return (
     <CandidateDetailContext.Provider value={{ application }}>
@@ -49,6 +54,11 @@ const CandidateDetailScreen = () => {
               title={MOCK_CANDIDATE_INFO.title}
               status={MOCK_CANDIDATE_INFO.status}
             />
+          ),
+          headerRight: (
+            <CommonIconButton onPress={handleNavigateToDetail}>
+              <PencilIcon color={COLORS.green} />
+            </CommonIconButton>
           ),
         }}
       >

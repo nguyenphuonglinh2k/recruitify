@@ -3,17 +3,22 @@ import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { COLORS } from "utils";
 import { CommonChip } from "components";
+import { useSelector } from "react-redux";
 
 const Skills = ({ style }) => {
+  const application = useSelector(
+    ({ applicationRedux }) => applicationRedux.application,
+  );
+
   return (
     <View style={[style]}>
       <Text style={styles.label}>Skills</Text>
 
       <View style={styles.tags}>
-        {MOCK_TAGS.map((label, index) => (
+        {(application.skillIds ?? []).map((item, index) => (
           <CommonChip
             key={index}
-            label={label}
+            label={item.name}
             style={index !== 0 ? styles.notFirstTag : {}}
           />
         ))}
@@ -21,8 +26,6 @@ const Skills = ({ style }) => {
     </View>
   );
 };
-
-const MOCK_TAGS = ["React", "HTML", "CSS"];
 
 Skills.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

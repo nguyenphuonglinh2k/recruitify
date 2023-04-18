@@ -6,6 +6,7 @@ import * as JobRedux from "./job.redux";
 import * as AuthRedux from "./auth.redux";
 import * as UserRedux from "./user.redux";
 import * as ProjectRedux from "./project.redux";
+import * as ApplicationRedux from "./application.redux";
 
 /* ------------- Assemble The Reducers ------------- */
 export const appReducer = combineReducers({
@@ -13,6 +14,7 @@ export const appReducer = combineReducers({
   authRedux: AuthRedux.reducer,
   userRedux: UserRedux.reducer,
   projectRedux: ProjectRedux.reducer,
+  applicationRedux: ApplicationRedux.reducer,
 });
 
 export const rootReducer = (state, action) => {

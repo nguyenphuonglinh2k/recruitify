@@ -3,11 +3,11 @@ import { FlatList, RefreshControl, StyleSheet } from "react-native";
 import Header from "./Header";
 import { MainLayout } from "layouts";
 import CandidateItem from "./CandidateItem";
-import { CommonIconButton } from "components";
+import { CommonIconButton, EmptyData } from "components";
 import { useState } from "react";
 import { APPLICATION_STATUS } from "const/app.const";
 import CandidateTabBar from "./CandidateTabBar";
-import { PencilIcon } from "icons";
+import { PlusIcon } from "icons";
 import { COLORS } from "utils";
 import { ApplicationService } from "services";
 import { ApiConstant } from "const";
@@ -24,7 +24,7 @@ const CandidatesScreen = () => {
     setIsLoading(true);
     try {
       const response = await ApplicationService.getApplications({
-        status: activatedTab,
+        params: { status: activatedTab },
       });
 
       if (response.status === ApiConstant.STT_OK) {
@@ -46,7 +46,7 @@ const CandidatesScreen = () => {
       headerProps={{
         headerRight: (
           <CommonIconButton>
-            <PencilIcon color={COLORS.black} />
+            <PlusIcon color={COLORS.green} />
           </CommonIconButton>
         ),
       }}
@@ -70,6 +70,7 @@ const CandidatesScreen = () => {
             onRefresh={handleGetApplications}
           />
         }
+        ListEmptyComponent={<EmptyData description="No application found!" />}
       />
     </MainLayout>
   );

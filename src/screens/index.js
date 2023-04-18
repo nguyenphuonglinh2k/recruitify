@@ -7,6 +7,7 @@ import JobDetailScreen from "./JobDetailScreen";
 
 import CandidatesScreen from "./CandidatesScreen";
 import CandidateDetailScreen from "./CandidateDetailScreen";
+import CandidateEditingInfoScreen from "./CandidateEditingInfoScreen";
 
 import ScheduleScreen from "./ScheduleScreen";
 import ScheduleListScreen from "./ScheduleListScreen";
@@ -35,6 +36,7 @@ export {
   JobDetailScreen,
   CandidatesScreen,
   CandidateDetailScreen,
+  CandidateEditingInfoScreen,
   OverviewScreen,
   ScheduleScreen,
   ScheduleListScreen,
