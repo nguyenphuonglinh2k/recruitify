@@ -19,6 +19,7 @@ import CommonDeleteButton from "./CommonDeleteButton";
 import CommonProgressBar from "./CommonProgressBar";
 import CommonCheckbox from "./CommonCheckbox";
 import CommonDeleteChip from "./CommonDeleteChip";
+import CommonUploadAvatar from "./CommonUploadAvatar";
 
 import TitleWithStatus from "./TitleWithStatus";
 import DetailItemRow from "./DetailItemRow";
@@ -64,6 +65,7 @@ export {
   CommonDeleteButton,
   CommonTimePickerModal,
   CommonModal,
+  CommonUploadAvatar,
   CommonProgressBar,
   CommonCheckbox,
   TitleWithStatus,

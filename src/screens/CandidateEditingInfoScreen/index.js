@@ -8,11 +8,14 @@ import {
   LoadingSpinner,
   TextInputBlock,
   TagOptionsModal,
+  CommonUploadAvatar,
+  DetailItemRow,
 } from "components";
 import { ApplicationService, TagService } from "services";
 import { ApiConstant } from "const";
 import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
+import { paddingStyle } from "components/DetailItemRow";
 
 const CandidateEditingInfoScreen = () => {
   const navigation = useNavigation();
@@ -132,6 +135,19 @@ const CandidateEditingInfoScreen = () => {
       headerProps={{ title: `Edit ${application.applicantInfo?.name}'s info` }}
     >
       <ScrollView>
+        <DetailItemRow
+          label="Avatar"
+          content={
+            <CommonUploadAvatar
+              value={fields.avatarUrl}
+              setValue={newValue =>
+                handleChangeText(FIELD_NAMES.avatarUrl, newValue)
+              }
+              style={paddingStyle}
+            />
+          }
+        />
+
         <TextInputBlock
           label="Name"
           value={fields.name}

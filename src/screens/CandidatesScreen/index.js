@@ -11,8 +11,11 @@ import { PlusIcon } from "icons";
 import { COLORS } from "utils";
 import { ApplicationService } from "services";
 import { ApiConstant } from "const";
+import { useIsFocused } from "@react-navigation/core";
 
 const CandidatesScreen = () => {
+  const isFocused = useIsFocused();
+
   const [activatedTab, setActivatedTab] = useState(
     APPLICATION_STATUS.screening,
   );
@@ -38,8 +41,10 @@ const CandidatesScreen = () => {
   }, [activatedTab]);
 
   useEffect(() => {
-    handleGetApplications();
-  }, [handleGetApplications]);
+    if (isFocused) {
+      handleGetApplications();
+    }
+  }, [handleGetApplications, isFocused]);
 
   return (
     <MainLayout

@@ -5,6 +5,7 @@ import * as ProjectService from "./project.service";
 import * as TaskService from "./task.service";
 import * as ApplicationService from "./application.service";
 import * as TagService from "./tag.service";
+import * as UploadService from "./upload.service";
 
 export {
   JobService,
@@ -14,4 +15,5 @@ export {
   TaskService,
   ApplicationService,
   TagService,
+  UploadService,
 };
