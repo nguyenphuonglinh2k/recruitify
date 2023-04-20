@@ -38,6 +38,24 @@ const CandidateDetailScreen = () => {
     navigation.navigate(SCREEN_NAME.candidateEditingInfoScreen);
   }, [navigation]);
 
+  const onRenderHeaderRight = () => {
+    switch (activatedTab) {
+      case CANDIDATE_DETAIL_TAB_VALUES.process:
+        return (
+          <CommonIconButton>
+            <PencilIcon color={COLORS.green} />
+          </CommonIconButton>
+        );
+
+      default:
+        return (
+          <CommonIconButton onPress={handleNavigateToDetail}>
+            <PencilIcon color={COLORS.green} />
+          </CommonIconButton>
+        );
+    }
+  };
+
   useEffect(() => {
     if (isFocused) {
       handleGetApplicationDetail();
@@ -51,15 +69,11 @@ const CandidateDetailScreen = () => {
         headerProps={{
           title: (
             <TitleWithStatus
-              title={MOCK_CANDIDATE_INFO.title}
-              status={MOCK_CANDIDATE_INFO.status}
+              title={application.applicantInfo?.name}
+              status={1} // TODO
             />
           ),
-          headerRight: (
-            <CommonIconButton onPress={handleNavigateToDetail}>
-              <PencilIcon color={COLORS.green} />
-            </CommonIconButton>
-          ),
+          headerRight: onRenderHeaderRight(),
         }}
       >
         <CandidateDetailTabBar
@@ -84,8 +98,3 @@ const CandidateDetailScreen = () => {
 export default CandidateDetailScreen;
 
 export const CandidateDetailContext = createContext();
-
-export const MOCK_CANDIDATE_INFO = {
-  title: "Paul Harris",
-  status: 1,
-};

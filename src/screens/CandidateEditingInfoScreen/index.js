@@ -1,7 +1,7 @@
 import { ScrollView } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MainLayout } from "layouts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CommonButton,
   EditTagBlock,
@@ -10,26 +10,50 @@ import {
   TagOptionsModal,
   CommonUploadAvatar,
   DetailItemRow,
+  StatusOptionsModal,
+  SelectInputBlock,
 } from "components";
 import { ApplicationService, TagService } from "services";
 import { ApiConstant } from "const";
 import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
 import { paddingStyle } from "components/DetailItemRow";
+import AttachmentBlock from "./AttachmentBlock";
+import JobActions from "reduxStore/job.redux";
 
 const CandidateEditingInfoScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
+  const dispatch = useDispatch();
 
   const application = useSelector(
     ({ applicationRedux }) => applicationRedux.application,
   );
+  const JOBS = useSelector(({ jobRedux }) => jobRedux.jobs);
 
   const [fields, setFields] = useState(DEFAULT_FIELDS);
   const [tags, setTags] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [isVisibleJobModal, setIsVisibleJobModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
+
+  const jobData = useMemo(() => {
+    return JOBS.map(job => ({
+      label: job.name,
+      value: job._id,
+    }));
+  }, [JOBS]);
+
+  const selectedJobName = useMemo(() => {
+    if (fields.jobId) {
+      const selectedJob = jobData.find(job => job.value === fields.jobId);
+
+      return selectedJob?.label;
+    } else {
+      return "";
+    }
+  }, [fields.jobId, jobData]);
 
   const tagDataModal = useMemo(() => {
     const fieldSkillIds = (fields.skills ?? []).map(tag => tag._id);
@@ -93,6 +117,8 @@ const CandidateEditingInfoScreen = () => {
         avatarUrl: fields.avatarUrl,
       },
       skillIds,
+      jobId: fields.jobId,
+      attachments: fields.attachments,
     };
 
     try {
@@ -121,9 +147,19 @@ const CandidateEditingInfoScreen = () => {
         avatarUrl: application.applicantInfo?.avatarUrl,
         address: application.applicantInfo?.address,
         skills: application.skillIds,
+        attachments: application.attachments,
+        jobId: application.jobId._id,
       });
     }
   }, [application]);
+
+  const handleGetJobs = useCallback(() => {
+    dispatch(JobActions.getJobsRequest());
+  }, [dispatch]);
+
+  useEffect(() => {
+    handleGetJobs();
+  }, [handleGetJobs]);
 
   useEffect(() => {
     handleGetTags();
@@ -171,6 +207,18 @@ const CandidateEditingInfoScreen = () => {
           onAdd={() => setIsVisibleModal(true)}
           onDelete={handleDeleteSkill}
         />
+        <AttachmentBlock
+          data={fields.attachments}
+          setIsLoading={setIsLoading}
+          setData={newData =>
+            handleChangeText(FIELD_NAMES.attachments, newData)
+          }
+        />
+        <SelectInputBlock
+          label="Position"
+          value={selectedJobName}
+          onPress={() => setIsVisibleJobModal(true)}
+        />
       </ScrollView>
 
       <CommonButton
@@ -188,6 +236,13 @@ const CandidateEditingInfoScreen = () => {
         onCloseModal={() => setIsVisibleModal(false)}
         onAdd={handleAddSelectedTags}
       />
+      <StatusOptionsModal
+        value={fields.status}
+        setValue={newData => handleChangeText(FIELD_NAMES.jobId, newData)}
+        isVisible={isVisibleJobModal}
+        data={jobData}
+        onCloseModal={() => setIsVisibleJobModal(false)}
+      />
     </MainLayout>
   );
 };
@@ -199,6 +254,8 @@ const FIELD_NAMES = {
   skills: "skills",
   avatarUrl: "avatarUrl",
   address: "address",
+  attachments: "attachments",
+  jobId: "jobId",
 };
 
 const DEFAULT_FIELDS = {
@@ -208,6 +265,8 @@ const DEFAULT_FIELDS = {
   [FIELD_NAMES.phoneNumber]: "",
   [FIELD_NAMES.address]: "",
   [FIELD_NAMES.skills]: [],
+  [FIELD_NAMES.attachments]: [],
+  [FIELD_NAMES.jobId]: "",
 };
 
 export default CandidateEditingInfoScreen;

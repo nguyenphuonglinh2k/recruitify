@@ -1,27 +1,29 @@
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { Linking, ScrollView, StyleSheet, Text } from "react-native";
 import React from "react";
 import { COLORS } from "utils";
 import AttachmentItem from "./AttachmentItem";
+import { useSelector } from "react-redux";
 
 const AttachmentTab = () => {
+  const application = useSelector(
+    ({ applicationRedux }) => applicationRedux.application,
+  );
+
   return (
     <ScrollView style={styles.root}>
       <Text style={styles.label}>Resume</Text>
-      {MOCK_ATTACHMENTS.map(({ name }, index) => (
-        <AttachmentItem key={index} content={name} />
-      ))}
-
-      <Text style={styles.label}>Others</Text>
-      {MOCK_OTHER_ATTACHMENTS.map(({ name }, index) => (
-        <AttachmentItem key={index} content={name} />
+      {application.attachments.map((item, index) => (
+        <AttachmentItem
+          key={index}
+          data={item}
+          onPress={() => {
+            Linking.openURL(item.url);
+          }}
+        />
       ))}
     </ScrollView>
   );
 };
-
-const MOCK_ATTACHMENTS = [{ name: "Paul_Harris_CV.pdf" }];
-
-const MOCK_OTHER_ATTACHMENTS = [{ name: "AWS Certification.pdf" }];
 
 export default AttachmentTab;
 

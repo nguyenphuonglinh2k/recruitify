@@ -21,8 +21,8 @@ const TitleWithStatus = ({
 };
 
 TitleWithStatus.propTypes = {
-  status: PropTypes.oneOf(Object.values(JOB_AND_APPLICATION_STATUS)).isRequired,
-  title: PropTypes.string.isRequired,
+  status: PropTypes.oneOf(Object.values(JOB_AND_APPLICATION_STATUS)),
+  title: PropTypes.string,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   titleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };

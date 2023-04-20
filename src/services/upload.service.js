@@ -38,21 +38,9 @@ export const getUploadPdfFormData = async () => {
     name: response[0].name,
   };
 
-  const bodyFormData = new FormData(pdf);
+  const bodyFormData = getBodyFormData(pdf);
 
   return bodyFormData;
-};
-
-export const postCloudinaryUploadPhoto = async data => {
-  const response = await Api.post(
-    "https://api.cloudinary.com/v1_1/coders-tokyo/auto/upload",
-    data,
-    {
-      headers: ApiConstant.HEADER_FORM_DATA_DEFAULT,
-    },
-  );
-
-  return response;
 };
 
 export const postCloudinaryUpload = async data => {

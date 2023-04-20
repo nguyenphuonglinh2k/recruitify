@@ -73,7 +73,7 @@ PositionItem.propTypes = {
     applicationTotal: PropTypes.number,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
-    _id: PropTypes.number,
+    _id: PropTypes.string,
   }),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };

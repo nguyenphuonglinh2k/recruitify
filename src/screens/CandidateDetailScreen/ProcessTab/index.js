@@ -1,11 +1,6 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import React, { useContext } from "react";
-import {
-  ApplicationProcessStatus,
-  CommonFloatButton,
-  DetailItemRow,
-} from "components";
-import { PencilIcon } from "icons";
+import { ApplicationProcessStatus, DetailItemRow } from "components";
 import { COLORS } from "utils";
 import { paddingStyle } from "components/DetailItemRow";
 import { CandidateDetailContext } from "..";
@@ -35,8 +30,6 @@ const ProcessTab = () => {
           content={""} //<CommonRating value={4} style={styles.rating} />
         />
       </ScrollView>
-
-      <CommonFloatButton icon={<PencilIcon color={COLORS.white} />} />
     </>
   );
 };
