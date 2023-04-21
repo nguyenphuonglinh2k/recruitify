@@ -8,6 +8,7 @@ import { getUploadPhotoFormData } from "services/upload.service";
 import { UploadService } from "services";
 import { ApiConstant } from "const";
 import DocumentPicker from "react-native-document-picker";
+import { ImageSource } from "assets";
 
 const CommonUploadAvatar = ({
   value,
@@ -52,7 +53,7 @@ const CommonUploadAvatar = ({
       <TouchableOpacity activeOpacity={0.7} style={style} onPress={onPickImage}>
         <CommonAvatar
           style={[styles.avatar, avatarStyle]}
-          source={{ uri: value }}
+          source={value ? { uri: value } : ImageSource.DefaultAvatarImage}
           {...otherProps}
         />
       </TouchableOpacity>

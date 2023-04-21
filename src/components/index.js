@@ -44,6 +44,7 @@ import EmptyData from "./EmptyData";
 import SearchBox from "./SearchBox";
 import SelectInputBlock from "./SelectInputBlock";
 import TagOptionsModal from "./TagOptionsModal";
+import AttachmentUploadBlock from "./AttachmentUploadBlock";
 
 export {
   CommonButton,
@@ -91,4 +92,5 @@ export {
   SearchBox,
   SelectInputBlock,
   TagOptionsModal,
+  AttachmentUploadBlock,
 };

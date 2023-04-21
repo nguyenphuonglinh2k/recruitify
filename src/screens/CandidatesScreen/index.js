@@ -11,9 +11,11 @@ import { PlusIcon } from "icons";
 import { COLORS } from "utils";
 import { ApplicationService } from "services";
 import { ApiConstant } from "const";
-import { useIsFocused } from "@react-navigation/core";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
 const CandidatesScreen = () => {
+  const navigation = useNavigation();
   const isFocused = useIsFocused();
 
   const [activatedTab, setActivatedTab] = useState(
@@ -40,6 +42,10 @@ const CandidatesScreen = () => {
     }
   }, [activatedTab]);
 
+  const handleNavigateToCreationScreen = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.candidateCreationScreen);
+  }, [navigation]);
+
   useEffect(() => {
     if (isFocused) {
       handleGetApplications();
@@ -50,7 +56,7 @@ const CandidatesScreen = () => {
     <MainLayout
       headerProps={{
         headerRight: (
-          <CommonIconButton>
+          <CommonIconButton onPress={handleNavigateToCreationScreen}>
             <PlusIcon color={COLORS.green} />
           </CommonIconButton>
         ),

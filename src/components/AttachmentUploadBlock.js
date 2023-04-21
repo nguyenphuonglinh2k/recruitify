@@ -1,6 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { DetailItemRow } from "components";
 import { COLORS } from "utils";
 import PropTypes from "prop-types";
 import { ApiConstant } from "const";
@@ -8,8 +7,14 @@ import { UploadService } from "services";
 import { getUploadPdfFormData } from "services/upload.service";
 import { useToast } from "react-native-toast-notifications";
 import DocumentPicker from "react-native-document-picker";
+import DetailItemRow from "./DetailItemRow";
 
-const AttachmentBlock = ({ data, setData, setIsLoading, ...otherProps }) => {
+const AttachmentUploadBlock = ({
+  data,
+  setData,
+  setIsLoading,
+  ...otherProps
+}) => {
   const toast = useToast();
 
   const handleUploadPdf = async () => {
@@ -45,34 +50,26 @@ const AttachmentBlock = ({ data, setData, setIsLoading, ...otherProps }) => {
 
   return (
     <DetailItemRow
-      label="Attachments"
+      label="Attachment"
       content={
-        <>
-          {data.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[styles.root]}
-              onPress={handleUploadPdf}
-            >
-              <Text style={styles.content}>{item.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </>
+        <TouchableOpacity style={[styles.root]} onPress={handleUploadPdf}>
+          <Text style={styles.content}>
+            {data.name ?? "Press to upload pdf file"}
+          </Text>
+        </TouchableOpacity>
       }
       {...otherProps}
     />
   );
 };
 
-export default AttachmentBlock;
+export default AttachmentUploadBlock;
 
-AttachmentBlock.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      url: PropTypes.string,
-    }),
-  ),
+AttachmentUploadBlock.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    url: PropTypes.string,
+  }),
   setData: PropTypes.func,
   setIsLoading: PropTypes.func,
 };

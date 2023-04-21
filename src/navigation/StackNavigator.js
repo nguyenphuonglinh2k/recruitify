@@ -24,6 +24,7 @@ import {
   TaskCreationScreen,
   TaskEditingScreen,
   CandidateEditingInfoScreen,
+  CandidateCreationScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -75,6 +76,10 @@ const ApplicationStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.candidateEditingInfoScreen}
         component={CandidateEditingInfoScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.candidateCreationScreen}
+        component={CandidateCreationScreen}
       />
     </Stack.Navigator>
   );

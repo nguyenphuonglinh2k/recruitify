@@ -1,42 +1,43 @@
-import { ScrollView } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MainLayout } from "layouts";
-import { useDispatch, useSelector } from "react-redux";
 import {
+  ApplicationProcessStatus,
+  AttachmentUploadBlock,
   CommonButton,
+  CommonUploadAvatar,
   EditTagBlock,
   LoadingSpinner,
-  TextInputBlock,
-  TagOptionsModal,
-  CommonUploadAvatar,
-  DetailItemRow,
-  StatusOptionsModal,
   SelectInputBlock,
-  AttachmentUploadBlock,
+  StatusOptionsModal,
+  TagOptionsModal,
+  TextInputBlock,
 } from "components";
-import { ApplicationService, TagService } from "services";
-import { ApiConstant } from "const";
 import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
-import { paddingStyle } from "components/DetailItemRow";
+import { useDispatch, useSelector } from "react-redux";
+import { ApplicationService, TagService } from "services";
+import { ApiConstant } from "const";
 import JobActions from "reduxStore/job.redux";
+import DetailItemRow, { paddingStyle } from "components/DetailItemRow";
+import { APPLICATION_STATUS } from "const/app.const";
+import { onGetApplicationStatusLabel } from "utils/label.utils";
 
-const CandidateEditingInfoScreen = () => {
+const CandidateCreationScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
   const dispatch = useDispatch();
 
-  const application = useSelector(
-    ({ applicationRedux }) => applicationRedux.application,
-  );
   const JOBS = useSelector(({ jobRedux }) => jobRedux.jobs);
 
   const [fields, setFields] = useState(DEFAULT_FIELDS);
   const [tags, setTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedStatusType, setSelectedStatusType] = useState();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const [isVisibleJobModal, setIsVisibleJobModal] = useState(false);
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [isVisibleStatusModal, setIsVisibleStatusModal] = useState(false);
 
   const jobData = useMemo(() => {
     return JOBS.map(job => ({
@@ -64,6 +65,21 @@ const CandidateEditingInfoScreen = () => {
       isChecked: false,
     }));
   }, [fields.skills, tags]);
+
+  const statusModalData = useMemo(() => {
+    if (selectedStatusType === STATUS_MODAL_TYPES.job) {
+      return jobData;
+    } else if (selectedStatusType === STATUS_MODAL_TYPES.status) {
+      return STATUS_DATA;
+    } else {
+      return [];
+    }
+  }, [jobData, selectedStatusType]);
+
+  const handleOpenStatusModal = useCallback(type => {
+    setSelectedStatusType(type);
+    setIsVisibleStatusModal(true);
+  }, []);
 
   const handleChangeText = useCallback(
     (fieldName, newValue) => {
@@ -103,12 +119,19 @@ const CandidateEditingInfoScreen = () => {
     }
   }, []);
 
-  const handleSaveInfo = useCallback(async () => {
+  const handleValidateFields = useCallback(() => {
+    if (!fields.name || !fields.email || !fields.attachments || !fields.jobId) {
+      return toast.show("Please fill out all required fields");
+    }
+  }, [fields.attachments, fields.email, fields.jobId, fields.name, toast]);
+
+  const handleCreateApplication = useCallback(async () => {
+    handleValidateFields();
     setIsLoading(true);
 
     const skillIds = fields.skills.map(skill => skill._id);
 
-    const newInfo = {
+    const data = {
       applicantInfo: {
         name: fields.name,
         email: fields.email,
@@ -119,39 +142,33 @@ const CandidateEditingInfoScreen = () => {
       skillIds,
       jobId: fields.jobId,
       attachments: [fields.attachments],
+      status: fields.status,
     };
 
     try {
-      const response = await ApplicationService.putApplication(
-        application._id,
-        newInfo,
-      );
+      const response = await ApplicationService.postApplication(data);
 
-      if (response.status === ApiConstant.STT_OK) {
+      if (response.status === ApiConstant.STT_CREATED) {
         navigation.goBack();
-        toast.show("Update successfully", { type: "success" });
+        toast("Create successfully", { type: "success" });
       }
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
-  }, [application, fields, navigation, toast]);
+  }, [fields, handleValidateFields, navigation, toast]);
 
-  useEffect(() => {
-    if (application) {
-      setFields({
-        name: application.applicantInfo?.name,
-        email: application.applicantInfo?.email,
-        phoneNumber: application.applicantInfo?.phoneNumber,
-        avatarUrl: application.applicantInfo?.avatarUrl,
-        address: application.applicantInfo?.address,
-        skills: application.skillIds,
-        attachments: application.attachments[0],
-        jobId: application.jobId._id,
-      });
-    }
-  }, [application]);
+  const handleChangeStatusModalValue = useCallback(
+    newValue => {
+      if (selectedStatusType === STATUS_MODAL_TYPES.status) {
+        handleChangeText(FIELD_NAMES.status, newValue);
+      } else {
+        handleChangeText(FIELD_NAMES.jobId, newValue);
+      }
+    },
+    [handleChangeText, selectedStatusType],
+  );
 
   const handleGetJobs = useCallback(() => {
     dispatch(JobActions.getJobsRequest());
@@ -166,11 +183,19 @@ const CandidateEditingInfoScreen = () => {
   }, [handleGetTags]);
 
   return (
-    <MainLayout
-      isBackScreen
-      headerProps={{ title: `Edit ${application.applicantInfo?.name}'s info` }}
-    >
+    <MainLayout isBackScreen headerProps={{ title: "Create new application" }}>
       <ScrollView>
+        <DetailItemRow
+          label="Status"
+          content={
+            <TouchableOpacity
+              style={paddingStyle}
+              onPress={() => handleOpenStatusModal(STATUS_MODAL_TYPES.status)}
+            >
+              <ApplicationProcessStatus value={fields.status} />
+            </TouchableOpacity>
+          }
+        />
         <DetailItemRow
           label="Avatar"
           content={
@@ -185,12 +210,12 @@ const CandidateEditingInfoScreen = () => {
         />
 
         <TextInputBlock
-          label="Name"
+          label="Name *"
           value={fields.name}
           onChangeText={value => handleChangeText(FIELD_NAMES.name, value)}
         />
         <TextInputBlock
-          label="Email"
+          label="Email *"
           value={fields.email}
           onChangeText={value => handleChangeText(FIELD_NAMES.email, value)}
         />
@@ -200,6 +225,11 @@ const CandidateEditingInfoScreen = () => {
           onChangeText={value =>
             handleChangeText(FIELD_NAMES.phoneNumber, value)
           }
+        />
+        <TextInputBlock
+          label="Address"
+          value={fields.address}
+          onChangeText={value => handleChangeText(FIELD_NAMES.address, value)}
         />
         <EditTagBlock
           label="Skills"
@@ -216,19 +246,17 @@ const CandidateEditingInfoScreen = () => {
           }
         />
         <SelectInputBlock
-          label="Position"
+          label="Position *"
           value={selectedJobName}
-          onPress={() => setIsVisibleJobModal(true)}
+          onPress={() => handleOpenStatusModal(STATUS_MODAL_TYPES.job)}
         />
       </ScrollView>
 
       <CommonButton
-        label="Save"
+        label="Create"
         style={{ margin: 16 }}
-        onPress={handleSaveInfo}
+        onPress={handleCreateApplication}
       />
-
-      <LoadingSpinner isVisible={isLoading} />
 
       <TagOptionsModal
         isVisible={isVisibleModal}
@@ -239,13 +267,20 @@ const CandidateEditingInfoScreen = () => {
       />
       <StatusOptionsModal
         value={fields.status}
-        setValue={newData => handleChangeText(FIELD_NAMES.jobId, newData)}
-        isVisible={isVisibleJobModal}
-        data={jobData}
-        onCloseModal={() => setIsVisibleJobModal(false)}
+        setValue={handleChangeStatusModalValue}
+        isVisible={isVisibleStatusModal}
+        data={statusModalData}
+        onCloseModal={() => setIsVisibleStatusModal(false)}
       />
+
+      <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
+};
+
+const STATUS_MODAL_TYPES = {
+  status: 1,
+  job: 2,
 };
 
 const FIELD_NAMES = {
@@ -257,6 +292,7 @@ const FIELD_NAMES = {
   address: "address",
   attachments: "attachments",
   jobId: "jobId",
+  status: "status",
 };
 
 const DEFAULT_FIELDS = {
@@ -268,6 +304,26 @@ const DEFAULT_FIELDS = {
   [FIELD_NAMES.skills]: [],
   [FIELD_NAMES.attachments]: {},
   [FIELD_NAMES.jobId]: "",
+  [FIELD_NAMES.status]: APPLICATION_STATUS.screening,
 };
 
-export default CandidateEditingInfoScreen;
+const STATUS_DATA = [
+  {
+    value: APPLICATION_STATUS.screening,
+    label: onGetApplicationStatusLabel(APPLICATION_STATUS.screening),
+  },
+  {
+    value: APPLICATION_STATUS.interview,
+    label: onGetApplicationStatusLabel(APPLICATION_STATUS.interview),
+  },
+  {
+    value: APPLICATION_STATUS.hire,
+    label: onGetApplicationStatusLabel(APPLICATION_STATUS.hire),
+  },
+  {
+    value: APPLICATION_STATUS.reject,
+    label: onGetApplicationStatusLabel(APPLICATION_STATUS.reject),
+  },
+];
+
+export default CandidateCreationScreen;

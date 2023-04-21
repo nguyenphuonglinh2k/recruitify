@@ -4,7 +4,13 @@ import React from "react";
 import { ImageSource } from "assets";
 
 const CommonAvatar = ({ source, style, ...otherProps }) => {
-  return <Image source={source} style={[styles.root, style]} {...otherProps} />;
+  return (
+    <Image
+      source={source ?? ImageSource.DefaultAvatarImage}
+      style={[styles.root, style]}
+      {...otherProps}
+    />
+  );
 };
 
 CommonAvatar.propTypes = {

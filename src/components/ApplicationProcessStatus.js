@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   reject: {
-    color: COLORS.orange.dark,
-    backgroundColor: COLORS.orange.light,
+    color: COLORS.pink,
+    backgroundColor: COLORS.lightPink,
   },
   hire: {
     color: COLORS.darkGreen,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.blue[100],
   },
   interview: {
-    color: COLORS.pink,
-    backgroundColor: COLORS.lightPink,
+    color: COLORS.orange.dark,
+    backgroundColor: COLORS.orange.light,
   },
 });
