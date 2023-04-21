@@ -45,6 +45,7 @@ import SearchBox from "./SearchBox";
 import SelectInputBlock from "./SelectInputBlock";
 import TagOptionsModal from "./TagOptionsModal";
 import AttachmentUploadBlock from "./AttachmentUploadBlock";
+import EditLocationBlock from "./EditLocationBlock";
 
 export {
   CommonButton,
@@ -93,4 +94,5 @@ export {
   SelectInputBlock,
   TagOptionsModal,
   AttachmentUploadBlock,
+  EditLocationBlock,
 };

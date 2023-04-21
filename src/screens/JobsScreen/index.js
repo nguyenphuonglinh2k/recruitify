@@ -8,9 +8,11 @@ import { PlusIcon } from "icons";
 import { COLORS } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import JobActions from "reduxStore/job.redux";
-import { useIsFocused } from "@react-navigation/core";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
 const JobsScreen = () => {
+  const navigation = useNavigation();
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
@@ -19,6 +21,10 @@ const JobsScreen = () => {
   const handleGetJobs = useCallback(async () => {
     dispatch(JobActions.getJobsRequest());
   }, [dispatch]);
+
+  const handleNavigateToCreationScreen = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.jobCreationScreen);
+  }, [navigation]);
 
   useEffect(() => {
     if (isFocused) {
@@ -30,7 +36,7 @@ const JobsScreen = () => {
     <MainLayout
       headerProps={{
         headerRight: (
-          <CommonIconButton>
+          <CommonIconButton onPress={handleNavigateToCreationScreen}>
             <PlusIcon color={COLORS.green} />
           </CommonIconButton>
         ),

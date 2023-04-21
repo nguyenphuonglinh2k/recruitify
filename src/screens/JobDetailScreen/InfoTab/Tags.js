@@ -13,10 +13,10 @@ const Tags = ({ style }) => {
       <Text style={styles.label}>Tags</Text>
 
       <View style={styles.tags}>
-        {(job.tags ?? []).map((label, index) => (
+        {(job?.tagIds ?? []).map(({ name }, index) => (
           <CommonChip
             key={index}
-            label={label}
+            label={name}
             style={index !== 0 ? styles.notFirstTag : {}}
           />
         ))}

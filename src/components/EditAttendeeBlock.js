@@ -28,8 +28,10 @@ const EditAttendeeBlock = ({ label, data, setData, onAdd, ...otherProps }) => {
 
 const Attendees = ({ data, setData }) => {
   const handleDeleteItem = index => {
-    const newData = [data.slice(0, index), data.slice(index + 1)];
-    if (setData) setData(newData);
+    const newData = [...data.slice(0, index), ...data.slice(index + 1)];
+    if (setData) {
+      setData(newData);
+    }
   };
 
   return (

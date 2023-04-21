@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { MainLayout } from "layouts";
 import { useRoute } from "@react-navigation/core";
@@ -66,5 +66,3 @@ const MOCK_ATTENDEES = [
 ];
 
 export default ScheduleAddition;
-
-const styles = StyleSheet.create({});

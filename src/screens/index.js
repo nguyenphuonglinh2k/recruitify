@@ -4,6 +4,7 @@ import OverviewScreen from "./OverviewScreen";
 
 import JobsScreen from "./JobsScreen";
 import JobDetailScreen from "./JobDetailScreen";
+import JobCreationScreen from "./JobCreationScreen";
 
 import CandidatesScreen from "./CandidatesScreen";
 import CandidateDetailScreen from "./CandidateDetailScreen";
@@ -57,4 +58,5 @@ export {
   ProjectTaskCreationScreen,
   TaskCreationScreen,
   TaskEditingScreen,
+  JobCreationScreen,
 };

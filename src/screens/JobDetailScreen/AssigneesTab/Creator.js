@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   textValue: {
     color: COLORS.black,
-    fontWeight: "600",
+    fontWeight: "500",
     marginLeft: 10,
     fontSize: 16,
   },
