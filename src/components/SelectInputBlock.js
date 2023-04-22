@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { isValidElement } from "react";
 import PropTypes from "prop-types";
 import DetailItemRow, { contentStyle, paddingStyle } from "./DetailItemRow";
 import { CaretIcon } from "icons";
@@ -14,7 +14,11 @@ const SelectInputBlock = ({ value, label, onPress, ...otherProps }) => {
           style={[paddingStyle, styles.content]}
           onPress={onPress}
         >
-          <Text style={contentStyle}>{value ?? ""}</Text>
+          {isValidElement(value) ? (
+            value
+          ) : (
+            <Text style={contentStyle}>{value ?? ""}</Text>
+          )}
           <CaretIcon />
         </TouchableOpacity>
       }

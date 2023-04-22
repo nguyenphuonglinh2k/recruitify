@@ -38,7 +38,7 @@ const ScheduleItem = ({ data, style, ...otherProps }) => {
         <View>
           <Text style={styles.label}>Attendees</Text>
           <Text style={styles.content}>
-            {`${assigneeIds?.length || 0} people`}
+            {`${assigneeIds?.length + 1 || 0} people`}
           </Text>
         </View>
       </View>

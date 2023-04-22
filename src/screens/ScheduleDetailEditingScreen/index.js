@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import React, { useState } from "react";
 import { MainLayout } from "layouts";
 import { useRoute } from "@react-navigation/core";
 import {
@@ -15,6 +15,8 @@ import { Fragment } from "react";
 const ScheduleDetailEditingScreen = () => {
   const route = useRoute();
   const schedule = route.params?.schedule;
+
+  const [fields, setFields] = useState(DEFAULT_FIELDS);
 
   return (
     <MainLayout isBackScreen headerProps={{ title: "Edit schedule" }}>
@@ -38,6 +40,28 @@ const ScheduleDetailEditingScreen = () => {
       <CommonButton label="Save" style={{ margin: 10, borderRadius: 8 }} />
     </MainLayout>
   );
+};
+
+const FIELD_NAMES = {
+  name: "name",
+  email: "email",
+  phoneNumber: "phoneNumber",
+  skills: "skills",
+  avatarUrl: "avatarUrl",
+  address: "address",
+  attachments: "attachments",
+  jobId: "jobId",
+};
+
+const DEFAULT_FIELDS = {
+  [FIELD_NAMES.avatarUrl]: null,
+  [FIELD_NAMES.name]: "",
+  [FIELD_NAMES.email]: "",
+  [FIELD_NAMES.phoneNumber]: "",
+  [FIELD_NAMES.address]: "",
+  [FIELD_NAMES.skills]: [],
+  [FIELD_NAMES.attachments]: {},
+  [FIELD_NAMES.jobId]: "",
 };
 
 const MOCK_POSITIONS = [

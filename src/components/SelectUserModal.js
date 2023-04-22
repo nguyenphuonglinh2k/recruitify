@@ -18,7 +18,7 @@ const SelectUserModal = ({ isVisible, data, onPress, ...otherProps }) => {
           source={{ uri: item?.avatarUrl }}
           style={styles.item}
           avatarStyle={styles.avatar}
-          onPress={onPress}
+          onPress={() => onPress(item)}
         />
       ))}
     </CommonModal>
@@ -27,7 +27,12 @@ const SelectUserModal = ({ isVisible, data, onPress, ...otherProps }) => {
 
 SelectUserModal.propTypes = {
   isVisible: PropTypes.bool,
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      avatarUrl: PropTypes.string,
+    }),
+  ),
   onPress: PropTypes.func,
 };
 
