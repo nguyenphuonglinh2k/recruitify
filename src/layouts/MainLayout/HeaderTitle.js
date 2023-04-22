@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     fontWeight: "600",
     fontSize: 16,
+    flex: 1,
   },
 });
 

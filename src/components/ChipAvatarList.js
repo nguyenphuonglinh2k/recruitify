@@ -6,13 +6,13 @@ import { CommonAvatarChip } from "components";
 const ChipAvatarList = ({ data, style, onPress, ...otherProp }) => {
   return (
     <View style={[styles.root, style]} {...otherProp}>
-      {data?.map(({ name, avatarUrl }, index) => (
+      {data?.map(({ name, avatarUrl, _id }, index) => (
         <CommonAvatarChip
           key={index}
           label={name}
           source={{ uri: avatarUrl }}
           style={index !== 0 ? styles.notFirstChild : {}}
-          onPress={onPress}
+          onPress={() => onPress(_id)}
         />
       ))}
     </View>
@@ -24,6 +24,7 @@ ChipAvatarList.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       avatarUrl: PropTypes.string.isRequired,
+      _id: PropTypes.string,
     }),
   ),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

@@ -14,7 +14,7 @@ import { Fragment } from "react";
 
 const ScheduleDetailEditingScreen = () => {
   const route = useRoute();
-  const scheduleId = route.params?.id;
+  const schedule = route.params?.schedule;
 
   return (
     <MainLayout isBackScreen headerProps={{ title: "Edit schedule" }}>

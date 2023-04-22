@@ -10,10 +10,10 @@ import { SCREEN_NAME } from "const/path.const";
 const ScheduleItem = ({ data, style, ...otherProps }) => {
   const navigation = useNavigation();
 
-  const { id, title, time, assignees } = data;
+  const { _id: scheduleId, name, startTime, endTime, assigneeIds } = data;
 
   const onNavigateToDetail = () => {
-    navigation.navigate(SCREEN_NAME.scheduleDetailScreen, { id });
+    navigation.navigate(SCREEN_NAME.scheduleDetailScreen, { scheduleId });
   };
 
   return (
@@ -23,13 +23,13 @@ const ScheduleItem = ({ data, style, ...otherProps }) => {
       onPress={onNavigateToDetail}
       {...otherProps}
     >
-      <Text style={[styles.title, styles.spacingBottom]}>{title}</Text>
+      <Text style={[styles.title, styles.spacingBottom]}>{name}</Text>
 
       <View style={[styles.contentWrapper, styles.spacingBottom]}>
         <ClockIcon style={styles.icon} />
         <View>
           <Text style={styles.label}>Time</Text>
-          <Text style={styles.content}>{time}</Text>
+          <Text style={styles.content}>{`${startTime} - ${endTime}`}</Text>
         </View>
       </View>
 
@@ -38,7 +38,7 @@ const ScheduleItem = ({ data, style, ...otherProps }) => {
         <View>
           <Text style={styles.label}>Attendees</Text>
           <Text style={styles.content}>
-            {`${assignees?.length || 0} people`}
+            {`${assigneeIds?.length || 0} people`}
           </Text>
         </View>
       </View>
@@ -48,11 +48,12 @@ const ScheduleItem = ({ data, style, ...otherProps }) => {
 
 ScheduleItem.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
+    _id: PropTypes.string,
+    name: PropTypes.string,
     date: PropTypes.string,
-    time: PropTypes.string,
-    assignees: PropTypes.array,
+    startTime: PropTypes.string,
+    endTime: PropTypes.string,
+    assigneeIds: PropTypes.array,
   }),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };

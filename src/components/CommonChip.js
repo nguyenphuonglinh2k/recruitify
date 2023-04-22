@@ -28,7 +28,7 @@ const CommonChip = ({
 };
 
 CommonChip.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   onPress: PropTypes.func,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

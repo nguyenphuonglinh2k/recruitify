@@ -6,6 +6,7 @@ import * as TaskService from "./task.service";
 import * as ApplicationService from "./application.service";
 import * as TagService from "./tag.service";
 import * as UploadService from "./upload.service";
+import * as ScheduleService from "./schedule.service";
 
 export {
   JobService,
@@ -16,4 +17,5 @@ export {
   ApplicationService,
   TagService,
   UploadService,
+  ScheduleService,
 };

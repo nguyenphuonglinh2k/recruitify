@@ -66,6 +66,8 @@ const styles = StyleSheet.create({
   headerLeft: {
     flexDirection: "row",
     alignItems: "center",
+    paddingRight: 8,
+    flex: 1,
   },
   title: {
     color: COLORS.black,

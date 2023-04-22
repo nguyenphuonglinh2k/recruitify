@@ -1,18 +1,26 @@
 import { StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { MainLayout } from "layouts";
-import { CommonFloatButton } from "components";
+import { CommonIconButton, LoadingSpinner } from "components";
 import ScheduleItem from "./ScheduleItem";
-import { useNavigation, useRoute } from "@react-navigation/core";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/core";
 import { useMemo } from "react";
 import moment from "moment";
-import { AppConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
 import { SCREEN_NAME } from "const/path.const";
+import { ScheduleService } from "services";
+import { PlusIcon } from "icons";
+import { COLORS } from "utils";
 
 const ScheduleListScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { date } = route.params;
+  const isFocused = useIsFocused();
+
+  const date = route.params.date;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [schedules, setSchedules] = useState([]);
 
   const formattedDate = useMemo(
     () => moment(date).format(AppConstant.FORMAT_DATE_WITH_SLASH),
@@ -20,16 +28,45 @@ const ScheduleListScreen = () => {
   );
 
   const onNavigateToCreationScreen = () => {
-    navigation.navigate(SCREEN_NAME.scheduleAddition, { date: formattedDate });
+    navigation.navigate(SCREEN_NAME.scheduleAddition, { date });
   };
+
+  const handleGetSchedules = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await ScheduleService.getSchedules({ params: { date } });
+
+      if (response.status === ApiConstant.STT_OK) {
+        setSchedules(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [date]);
+
+  useEffect(() => {
+    if (isFocused) {
+      handleGetSchedules();
+    }
+  }, [handleGetSchedules, isFocused]);
 
   return (
     <MainLayout
       isBackScreen
-      headerProps={{ title: `All schedule - ${formattedDate}` }}
+      headerProps={{
+        title: `All schedule - ${formattedDate}`,
+        headerRight: (
+          <CommonIconButton onPress={onNavigateToCreationScreen}>
+            <PlusIcon color={COLORS.green} />
+          </CommonIconButton>
+        ),
+      }}
     >
       <View style={styles.list}>
-        {MOCK_DATA.map((data, index) => (
+        {schedules.map((data, index) => (
           <ScheduleItem
             key={index}
             data={data}
@@ -38,30 +75,10 @@ const ScheduleListScreen = () => {
         ))}
       </View>
 
-      <CommonFloatButton onPress={onNavigateToCreationScreen} />
+      <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };
-
-const MOCK_DATA = Array.from(new Array(3)).map(() => ({
-  title: "Base interview with John",
-  date: "Friday, March 12th",
-  time: "9:00 - 10:00",
-  assignees: [
-    {
-      avatarUrl:
-        "https://khoinguonsangtao.vn/wp-content/uploads/2022/07/hinh-anh-avatar-tiktok-cute.jpg",
-    },
-    {
-      avatarUrl:
-        "https://toigingiuvedep.vn/wp-content/uploads/2022/01/hinh-avatar-cute-nu.jpg",
-    },
-    {
-      avatarUrl:
-        "https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2023/02/Hinh-anh-avatar-cute.jpg?ssl=1",
-    },
-  ],
-}));
 
 export default ScheduleListScreen;
 

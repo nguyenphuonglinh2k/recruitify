@@ -44,6 +44,13 @@ export const POST_APPLICATION = "/application";
 export const PUT_APPLICATION = "/application/{applicationId}";
 export const DELETE_APPLICATION = "/application/{applicationId}";
 
+// Schedule
+export const GET_SCHEDULES = "/schedules";
+export const GET_SCHEDULE_DETAIL = "/schedule/{scheduleId}";
+export const POST_SCHEDULE = "/schedule";
+export const PUT_SCHEDULE = "/schedule/{scheduleId}";
+export const DELETE_SCHEDULE = "/schedule/{scheduleId}";
+
 // Project
 export const GET_PROJECTS = "/projects/{userId}";
 export const GET_MEMBERS_TASKS_NOT_IN_PROJECT =
