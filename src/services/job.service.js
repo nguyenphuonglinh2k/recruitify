@@ -9,6 +9,9 @@ export const getJobApplications = jobId =>
 
 export const postJob = data => Api.post(ApiConstant.POST_JOB, data);
 
+export const putJob = (jobId, data) =>
+  Api.put(StringFormat(ApiConstant.PUT_JOB, { jobId }), data);
+
 export const getJobDetail = jobId =>
   Api.get(StringFormat(ApiConstant.GET_JOB_DETAIL, { jobId }));
 

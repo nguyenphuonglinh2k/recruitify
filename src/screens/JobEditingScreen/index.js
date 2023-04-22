@@ -22,7 +22,6 @@ const JobEditingScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
 
-  const AUTH_USER = useSelector(({ authRedux }) => authRedux.user);
   const JOB = useSelector(({ jobRedux }) => jobRedux.job);
 
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -126,7 +125,6 @@ const JobEditingScreen = () => {
     const assigneeIds = fields.assignees.map(user => user._id);
 
     const data = {
-      creatorId: AUTH_USER._id,
       name: fields.name,
       locations: fields.locations,
       startDate: fields.startDate,
@@ -136,9 +134,9 @@ const JobEditingScreen = () => {
     };
 
     try {
-      const response = await JobService.postJob(data);
+      const response = await JobService.putJob(JOB._id, data);
 
-      if (response.status === ApiConstant.STT_CREATED) {
+      if (response.status === ApiConstant.STT_OK) {
         navigation.goBack();
         toast.show("Update successfully", { type: "success" });
       }
@@ -147,7 +145,7 @@ const JobEditingScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [AUTH_USER, fields, navigation, toast, handleValidateFields]);
+  }, [handleValidateFields, fields, JOB._id, navigation, toast]);
 
   const handleGetData = useCallback(async () => {
     setIsLoading(true);
