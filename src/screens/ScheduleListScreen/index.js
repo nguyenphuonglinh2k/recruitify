@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { MainLayout } from "layouts";
-import { CommonIconButton, LoadingSpinner } from "components";
+import { CommonIconButton, EmptyData, LoadingSpinner } from "components";
 import ScheduleItem from "./ScheduleItem";
 import { useIsFocused, useNavigation, useRoute } from "@react-navigation/core";
 import { useMemo } from "react";
@@ -66,13 +66,17 @@ const ScheduleListScreen = () => {
       }}
     >
       <View style={styles.list}>
-        {schedules.map((data, index) => (
-          <ScheduleItem
-            key={index}
-            data={data}
-            style={index !== 0 ? styles.mt : {}}
-          />
-        ))}
+        {schedules.length ? (
+          schedules.map((data, index) => (
+            <ScheduleItem
+              key={index}
+              data={data}
+              style={index !== 0 ? styles.mt : {}}
+            />
+          ))
+        ) : (
+          <EmptyData description="No schedule!" />
+        )}
       </View>
 
       <LoadingSpinner isVisible={isLoading} />

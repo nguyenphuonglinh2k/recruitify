@@ -29,7 +29,11 @@ const SelectInputBlock = ({ value, label, onPress, ...otherProps }) => {
 
 SelectInputBlock.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.node,
+  ]),
   onPress: PropTypes.func,
 };
 

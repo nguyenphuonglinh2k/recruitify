@@ -18,10 +18,12 @@ import { ApiConstant, AppConstant } from "const";
 import { ProfileBottomSheetModal } from "components";
 import { SCREEN_NAME } from "const/path.const";
 import { ScheduleService } from "services";
+import { useToast } from "react-native-toast-notifications";
 
 const ScheduleDetailScreen = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
+  const toast = useToast();
   const route = useRoute();
   const { scheduleId } = route.params;
 
@@ -30,6 +32,7 @@ const ScheduleDetailScreen = () => {
   const [schedule, setSchedule] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState();
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   const onOpenProfileModal = useCallback(userId => {
     setSelectedUserId(userId);
@@ -57,6 +60,23 @@ const ScheduleDetailScreen = () => {
       setIsLoading(false);
     }
   }, [scheduleId]);
+
+  const handleDeleteSchedule = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await ScheduleService.deleteSchedule(scheduleId);
+
+      if (response.status === ApiConstant.STT_OK) {
+        navigation.goBack();
+        toast.show("Delete successfully", { type: "success" });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (isFocused) {
@@ -88,6 +108,7 @@ const ScheduleDetailScreen = () => {
           content={`${schedule.startTime} - ${schedule.endTime}`}
         />
         <DetailItemRow label="Description" content={schedule.description} />
+        <DetailItemRow label="Position" content={schedule.jobId?.name} />
 
         <DetailItemRow
           label="Candidate"
@@ -102,7 +123,6 @@ const ScheduleDetailScreen = () => {
             </View>
           }
         />
-        <DetailItemRow label="Position" content={schedule.jobId?.name} />
 
         <DetailItemRow
           label="Attendees"
@@ -124,10 +144,18 @@ const ScheduleDetailScreen = () => {
             />
           }
         />
-        <CommonDeleteButton style={{ margin: 10 }} />
+        <CommonDeleteButton
+          style={{ margin: 10 }}
+          onPress={() => setIsVisibleModal(true)}
+        />
       </ScrollView>
 
-      <ConfirmDeleteModal />
+      <ConfirmDeleteModal
+        title={schedule.name}
+        isVisible={isVisibleModal}
+        onOK={handleDeleteSchedule}
+        onCancel={() => setIsVisibleModal(false)}
+      />
 
       <ProfileBottomSheetModal
         ref={bottomSheetModalRef}
