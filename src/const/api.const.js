@@ -33,6 +33,7 @@ export const PUT_USER_INFO = "/profile/{userId}";
 export const GET_JOBS = "/jobs";
 export const POST_JOB = "/job";
 export const GET_JOB_DETAIL = "/job/{jobId}";
+export const GET_JOB_APPLICATIONS = "/job/{jobId}/applications";
 export const DELETE_JOB = "/job/{jobId}";
 
 // Application

@@ -42,8 +42,8 @@ const JobsScreen = () => {
         ),
       }}
     >
-      <ScrollView style={styles.root}>
-        <Header total={jobs.length} />
+      <ScrollView>
+        <Header total={jobs.length} style={{ margin: 16 }} />
 
         <View style={styles.positions}>
           {jobs.map((data, index) => (
@@ -58,13 +58,9 @@ const JobsScreen = () => {
 export default JobsScreen;
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    padding: 16,
-  },
   positions: {
     flex: 1,
-    marginTop: 16,
+    marginHorizontal: 16,
   },
   marginBottom: {
     marginBottom: 10,

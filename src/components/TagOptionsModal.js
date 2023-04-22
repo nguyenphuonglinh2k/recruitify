@@ -52,7 +52,7 @@ const TagOptionsModal = ({
         <EmptyData
           style={{ margin: 10 }}
           imageStyle={styles.image}
-          description="No skills left!"
+          description="No data left!"
         />
       )}
       <CommonButton

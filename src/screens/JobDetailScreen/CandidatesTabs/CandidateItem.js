@@ -2,21 +2,28 @@ import React from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "utils";
-import { CommonAvatar, CommonRating } from "components";
-import { onGetApplicationStatusLabel } from "utils/label.utils";
+import {
+  ApplicationProcessStatus,
+  CommonAvatar,
+  CommonRating,
+} from "components";
 
-const CandidateItem = ({ data, style }) => {
-  const { avatarUrl, name, status, star } = data;
+const CandidateItem = ({ status, data, style, ...otherProps }) => {
+  const { avatarUrl, name, star, email } = data;
 
   return (
-    <TouchableOpacity activeOpacity={0.7} style={[styles.root, style]}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={[styles.root, style]}
+      {...otherProps}
+    >
       <CommonAvatar source={{ uri: avatarUrl }} style={styles.left} />
       <View style={styles.right}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.status}>{`On ${onGetApplicationStatusLabel(
-          status,
-        )}`}</Text>
-        <CommonRating value={star} style={{ marginTop: 8 }} />
+        <Text>{email}</Text>
+        <ApplicationProcessStatus value={status} style={{ marginTop: 6 }} />
+
+        {star && <CommonRating value={star} style={{ marginTop: 8 }} />}
       </View>
     </TouchableOpacity>
   );
@@ -26,9 +33,10 @@ CandidateItem.propTypes = {
   data: PropTypes.shape({
     avatarUrl: PropTypes.string,
     name: PropTypes.string,
-    status: PropTypes.number,
     star: PropTypes.number,
+    email: PropTypes.string,
   }),
+  status: PropTypes.number,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
