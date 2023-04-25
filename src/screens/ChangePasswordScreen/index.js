@@ -1,11 +1,12 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import React, { useState } from "react";
 import { MainLayout } from "layouts";
 import { COLORS } from "utils";
-import { CommonTextInput, LoadingSpinner } from "components";
+import { CommonButton, CommonTextInput, LoadingSpinner } from "components";
 import { ApiConstant, AppConstant } from "const";
 import { AuthService } from "services";
 import { useSelector } from "react-redux";
+import { useToast } from "react-native-toast-notifications";
 
 const ChangePasswordScreeen = () => {
   const toast = useToast();
@@ -40,7 +41,7 @@ const ChangePasswordScreeen = () => {
       const response = await AuthService.putPasswordChange(AUTH_USER._id, data);
 
       if (response.status === ApiConstant.STT_OK) {
-        toast.show("Update successfully"), { type: "success" };
+        toast.show("Update successfully", { type: "success" });
       }
     } catch (error) {
       console.error(error);

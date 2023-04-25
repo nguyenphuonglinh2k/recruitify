@@ -19,6 +19,7 @@ import ScheduleDetailEditingScreen from "./ScheduleDetailEditingScreen";
 import CandidateCreationScreen from "./CandidateCreationScreen";
 
 import ProfileScreen from "./ProfileScreen";
+import ChangePasswordScreeen from "./ChangePasswordScreeen";
 
 import ProjectScreen from "./ProjectScreen";
 import ProjectDetailScreen from "./ProjectDetailScreen";
@@ -61,4 +62,5 @@ export {
   TaskEditingScreen,
   JobCreationScreen,
   JobEditingScreen,
+  ChangePasswordScreeen,
 };

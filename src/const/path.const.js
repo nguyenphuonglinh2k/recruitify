@@ -13,6 +13,7 @@ export const DRAWER_TAB_NAME = {
   recruitmentProcess: "recruitmentProcess",
   candidateTraining: "candidateTraining",
   settingScreen: "settingScreen",
+  changePassword: "changePassword",
 };
 
 export const SCREEN_NAME = {
