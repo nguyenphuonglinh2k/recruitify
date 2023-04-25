@@ -11,6 +11,7 @@ import LogoutIcon from "icons/LogoutIcon";
 import { AppConstant } from "const";
 import { useDispatch } from "react-redux";
 import AuthActions from "reduxStore/auth.redux";
+import { LockIcon } from "icons";
 
 const CustomDrawerContent = props => {
   const dispatch = useDispatch();
@@ -22,6 +23,10 @@ const CustomDrawerContent = props => {
       }),
     );
     StorageUtils.remove(AppConstant.AUTH_TOKEN_KEY);
+  };
+
+  const handleNavigateToChangePassword = () => {
+    // TODO
   };
 
   return (
@@ -39,6 +44,13 @@ const CustomDrawerContent = props => {
             <DrawerItemList {...props} />
           </View>
         </View>
+
+        <ButtonItem
+          label="Change password"
+          icon={<LockIcon />}
+          onPress={handleNavigateToChangePassword}
+          style={{ borderTopWidth: 1, borderColor: COLORS.grey[200] }}
+        />
 
         <ButtonItem
           onPress={handleLogout}

@@ -16,6 +16,8 @@ export const MAXIMUM_BADGE_NUMBER = 99;
 
 export const MAXIMUM_AVATAR_TOTAL_IN_GROUP = 3;
 
+export const MINIMUM_PASSWORD_LENGTH = 6;
+
 export const JOB_AND_APPLICATION_STATUS = {
   active: 1,
   closed: 2,
