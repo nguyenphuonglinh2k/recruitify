@@ -7,8 +7,9 @@ import { COLORS } from "utils";
 import CustomDrawerContent from "./CustomDrawerContent";
 import TrainingTabNavigator from "./TrainingTabNavigator";
 import RecruitmentTabNavigator from "./RecruitmentTabNavigator";
+import { ProfileStack } from "./StackNavigator";
 
-const Drawer = createDrawerNavigator();
+export const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
@@ -35,7 +36,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name={DRAWER_TAB_NAME.profileScreen}
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
           drawerLabel: "My Profile",
           drawerIcon: () => <UserIcon />,

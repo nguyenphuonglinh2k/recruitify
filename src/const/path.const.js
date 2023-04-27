@@ -17,6 +17,8 @@ export const DRAWER_TAB_NAME = {
 };
 
 export const SCREEN_NAME = {
+  profileScreen: "profileScreen",
+  profileEditingScreen: "profileEditingScreen",
   signInScreen: "signInScreen",
   jobScreen: "jobScreen",
   jobDetailScreen: "jobDetailScreen",

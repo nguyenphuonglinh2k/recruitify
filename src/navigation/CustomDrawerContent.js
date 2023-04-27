@@ -14,7 +14,7 @@ import AuthActions from "reduxStore/auth.redux";
 import { LockIcon } from "icons";
 import { Drawer } from "./DrawerNavigator";
 import { DRAWER_TAB_NAME } from "const/path.const";
-import { ChangePasswordScreeen } from "screens";
+import { ChangePasswordScreen } from "screens";
 
 const CustomDrawerContent = props => {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const CustomDrawerContent = props => {
 
         <Drawer.Screen
           name={DRAWER_TAB_NAME.changePassword}
-          component={ChangePasswordScreeen}
+          component={ChangePasswordScreen}
           options={{
             drawerLabel: "Change password",
             drawerIcon: () => <LockIcon />,

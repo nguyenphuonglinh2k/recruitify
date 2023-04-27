@@ -27,11 +27,28 @@ import {
   CandidateCreationScreen,
   JobCreationScreen,
   JobEditingScreen,
+  ProfileScreen,
+  ProfileEditingScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
 const Stack = createNativeStackNavigator();
 const screenOptions = { headerShown: false };
+
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name={SCREEN_NAME.profileScreen}
+        component={ProfileScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.profileEditingScreen}
+        component={ProfileEditingScreen}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const AuthStack = () => {
   return (
@@ -178,6 +195,7 @@ const TaskStack = () => {
 };
 
 export {
+  ProfileStack,
   AuthStack,
   DashboardStack,
   ApplicationStack,
