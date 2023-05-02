@@ -22,7 +22,11 @@ import { ChangePasswordScreen } from "screens";
 =======
 import { Drawer } from "./DrawerNavigator";
 import { DRAWER_TAB_NAME } from "const/path.const";
+<<<<<<< Updated upstream
 import { ChangePasswordScreeen } from "screens";
+>>>>>>> Stashed changes
+=======
+import { ChangePasswordScreen } from "screens";
 >>>>>>> Stashed changes
 
 const CustomDrawerContent = props => {
@@ -56,9 +60,13 @@ const CustomDrawerContent = props => {
         <Drawer.Screen
           name={DRAWER_TAB_NAME.changePassword}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           component={ChangePasswordScreen}
 =======
           component={ChangePasswordScreeen}
+>>>>>>> Stashed changes
+=======
+          component={ChangePasswordScreen}
 >>>>>>> Stashed changes
           options={{
             drawerLabel: "Change password",

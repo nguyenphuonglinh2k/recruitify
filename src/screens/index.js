@@ -20,10 +20,15 @@ import CandidateCreationScreen from "./CandidateCreationScreen";
 
 import ProfileScreen from "./ProfileScreen";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import ProfileEditingScreen from "./ProfileEditingScreen";
 import ChangePasswordScreen from "./ChangePasswordScreen";
 =======
 import ChangePasswordScreeen from "./ChangePasswordScreeen";
+>>>>>>> Stashed changes
+=======
+import ProfileEditingScreen from "./ProfileEditingScreen";
+import ChangePasswordScreen from "./ChangePasswordScreen";
 >>>>>>> Stashed changes
 
 import ProjectScreen from "./ProjectScreen";
@@ -68,9 +73,14 @@ export {
   JobCreationScreen,
   JobEditingScreen,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   ChangePasswordScreen,
   ProfileEditingScreen,
 =======
   ChangePasswordScreeen,
+>>>>>>> Stashed changes
+=======
+  ChangePasswordScreen,
+  ProfileEditingScreen,
 >>>>>>> Stashed changes
 };
