@@ -5,8 +5,9 @@ module.exports = {
     "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
   ],
-  plugins: ["react", "react-hooks", "prettier"],
+  plugins: ["react", "react-hooks", "prettier", "react-hooks"],
   rules: {
     "prettier/prettier": [
       "warn",

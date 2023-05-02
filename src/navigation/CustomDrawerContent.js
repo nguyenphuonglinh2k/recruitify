@@ -11,6 +11,7 @@ import LogoutIcon from "icons/LogoutIcon";
 import { AppConstant } from "const";
 import { useDispatch } from "react-redux";
 import AuthActions from "reduxStore/auth.redux";
+<<<<<<< Updated upstream
 import { LockIcon } from "icons";
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -27,6 +28,8 @@ import { ChangePasswordScreeen } from "screens";
 >>>>>>> Stashed changes
 =======
 import { ChangePasswordScreen } from "screens";
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 const CustomDrawerContent = props => {
@@ -57,6 +60,7 @@ const CustomDrawerContent = props => {
           </View>
         </View>
 
+<<<<<<< Updated upstream
         <Drawer.Screen
           name={DRAWER_TAB_NAME.changePassword}
 <<<<<<< Updated upstream
@@ -84,6 +88,8 @@ const CustomDrawerContent = props => {
 >>>>>>> Stashed changes
         />
 
+=======
+>>>>>>> Stashed changes
         <ButtonItem
           onPress={handleLogout}
           label="Log out"
