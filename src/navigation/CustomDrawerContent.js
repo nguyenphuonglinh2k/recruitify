@@ -12,9 +12,12 @@ import { AppConstant } from "const";
 import { useDispatch } from "react-redux";
 import AuthActions from "reduxStore/auth.redux";
 import { LockIcon } from "icons";
+<<<<<<< Updated upstream
 import { Drawer } from "./DrawerNavigator";
 import { DRAWER_TAB_NAME } from "const/path.const";
 import { ChangePasswordScreen } from "screens";
+=======
+>>>>>>> Stashed changes
 
 const CustomDrawerContent = props => {
   const dispatch = useDispatch();
@@ -26,6 +29,10 @@ const CustomDrawerContent = props => {
       }),
     );
     StorageUtils.remove(AppConstant.AUTH_TOKEN_KEY);
+  };
+
+  const handleNavigateToChangePassword = () => {
+    // TODO
   };
 
   return (
@@ -51,6 +58,13 @@ const CustomDrawerContent = props => {
             drawerLabel: "Change password",
             drawerIcon: () => <LockIcon />,
           }}
+        />
+
+        <ButtonItem
+          label="Change password"
+          icon={<LockIcon />}
+          onPress={handleNavigateToChangePassword}
+          style={{ borderTopWidth: 1, borderColor: COLORS.grey[200] }}
         />
 
         <ButtonItem
