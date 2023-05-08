@@ -22,6 +22,7 @@ import CaretIcon from "./CaretIcon";
 import TaskIcon from "./TaskIcon";
 import ProjectIcon from "./ProjectIcon";
 import CircleXMarkIcon from "./CircleXMarkIcon";
+import LockIcon from "./LockIcon";
 
 export {
   HomeIcon,
@@ -48,4 +49,5 @@ export {
   TaskIcon,
   ProjectIcon,
   CircleXMarkIcon,
+  LockIcon,
 };

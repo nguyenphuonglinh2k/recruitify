@@ -1,14 +1,21 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DRAWER_TAB_NAME } from "const/path.const";
-import { ProfileScreen, SettingScreen } from "screens";
-import { BriefcaseIcon, SettingIcon, TeacherIcon, UserIcon } from "icons";
+import { ChangePasswordScreen, SettingScreen } from "screens";
+import {
+  BriefcaseIcon,
+  LockIcon,
+  SettingIcon,
+  TeacherIcon,
+  UserIcon,
+} from "icons";
 import { COLORS } from "utils";
 import CustomDrawerContent from "./CustomDrawerContent";
 import TrainingTabNavigator from "./TrainingTabNavigator";
 import RecruitmentTabNavigator from "./RecruitmentTabNavigator";
+import { ProfileStack } from "./StackNavigator";
 
-const Drawer = createDrawerNavigator();
+export const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
@@ -35,7 +42,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name={DRAWER_TAB_NAME.profileScreen}
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
           drawerLabel: "My Profile",
           drawerIcon: () => <UserIcon />,
@@ -47,6 +54,15 @@ const DrawerNavigator = () => {
         options={{
           drawerLabel: "Settings",
           drawerIcon: () => <SettingIcon />,
+        }}
+      />
+
+      <Drawer.Screen
+        name={DRAWER_TAB_NAME.changePassword}
+        component={ChangePasswordScreen}
+        options={{
+          drawerLabel: "Change password",
+          drawerIcon: () => <LockIcon />,
         }}
       />
     </Drawer.Navigator>

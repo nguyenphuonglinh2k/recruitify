@@ -5,8 +5,9 @@ module.exports = {
     "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
   ],
-  plugins: ["react", "react-hooks", "prettier"],
+  plugins: ["react", "react-hooks", "prettier", "react-hooks"],
   rules: {
     "prettier/prettier": [
       "warn",
@@ -22,6 +23,7 @@ module.exports = {
     "prefer-const": "error",
     "no-unused-vars": "warn",
     "no-console": ["warn", { allow: ["error"] }],
+    "no-unreachable": "warn",
     //You can override any rules you want
   },
 };

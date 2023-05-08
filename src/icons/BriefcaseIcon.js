@@ -1,6 +1,7 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 import PropTypes from "prop-types";
+import { COLORS } from "utils";
 
 const BriefcaseIcon = ({ height, width, color, ...otherProps }) => {
   return (
@@ -36,7 +37,7 @@ BriefcaseIcon.propTypes = {
 };
 
 BriefcaseIcon.defaultProps = {
-  color: "#292D32",
+  color: COLORS.black,
   width: 24,
   height: 24,
 };
