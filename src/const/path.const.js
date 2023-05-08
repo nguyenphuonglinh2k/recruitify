@@ -21,6 +21,7 @@ export const SCREEN_NAME = {
   jobDetailScreen: "jobDetailScreen",
   jobCreationScreen: "jobCreationScreen",
   jobEditingScreen: "jobEditingScreen",
+  jobCandidateCreationScreen: "jobCandidateCreationScreen",
   candidateScreen: "candidateScreen",
   candidateDetailScreen: "candidateDetailScreen",
   candidateEditingInfoScreen: "candidateEditingInfoScreen",

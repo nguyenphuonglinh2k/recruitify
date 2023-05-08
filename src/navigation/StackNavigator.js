@@ -27,6 +27,7 @@ import {
   CandidateCreationScreen,
   JobCreationScreen,
   JobEditingScreen,
+  JobCandidateCreationScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -67,6 +68,10 @@ const JobStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.jobEditingScreen}
         component={JobEditingScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.jobCandidateCreationScreen}
+        component={JobCandidateCreationScreen}
       />
     </Stack.Navigator>
   );

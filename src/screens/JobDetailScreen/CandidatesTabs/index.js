@@ -5,7 +5,7 @@ import CandidateItem from "./CandidateItem";
 import { useSelector } from "react-redux";
 import { JobService } from "services";
 import { ApiConstant } from "const";
-import { LoadingSpinner } from "components";
+import { EmptyData, LoadingSpinner } from "components";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME, TAB_NAME } from "const/path.const";
 
@@ -52,15 +52,19 @@ const CandidatesTab = ({ style }) => {
 
   return (
     <ScrollView style={[styles.root, style]}>
-      {applications.map((application, index) => (
-        <CandidateItem
-          key={index}
-          data={application.applicantInfo}
-          status={application.status}
-          style={index !== 0 ? styles.marginTop : {}}
-          onPress={() => handleNavigateToApplicationDetail(application._id)}
-        />
-      ))}
+      {applications.length ? (
+        applications.map((application, index) => (
+          <CandidateItem
+            key={index}
+            data={application.applicantInfo}
+            status={application.status}
+            style={index !== 0 ? styles.marginTop : {}}
+            onPress={() => handleNavigateToApplicationDetail(application._id)}
+          />
+        ))
+      ) : (
+        <EmptyData description="No candidates!" />
+      )}
 
       <LoadingSpinner isVisible={isLoading} />
     </ScrollView>

@@ -95,10 +95,10 @@ const ScheduleDetailEditingScreen = () => {
   );
 
   const handleValidateFields = useCallback(() => {
-    if (!fields.name) {
+    if (!fields.name || !fields.startTime || !fields.endTime || !fields.date) {
       return toast.show("Please fill out required fields", { type: "warning" });
     }
-  }, [fields.name, toast]);
+  }, [fields.date, fields.endTime, fields.name, fields.startTime, toast]);
 
   const handleEditSchedule = useCallback(async () => {
     handleValidateFields();
@@ -205,20 +205,12 @@ const ScheduleDetailEditingScreen = () => {
           onChangeText={value => handleChangeText(FIELD_NAMES.name, value)}
         />
         <DateInputBlock
-          label="Date"
+          label="Date *"
           value={fields.date}
           setValue={newDate => handleChangeText(FIELD_NAMES.date, newDate)}
         />
-        <TextInputBlock
-          label="Description"
-          value={fields.description}
-          onChangeText={value =>
-            handleChangeText(FIELD_NAMES.description, value)
-          }
-          textInputProps={{ maxLength: 200, multiline: true }}
-        />
         <TimeInputBlock
-          label="Time"
+          label="Time *"
           startValue={fields.startTime}
           endValue={fields.endTime}
           setStartValue={newValue =>
@@ -227,6 +219,14 @@ const ScheduleDetailEditingScreen = () => {
           setEndValue={newValue =>
             handleChangeText(FIELD_NAMES.endTime, newValue)
           }
+        />
+        <TextInputBlock
+          label="Description"
+          value={fields.description}
+          onChangeText={value =>
+            handleChangeText(FIELD_NAMES.description, value)
+          }
+          textInputProps={{ maxLength: 200, multiline: true }}
         />
         <EditAttendeeBlock
           label="Attendees"

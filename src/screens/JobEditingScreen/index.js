@@ -117,7 +117,7 @@ const JobEditingScreen = () => {
     }
   }, [fields.name, toast]);
 
-  const handleCreateJob = useCallback(async () => {
+  const handleEditJob = useCallback(async () => {
     handleValidateFields();
     setIsLoading(true);
 
@@ -233,7 +233,7 @@ const JobEditingScreen = () => {
       <CommonButton
         label="Save"
         style={{ margin: 16 }}
-        onPress={handleCreateJob}
+        onPress={handleEditJob}
       />
 
       <TagOptionsModal

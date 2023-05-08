@@ -6,6 +6,7 @@ import JobsScreen from "./JobsScreen";
 import JobDetailScreen from "./JobDetailScreen";
 import JobCreationScreen from "./JobCreationScreen";
 import JobEditingScreen from "./JobEditingScreen";
+import JobCandidateCreationScreen from "./JobCandidateCreationScreen";
 
 import CandidatesScreen from "./CandidatesScreen";
 import CandidateDetailScreen from "./CandidateDetailScreen";
@@ -32,6 +33,8 @@ import TaskScreen from "./TaskScreen";
 import TaskDetailScreen from "./TaskDetailScreen";
 import TaskCreationScreen from "./TaskCreationScreen";
 import TaskEditingScreen from "./TaskEditingScreen";
+
+import SettingScreen from "./SettingScreen";
 
 export {
   SignInScreen,
@@ -61,4 +64,6 @@ export {
   TaskEditingScreen,
   JobCreationScreen,
   JobEditingScreen,
+  SettingScreen,
+  JobCandidateCreationScreen,
 };

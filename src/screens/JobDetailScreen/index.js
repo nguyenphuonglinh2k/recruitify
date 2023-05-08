@@ -10,8 +10,9 @@ import { useIsFocused, useNavigation, useRoute } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import JobActions from "reduxStore/job.redux";
 import { useEffect } from "react";
-import { PencilIcon } from "icons";
+import { PencilIcon, PlusIcon } from "icons";
 import { SCREEN_NAME } from "const/path.const";
+import { COLORS } from "utils";
 
 const JobDetailScreen = () => {
   const navigation = useNavigation();
@@ -32,9 +33,19 @@ const JobDetailScreen = () => {
     navigation.navigate(SCREEN_NAME.jobEditingScreen);
   }, [navigation]);
 
+  const handleNavigateToCreateCandidate = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.jobCandidateCreationScreen);
+  }, [navigation]);
+
   const handleHeaderRight = useCallback(() => {
     if (activatedTab === JOB_DETAIL_TAB_VALUES.documents) {
       return <Fragment />;
+    } else if (activatedTab === JOB_DETAIL_TAB_VALUES.candidates) {
+      return (
+        <CommonIconButton onPress={handleNavigateToCreateCandidate}>
+          <PlusIcon color={COLORS.green} />
+        </CommonIconButton>
+      );
     } else {
       return (
         <CommonIconButton onPress={handleNavigateToDetail}>
@@ -42,7 +53,7 @@ const JobDetailScreen = () => {
         </CommonIconButton>
       );
     }
-  }, [activatedTab, handleNavigateToDetail]);
+  }, [activatedTab, handleNavigateToCreateCandidate, handleNavigateToDetail]);
 
   useEffect(() => {
     if (isFocused) {

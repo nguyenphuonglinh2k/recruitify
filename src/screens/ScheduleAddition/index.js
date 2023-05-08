@@ -189,14 +189,6 @@ const ScheduleAddition = () => {
           value={fields.name}
           onChangeText={value => handleChangeText(FIELD_NAMES.name, value)}
         />
-        <TextInputBlock
-          label="Description"
-          value={fields.description}
-          onChangeText={value =>
-            handleChangeText(FIELD_NAMES.description, value)
-          }
-          textInputProps={{ maxLength: 200, multiline: true }}
-        />
         <TimeInputBlock
           label="Time"
           startValue={fields.startTime}
@@ -207,6 +199,14 @@ const ScheduleAddition = () => {
           setEndValue={newValue =>
             handleChangeText(FIELD_NAMES.endTime, newValue)
           }
+        />
+        <TextInputBlock
+          label="Description"
+          value={fields.description}
+          onChangeText={value =>
+            handleChangeText(FIELD_NAMES.description, value)
+          }
+          textInputProps={{ maxLength: 200, multiline: true }}
         />
         <EditAttendeeBlock
           label="Attendees"
