@@ -21,6 +21,7 @@ import { AppConstant } from "const";
 import { useDispatch, useSelector } from "react-redux";
 import ProjectActions from "reduxStore/project.redux";
 import { createContext } from "react";
+import TaskAdditionOptionsModal from "./TaskTab/TaskAdditionOptionsModal";
 
 const ProjectDetailScreen = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const ProjectDetailScreen = () => {
     PROJECT_DETAIL_TAB_VALUES.info,
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   const authUser = useSelector(({ authRedux }) => authRedux.user);
   const project = useSelector(({ projectRedux }) => projectRedux.project);
@@ -56,9 +58,9 @@ const ProjectDetailScreen = () => {
     navigation.navigate(SCREEN_NAME.projectMemberEditingScreen);
   };
 
-  const onNavigateToAddTaskScreen = () => {
-    navigation.navigate(SCREEN_NAME.projectTaskCreationScreen);
-  };
+  const handleCloseModal = useCallback(() => {
+    setIsVisibleModal(false);
+  }, []);
 
   const onRenderHeaderRight = () => {
     switch (activatedTab) {
@@ -78,7 +80,7 @@ const ProjectDetailScreen = () => {
 
       case PROJECT_DETAIL_TAB_VALUES.task:
         return (
-          <CommonIconButton onPress={onNavigateToAddTaskScreen}>
+          <CommonIconButton onPress={() => setIsVisibleModal(true)}>
             <PlusIcon color={COLORS.green} />
           </CommonIconButton>
         );
@@ -117,6 +119,11 @@ const ProjectDetailScreen = () => {
         )}
 
         <LoadingSpinner isVisible={isLoading} />
+
+        <TaskAdditionOptionsModal
+          isVisible={isVisibleModal}
+          onCloseModal={handleCloseModal}
+        />
       </MainLayout>
     </ProjectTaskContext.Provider>
   );
