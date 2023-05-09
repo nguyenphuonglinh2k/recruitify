@@ -6,8 +6,8 @@ import { COLORS } from "utils";
 import { AppConstant } from "const";
 import { CommonCheckbox } from "components";
 
-const TaskItem = ({ data, style }) => {
-  const { name, assigneeId, endDate } = data;
+const TaskItem = ({ data, style, ...otherProps }) => {
+  const { name, assigneeId, endDate, isChecked } = data;
 
   const isPassedDeadline = useMemo(() => {
     return moment(endDate).isBefore(moment());
@@ -15,6 +15,7 @@ const TaskItem = ({ data, style }) => {
 
   return (
     <CommonCheckbox
+      isChecked={isChecked}
       textComponent={
         <View style={styles.item}>
           <Text style={styles.name}>{name}</Text>
@@ -42,6 +43,7 @@ const TaskItem = ({ data, style }) => {
         </View>
       }
       style={[styles.root, style]}
+      {...otherProps}
     />
   );
 };

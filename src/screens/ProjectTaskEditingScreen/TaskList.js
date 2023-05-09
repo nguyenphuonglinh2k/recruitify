@@ -3,11 +3,28 @@ import { StyleSheet, View } from "react-native";
 import TaskItem from "./TaskItem";
 import PropTypes from "prop-types";
 
-const TaskList = ({ data, ...otherProps }) => {
+const TaskList = ({ data, setData, ...otherProps }) => {
+  const handleChangeValue = index => {
+    const newData = [
+      ...data.slice(0, index),
+      { ...data[index], isChecked: !data[index].isChecked },
+      ...data.slice(index + 1),
+    ];
+
+    if (setData) {
+      setData(newData);
+    }
+  };
+
   return (
     <View {...otherProps}>
       {data.map((item, index) => (
-        <TaskItem data={item} style={styles.item} key={index} />
+        <TaskItem
+          data={item}
+          style={styles.item}
+          key={index}
+          onPress={() => handleChangeValue(index)}
+        />
       ))}
     </View>
   );
@@ -17,6 +34,7 @@ export default TaskList;
 
 TaskList.propTypes = {
   data: PropTypes.array,
+  setData: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

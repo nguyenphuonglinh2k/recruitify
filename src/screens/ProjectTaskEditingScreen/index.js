@@ -10,7 +10,7 @@ import { ProjectService } from "services";
 import { ApiConstant } from "const";
 import TaskList from "./TaskList";
 
-const ProjectTaskEditingScreen = () => {
+const ProjectTaskExistingAdditionScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
 
@@ -46,7 +46,13 @@ const ProjectTaskEditingScreen = () => {
   const handleAddTasks = useCallback(async () => {
     setIsLoading(true);
 
-    const taskIds = data.map(task => task._id);
+    const taskIds = data.reduce((arr, currentItem) => {
+      if (currentItem.isChecked) {
+        return [...arr, currentItem._id];
+      } else {
+        return arr;
+      }
+    }, []);
 
     try {
       const response = await ProjectService.putProjectTasks(PROJECT._id, {
@@ -76,7 +82,7 @@ const ProjectTaskEditingScreen = () => {
         </View>
 
         {data.length ? (
-          <TaskList data={data} style={{ margin: 16 }} />
+          <TaskList data={data} setData={setData} style={{ margin: 16 }} />
         ) : (
           <EmptyData description="No tasks found!" />
         )}
@@ -94,7 +100,7 @@ const ProjectTaskEditingScreen = () => {
   );
 };
 
-export default ProjectTaskEditingScreen;
+export default ProjectTaskExistingAdditionScreen;
 
 const styles = StyleSheet.create({
   filterView: {

@@ -18,6 +18,10 @@ const TaskAdditionOptionsModal = ({
     navigation.navigate(SCREEN_NAME.projectTaskCreationScreen);
   };
 
+  const handleNavigateToAddExistTask = () => {
+    navigation.navigate(SCREEN_NAME.projectTaskEditingScreen);
+  };
+
   return (
     <CommonModal
       visible={isVisible}
@@ -26,6 +30,7 @@ const TaskAdditionOptionsModal = ({
     >
       <View style={{ padding: 10 }}>
         <CommonButton
+          onPress={handleNavigateToAddExistTask}
           label="Add existing task"
           startAdornment={<TaskIcon style={{ marginRight: 6 }} color="white" />}
           color={COLORS.orange.dark}
