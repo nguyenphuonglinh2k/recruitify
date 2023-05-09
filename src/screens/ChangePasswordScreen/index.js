@@ -8,7 +8,7 @@ import { AuthService } from "services";
 import { useSelector } from "react-redux";
 import { useToast } from "react-native-toast-notifications";
 
-const ChangePasswordScreeen = () => {
+const ChangePasswordScreen = () => {
   const toast = useToast();
 
   const AUTH_USER = useSelector(({ authRedux }) => authRedux.user);
@@ -16,6 +16,11 @@ const ChangePasswordScreeen = () => {
   const [newPassword, onChangeNewPassword] = useState("");
   const [oldPassword, onChangeOldPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleResetFields = useCallback(() => {
+    onChangeNewPassword("");
+    onChangeOldPassword("");
+  }, []);
 
   const handleValidatePw = useCallback(() => {
     if (!newPassword || !oldPassword) {
@@ -28,7 +33,7 @@ const ChangePasswordScreeen = () => {
         },
       );
     }
-  }, [newPassword, toast]);
+  }, [newPassword, oldPassword, toast]);
 
   const handleResetPw = useCallback(async () => {
     handleValidatePw();
@@ -39,23 +44,26 @@ const ChangePasswordScreeen = () => {
       oldPassword,
     };
 
-    console.log("run");
     try {
-      return;
-
       const response = await AuthService.putPasswordChange(AUTH_USER._id, data);
-
-      console.log(response.data);
 
       if (response.status === ApiConstant.STT_OK) {
         toast.show("Update successfully", { type: "success" });
+        handleResetFields();
       }
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
-  }, [handleValidatePw, newPassword, oldPassword, AUTH_USER._id, toast]);
+  }, [
+    handleValidatePw,
+    newPassword,
+    oldPassword,
+    AUTH_USER._id,
+    toast,
+    handleResetFields,
+  ]);
 
   return (
     <MainLayout>
@@ -82,7 +90,7 @@ const ChangePasswordScreeen = () => {
         />
 
         <CommonButton
-          label="Reset password"
+          label="Change password"
           style={styles.button}
           onPress={handleResetPw}
         />
@@ -93,7 +101,7 @@ const ChangePasswordScreeen = () => {
   );
 };
 
-export default ChangePasswordScreeen;
+export default ChangePasswordScreen;
 
 const styles = StyleSheet.create({
   root: {
@@ -102,7 +110,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
-    color: COLORS.black,
     fontSize: 24,
     fontWeight: "600",
     color: COLORS.white,

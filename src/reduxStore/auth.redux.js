@@ -33,7 +33,7 @@ export const success = (state = INITIAL_STATE, action) => {
   return {
     ...state,
     isFetching: false,
-    errors: null,
+    error: null,
     status: null,
     ...data,
   };

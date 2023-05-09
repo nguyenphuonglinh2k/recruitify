@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   StyleSheet,
   ScrollView,
@@ -8,11 +8,18 @@ import {
 } from "react-native";
 import { ImageSource } from "assets";
 import { CommonButton, CommonTextButton, CommonTextInput } from "components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AuthActions from "reduxStore/auth.redux";
+import { useToast } from "react-native-toast-notifications";
 
 const SignInScreen = () => {
+  const toast = useToast();
   const dispatch = useDispatch();
+
+  const [error, isFetching] = useSelector(({ authRedux }) => [
+    authRedux.error,
+    authRedux.isFetching,
+  ]);
 
   const [email, onChangeEmail] = useState("dpeach1@gmail.com");
   const [password, onChangePassword] = useState("123456");
@@ -20,6 +27,16 @@ const SignInScreen = () => {
   const onLogin = () => {
     dispatch(AuthActions.postLoginRequest({ email, password }));
   };
+
+  const handleShowError = useCallback(() => {
+    if (error?.message && !isFetching) {
+      toast.show(error.message, { type: "warning" });
+    }
+  }, [error?.message, toast, isFetching]);
+
+  useEffect(() => {
+    handleShowError();
+  }, [handleShowError]);
 
   return (
     <ImageBackground

@@ -52,10 +52,18 @@ const CustomDrawerContent = props => {
   );
 };
 
-const ButtonItem = ({ label, icon, style, labelStyle, isActive }) => {
+const ButtonItem = ({
+  label,
+  icon,
+  style,
+  labelStyle,
+  isActive,
+  ...otherProps
+}) => {
   return (
     <TouchableOpacity
       style={[styles.buttonWrapper, style, isActive ? styles.activeButton : {}]}
+      {...otherProps}
     >
       {icon}
       <Text style={[styles.label, labelStyle]}>{label}</Text>
