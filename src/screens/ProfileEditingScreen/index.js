@@ -72,7 +72,7 @@ const ProfileEditingScreen = () => {
   return (
     <MainLayout
       isBackScreen
-      headerProps={{ title: `Edit ${AUTH_USER.name}'s infomation` }}
+      headerProps={{ title: `Edit ${AUTH_USER.name}'s information` }}
     >
       <ScrollView>
         <DetailItemRow
