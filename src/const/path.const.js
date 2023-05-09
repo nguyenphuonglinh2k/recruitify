@@ -9,7 +9,7 @@ export const TAB_NAME = {
 };
 
 export const DRAWER_TAB_NAME = {
-  profileScreen: "profileScreen",
+  profileStack: "profileStack",
   recruitmentProcess: "recruitmentProcess",
   candidateTraining: "candidateTraining",
   settingScreen: "settingScreen",

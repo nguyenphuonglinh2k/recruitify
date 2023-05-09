@@ -1,7 +1,7 @@
 import { ScrollView } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { MainLayout } from "layouts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CommonButton,
   CommonUploadAvatar,
@@ -14,10 +14,12 @@ import { UserService } from "services";
 import { ApiConstant } from "const";
 import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
+import AuthActions from "reduxStore/auth.redux";
 
 const ProfileEditingScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
+  const dispatch = useDispatch();
 
   const AUTH_USER = useSelector(({ authRedux }) => authRedux.user);
 
@@ -31,22 +33,25 @@ const ProfileEditingScreen = () => {
     [fields],
   );
 
-  const handleValidateFields = useCallback(() => {
+  const handleSaveInfo = useCallback(async () => {
     if (!fields.name || !fields.email) {
       return toast.show("Please fill out all required fields", {
         type: "warning",
       });
     }
-  }, [fields.email, fields.name, toast]);
 
-  const handleSaveInfo = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     try {
       const response = await UserService.putUserInfo(AUTH_USER._id, fields);
 
       if (response.status === ApiConstant.STT_OK) {
+        dispatch(
+          AuthActions.authSuccess({
+            user: response.data?.data,
+          }),
+        );
+
         navigation.goBack();
         toast.show("Update successfully", { type: "success" });
       }
@@ -55,7 +60,7 @@ const ProfileEditingScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [AUTH_USER._id, fields, handleValidateFields, navigation, toast]);
+  }, [AUTH_USER._id, dispatch, fields, navigation, toast]);
 
   useEffect(() => {
     if (AUTH_USER) {

@@ -41,7 +41,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name={DRAWER_TAB_NAME.profileScreen}
+        name={DRAWER_TAB_NAME.profileStack}
         component={ProfileStack}
         options={{
           drawerLabel: "My Profile",

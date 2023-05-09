@@ -6,13 +6,21 @@ import { COLORS } from "utils";
 import { PencilIcon } from "icons";
 import Header from "./Header";
 import Information from "./Information";
+import { useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
+
+  const handleNavigateToEdit = () => {
+    navigation.navigate(SCREEN_NAME.profileEditingScreen);
+  };
+
   return (
     <MainLayout
       headerProps={{
         headerRight: (
-          <CommonIconButton>
+          <CommonIconButton onPress={handleNavigateToEdit}>
             <PencilIcon color={COLORS.black} />
           </CommonIconButton>
         ),
