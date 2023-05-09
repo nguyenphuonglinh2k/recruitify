@@ -9,7 +9,7 @@ const FilterButton = ({ label, style, labelStyle, ...otherProps }) => {
   return (
     <CommonButton
       style={[styles.root, style]}
-      labelStyle={[{ color: COLORS.black }, labelStyle]}
+      labelStyle={[{ color: COLORS.black, flex: 1 }, labelStyle]}
       label={label}
       startAdornment={
         <CaretIcon style={{ marginRight: 4 }} color={COLORS.black} />

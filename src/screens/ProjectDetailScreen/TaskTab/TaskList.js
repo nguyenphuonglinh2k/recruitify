@@ -43,7 +43,9 @@ const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
       if (response.status === ApiConstant.STT_OK) {
         toast.show("Delete successfully", { type: "success" });
 
-        if (onRefetchData) onRefetchData();
+        if (onRefetchData) {
+          onRefetchData();
+        }
       }
     } catch (error) {
       console.error(error);
@@ -60,11 +62,11 @@ const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
     handleCloseModal,
   ]);
 
-  const handleNavigateToDetail = useCallback(
+  const handleNavigateToEdit = useCallback(
     item => {
       navigation.navigate(PathConstant.TAB_NAME.task, {
-        screen: PathConstant.SCREEN_NAME.taskDetailScreen,
-        params: { taskId: item._id },
+        screen: PathConstant.SCREEN_NAME.taskEditingScreen,
+        params: { task: item },
       });
     },
     [navigation],
@@ -79,7 +81,7 @@ const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
             data={item}
             style={styles.item}
             onPressTrash={() => handleOpenModal(item)}
-            onPressDetail={() => handleNavigateToDetail(item)}
+            onPressDetail={() => handleNavigateToEdit(item)}
             hasDelete={hasPermission}
           />
         )}

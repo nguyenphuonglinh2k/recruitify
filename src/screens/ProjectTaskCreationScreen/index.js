@@ -134,7 +134,7 @@ const ProjectTaskCreationScreen = () => {
     <MainLayout isBackScreen headerProps={{ title: "Create new task" }}>
       <ScrollView>
         <DetailItemRow
-          label="Status"
+          label="Status *"
           content={
             <TouchableOpacity
               style={paddingStyle}
@@ -145,7 +145,7 @@ const ProjectTaskCreationScreen = () => {
           }
         />
         <TextInputBlock
-          label="Name"
+          label="Name *"
           value={fields.name}
           onChangeText={value => handleChangeText(FIELD_NAMES.name, value)}
         />
@@ -165,7 +165,7 @@ const ProjectTaskCreationScreen = () => {
         />
         <DetailItemRow label="Project" content={PROJECT.name} />
         <SelectInputBlock
-          label="Assignee"
+          label="Assignee *"
           value={assigneeName}
           onPress={() => handleOpenModal(MODAL_TYPES.assignee)}
         />

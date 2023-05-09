@@ -21,7 +21,9 @@ const CommonButton = ({
       {...otherProps}
     >
       {startAdornment}
-      <Text style={[styles.label, labelStyle]}>{label}</Text>
+      <Text style={[styles.label, labelStyle]} numberOfLines={1}>
+        {label}
+      </Text>
     </TouchableOpacity>
   );
 };

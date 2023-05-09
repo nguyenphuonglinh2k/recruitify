@@ -79,6 +79,7 @@ const TaskTab = ({ projectId }) => {
 
   const handleGetTasks = useCallback(async () => {
     setIsLoading(true);
+
     try {
       const response = await ProjectService.getTasksOfProject(projectId, {
         params: {
