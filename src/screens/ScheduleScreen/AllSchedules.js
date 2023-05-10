@@ -4,8 +4,10 @@ import { CommonCalendar, LoadingSpinner, SelectUserModal } from "components";
 import { useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import FilterByUser from "./FilterByUser";
-import { UserService } from "services";
+import { ScheduleService, UserService } from "services";
 import { ApiConstant } from "const";
+import { COLORS } from "utils";
+import { USER_ROLE } from "const/app.const";
 
 const AllSchedules = () => {
   const navigation = useNavigation();
@@ -14,6 +16,19 @@ const AllSchedules = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(ALL_MEMBER_VALUE);
+  const [schedules, setSchedules] = useState([]);
+
+  const calendarMarkedDates = useMemo(() => {
+    return schedules.reduce((obj, currentItem) => {
+      obj[currentItem.date] = {
+        marked: true,
+        selected: true,
+        selectedColor: COLORS.grey[200],
+        dotColor: COLORS.blue.neutral,
+      };
+      return obj;
+    }, {});
+  }, [schedules]);
 
   const selectedModalLabel = useMemo(() => {
     const selected = users.find(user => user.id === selectedUserId);
@@ -43,7 +58,11 @@ const AllSchedules = () => {
     setIsLoading(true);
 
     try {
-      const response = await UserService.getUsers();
+      const response = await UserService.getUsers({
+        params: {
+          roles: [USER_ROLE.admin, USER_ROLE.hr, USER_ROLE.manager],
+        },
+      });
 
       if (response.status === ApiConstant.STT_OK) {
         const responseData = response.data;
@@ -66,6 +85,30 @@ const AllSchedules = () => {
     }
   }, []);
 
+  const handleGetSchedules = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await ScheduleService.getSchedules({
+        params: {
+          memberId: selectedUserId,
+        },
+      });
+
+      if (response.status === ApiConstant.STT_OK) {
+        setSchedules(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [selectedUserId]);
+
+  useEffect(() => {
+    handleGetSchedules();
+  }, [handleGetSchedules]);
+
   useEffect(() => {
     handleGetUsers();
   }, [handleGetUsers]);
@@ -77,7 +120,10 @@ const AllSchedules = () => {
         style={styles.filterBox}
         onPress={() => setIsVisibleModal(true)}
       />
-      <CommonCalendar onDayPress={onDayPress} />
+      <CommonCalendar
+        onDayPress={onDayPress}
+        markedDates={calendarMarkedDates}
+      />
 
       <SelectUserModal
         isVisible={isVisibleModal}

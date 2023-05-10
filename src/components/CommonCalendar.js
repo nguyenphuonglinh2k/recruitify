@@ -62,8 +62,8 @@ const CommonCalendar = ({
         textDayHeaderFontSize: 14,
         selectedDayBackgroundColor: COLORS.grey[300],
         selectedDayTextColor: COLORS.black,
-        dotColor: COLORS.blue.neutral,
-        selectedDotColor: COLORS.blue.neutral,
+        dotColor: COLORS.white,
+        selectedDotColor: COLORS.white,
       }}
       markingType="custom"
       markedDates={{
