@@ -86,7 +86,7 @@ export default TimeInputPickerModal;
 
 TimeInputPickerModal.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.instanceOf(Date),
+  value: PropTypes.any,
   setValue: PropTypes.func,
   isVisible: PropTypes.bool,
   setIsVisible: PropTypes.func,

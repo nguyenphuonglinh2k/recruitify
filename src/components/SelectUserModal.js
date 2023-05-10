@@ -41,6 +41,7 @@ export default memo(SelectUserModal);
 const styles = StyleSheet.create({
   root: {
     padding: 0,
+    width: "70%",
   },
   item: {
     borderWidth: 0,
