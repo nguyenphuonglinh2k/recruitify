@@ -7,7 +7,7 @@ import {
   EditTagBlock,
   LoadingSpinner,
   TextInputBlock,
-  TagOptionsModal,
+  CheckboxOptionsModal,
   CommonUploadAvatar,
   DetailItemRow,
   StatusOptionsModal,
@@ -36,7 +36,7 @@ const CandidateEditingInfoScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [isVisibleJobModal, setIsVisibleJobModal] = useState(false);
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [tagDataModal, setTagDataModal] = useState([]);
 
   const jobData = useMemo(() => {
     return JOBS.map(job => ({
@@ -55,16 +55,6 @@ const CandidateEditingInfoScreen = () => {
     }
   }, [fields.jobId, jobData]);
 
-  const tagDataModal = useMemo(() => {
-    const fieldSkillIds = (fields.skills ?? []).map(tag => tag._id);
-    const filterTags = tags.filter(tag => !fieldSkillIds.includes(tag._id));
-
-    return filterTags.map(tag => ({
-      ...tag,
-      isChecked: false,
-    }));
-  }, [fields.skills, tags]);
-
   const handleChangeText = useCallback(
     (fieldName, newValue) => {
       setFields({ ...fields, [fieldName]: newValue });
@@ -81,11 +71,13 @@ const CandidateEditingInfoScreen = () => {
     },
     [fields.skills, handleChangeText],
   );
-
   const handleAddSelectedTags = useCallback(() => {
-    handleChangeText(FIELD_NAMES.skills, [...fields.skills, ...selectedTags]);
+    const filteredData = tagDataModal.filter(item => item.isChecked);
+
+    handleChangeText(FIELD_NAMES.skills, [...fields.skills, ...filteredData]);
+
     setIsVisibleModal(false);
-  }, [fields.skills, selectedTags, handleChangeText]);
+  }, [tagDataModal, handleChangeText, fields.skills]);
 
   const handleGetTags = useCallback(async () => {
     setIsLoading(true);
@@ -137,6 +129,18 @@ const CandidateEditingInfoScreen = () => {
       setIsLoading(false);
     }
   }, [application, fields, navigation, toast]);
+
+  useEffect(() => {
+    const fieldSkillIds = (fields.skills ?? []).map(tag => tag._id);
+    const filterTags = tags.filter(tag => !fieldSkillIds.includes(tag._id));
+
+    const data = filterTags.map(tag => ({
+      ...tag,
+      isChecked: false,
+    }));
+
+    setTagDataModal(data);
+  }, [fields.skills, tags]);
 
   useEffect(() => {
     if (application) {
@@ -230,10 +234,10 @@ const CandidateEditingInfoScreen = () => {
 
       <LoadingSpinner isVisible={isLoading} />
 
-      <TagOptionsModal
+      <CheckboxOptionsModal
         isVisible={isVisibleModal}
         data={tagDataModal ?? []}
-        setData={setSelectedTags}
+        setData={setTagDataModal}
         onCloseModal={() => setIsVisibleModal(false)}
         onAdd={handleAddSelectedTags}
       />

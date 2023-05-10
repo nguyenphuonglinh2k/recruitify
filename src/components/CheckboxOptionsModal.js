@@ -3,12 +3,11 @@ import React, { useCallback } from "react";
 import CommonModal from "./CommonModal";
 import PropTypes from "prop-types";
 import { contentStyle, paddingStyle } from "./DetailItemRow";
-import { COLORS } from "utils";
 import CommonCheckbox from "./CommonCheckbox";
 import CommonButton from "./CommonButton";
 import EmptyData from "./EmptyData";
 
-const TagOptionsModal = ({
+const CheckboxOptionsModal = ({
   data,
   setData,
   isVisible,
@@ -44,7 +43,7 @@ const TagOptionsModal = ({
                 {name}
               </Text>
             }
-            style={[paddingStyle, isChecked ? styles.selected : {}]}
+            style={paddingStyle}
             {...otherProps}
           />
         ))
@@ -65,7 +64,7 @@ const TagOptionsModal = ({
   );
 };
 
-TagOptionsModal.propTypes = {
+CheckboxOptionsModal.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -78,12 +77,9 @@ TagOptionsModal.propTypes = {
   onAdd: PropTypes.func,
 };
 
-export default TagOptionsModal;
+export default CheckboxOptionsModal;
 
 const styles = StyleSheet.create({
-  selected: {
-    backgroundColor: COLORS.grey[200],
-  },
   button: {
     marginHorizontal: 16,
     marginVertical: 10,

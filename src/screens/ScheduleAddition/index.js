@@ -9,7 +9,7 @@ import {
   LoadingSpinner,
   SelectInputBlock,
   SelectUserModal,
-  TagOptionsModal,
+  CheckboxOptionsModal,
   TextInputBlock,
   TimeInputBlock,
 } from "components";
@@ -230,7 +230,7 @@ const ScheduleAddition = () => {
         />
       </ScrollView>
 
-      <TagOptionsModal
+      <CheckboxOptionsModal
         isVisible={isVisibleModal}
         data={selectedCheckboxData}
         setData={setSelectedCheckboxData}

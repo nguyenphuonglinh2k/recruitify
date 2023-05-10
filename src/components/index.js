@@ -43,7 +43,7 @@ import StatusOptionsModal from "./StatusOptionsModal";
 import EmptyData from "./EmptyData";
 import SearchBox from "./SearchBox";
 import SelectInputBlock from "./SelectInputBlock";
-import TagOptionsModal from "./TagOptionsModal";
+import CheckboxOptionsModal from "./CheckboxOptionsModal";
 import AttachmentUploadBlock from "./AttachmentUploadBlock";
 import EditLocationBlock from "./EditLocationBlock";
 
@@ -92,7 +92,7 @@ export {
   EmptyData,
   SearchBox,
   SelectInputBlock,
-  TagOptionsModal,
+  CheckboxOptionsModal,
   AttachmentUploadBlock,
   EditLocationBlock,
 };

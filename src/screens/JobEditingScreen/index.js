@@ -8,7 +8,7 @@ import {
   EditLocationBlock,
   EditTagBlock,
   LoadingSpinner,
-  TagOptionsModal,
+  CheckboxOptionsModal,
   TextInputBlock,
 } from "components";
 import moment from "moment";
@@ -26,7 +26,7 @@ const JobEditingScreen = () => {
 
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCheckboxData, setSelectedCheckboxData] = useState([]);
+  const [checkboxData, setCheckboxData] = useState([]);
   const [checkboxModalType, setCheckboxModalType] = useState();
   const [fields, setFields] = useState(DEFAULT_FIELDS);
   const [tags, setTags] = useState([]);
@@ -54,16 +54,6 @@ const JobEditingScreen = () => {
     }));
   }, [fields.tags, tags]);
 
-  const checkboxModalData = useMemo(() => {
-    if (checkboxModalType === CHECKBOX_MODAL_TYPES.tag) {
-      return tagDataModal;
-    } else if (checkboxModalType === CHECKBOX_MODAL_TYPES.assignee) {
-      return userDataModal;
-    } else {
-      return [];
-    }
-  }, [checkboxModalType, tagDataModal, userDataModal]);
-
   const handleOpenCheckboxModal = useCallback(type => {
     setCheckboxModalType(type);
     setIsVisibleModal(true);
@@ -77,7 +67,7 @@ const JobEditingScreen = () => {
   );
 
   const handleAddSelectedCheckboxData = useCallback(() => {
-    const filteredData = selectedCheckboxData.filter(item => item.isChecked);
+    const filteredData = checkboxData.filter(item => item.isChecked);
 
     if (checkboxModalType === CHECKBOX_MODAL_TYPES.tag) {
       handleChangeText(FIELD_NAMES.tags, [...fields.tags, ...filteredData]);
@@ -88,14 +78,13 @@ const JobEditingScreen = () => {
       ]);
     }
 
-    setSelectedCheckboxData();
     setIsVisibleModal(false);
   }, [
     checkboxModalType,
     handleChangeText,
     fields.tags,
     fields.assignees,
-    selectedCheckboxData,
+    checkboxData,
   ]);
 
   const handleDeleteTag = useCallback(
@@ -177,6 +166,17 @@ const JobEditingScreen = () => {
   }, []);
 
   useEffect(() => {
+    let data = [];
+    if (checkboxModalType === CHECKBOX_MODAL_TYPES.tag) {
+      data = tagDataModal;
+    } else if (checkboxModalType === CHECKBOX_MODAL_TYPES.assignee) {
+      data = userDataModal;
+    }
+
+    setCheckboxData(data);
+  }, [checkboxModalType, tagDataModal, userDataModal]);
+
+  useEffect(() => {
     if (JOB) {
       setFields({
         name: JOB.name,
@@ -236,10 +236,10 @@ const JobEditingScreen = () => {
         onPress={handleEditJob}
       />
 
-      <TagOptionsModal
+      <CheckboxOptionsModal
         isVisible={isVisibleModal}
-        data={checkboxModalData}
-        setData={setSelectedCheckboxData}
+        data={checkboxData}
+        setData={setCheckboxData}
         onCloseModal={() => setIsVisibleModal(false)}
         onAdd={handleAddSelectedCheckboxData}
       />

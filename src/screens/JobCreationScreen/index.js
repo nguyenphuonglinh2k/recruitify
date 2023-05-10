@@ -8,7 +8,7 @@ import {
   EditLocationBlock,
   EditTagBlock,
   LoadingSpinner,
-  TagOptionsModal,
+  CheckboxOptionsModal,
   TextInputBlock,
 } from "components";
 import moment from "moment";
@@ -17,6 +17,7 @@ import { JobService, TagService, UserService } from "services";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
+import { USER_ROLE } from "const/app.const";
 
 const JobCreationScreen = () => {
   const navigation = useNavigation();
@@ -26,11 +27,12 @@ const JobCreationScreen = () => {
 
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCheckboxData, setSelectedCheckboxData] = useState([]);
+
   const [checkboxModalType, setCheckboxModalType] = useState();
   const [fields, setFields] = useState(DEFAULT_FIELDS);
   const [tags, setTags] = useState([]);
   const [users, setUsers] = useState([]);
+  const [checkboxData, setCheckboxData] = useState([]);
 
   const userDataModal = useMemo(() => {
     const fieldAssigneeIds = (fields.assignees ?? []).map(user => user._id);
@@ -54,16 +56,6 @@ const JobCreationScreen = () => {
     }));
   }, [fields.tags, tags]);
 
-  const checkboxModalData = useMemo(() => {
-    if (checkboxModalType === CHECKBOX_MODAL_TYPES.tag) {
-      return tagDataModal;
-    } else if (checkboxModalType === CHECKBOX_MODAL_TYPES.assignee) {
-      return userDataModal;
-    } else {
-      return [];
-    }
-  }, [checkboxModalType, tagDataModal, userDataModal]);
-
   const handleOpenCheckboxModal = useCallback(type => {
     setCheckboxModalType(type);
     setIsVisibleModal(true);
@@ -77,7 +69,7 @@ const JobCreationScreen = () => {
   );
 
   const handleAddSelectedCheckboxData = useCallback(() => {
-    const filteredData = selectedCheckboxData.filter(item => item.isChecked);
+    const filteredData = checkboxData.filter(item => item.isChecked);
 
     if (checkboxModalType === CHECKBOX_MODAL_TYPES.tag) {
       handleChangeText(FIELD_NAMES.tags, [...fields.tags, ...filteredData]);
@@ -88,14 +80,13 @@ const JobCreationScreen = () => {
       ]);
     }
 
-    setSelectedCheckboxData();
     setIsVisibleModal(false);
   }, [
     checkboxModalType,
     handleChangeText,
     fields.tags,
     fields.assignees,
-    selectedCheckboxData,
+    checkboxData,
   ]);
 
   const handleDeleteTag = useCallback(
@@ -153,7 +144,9 @@ const JobCreationScreen = () => {
 
     try {
       const getTagsPromise = TagService.getTags();
-      const getUsersPromise = UserService.getUsers();
+      const getUsersPromise = UserService.getUsers({
+        params: { roles: [USER_ROLE.hr] },
+      });
 
       const responses = await Promise.all([getTagsPromise, getUsersPromise]);
 
@@ -176,6 +169,17 @@ const JobCreationScreen = () => {
       setIsLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    let data = [];
+    if (checkboxModalType === CHECKBOX_MODAL_TYPES.tag) {
+      data = tagDataModal;
+    } else if (checkboxModalType === CHECKBOX_MODAL_TYPES.assignee) {
+      data = userDataModal;
+    }
+
+    setCheckboxData(data);
+  }, [checkboxModalType, tagDataModal, userDataModal]);
 
   useEffect(() => {
     handleGetData();
@@ -224,10 +228,10 @@ const JobCreationScreen = () => {
         onPress={handleCreateJob}
       />
 
-      <TagOptionsModal
+      <CheckboxOptionsModal
         isVisible={isVisibleModal}
-        data={checkboxModalData}
-        setData={setSelectedCheckboxData}
+        data={checkboxData}
+        setData={setCheckboxData}
         onCloseModal={() => setIsVisibleModal(false)}
         onAdd={handleAddSelectedCheckboxData}
       />
