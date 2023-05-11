@@ -8,6 +8,7 @@ const TextInputBlock = ({
   value,
   onChangeText,
   label,
+  keyboardType,
   placeholder = "",
   styles,
   textInputProps,
@@ -23,6 +24,7 @@ const TextInputBlock = ({
           style={[currentStyles.textInput, styles?.textInput]}
           placeholder={placeholder}
           placeholderTextColor={COLORS.grey[200]}
+          keyboardType={keyboardType}
           {...textInputProps}
         />
       }
@@ -41,6 +43,7 @@ TextInputBlock.propTypes = {
     label: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     textInput: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   }),
+  keyboardType: PropTypes.string,
   textInputProps: PropTypes.object,
 };
 

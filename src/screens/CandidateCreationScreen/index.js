@@ -221,6 +221,7 @@ const CandidateCreationScreen = () => {
         />
         <TextInputBlock
           label="Email *"
+          keyboardType="email-address"
           value={fields.email}
           onChangeText={value => handleChangeText(FIELD_NAMES.email, value)}
         />

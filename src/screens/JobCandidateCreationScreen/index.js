@@ -107,14 +107,11 @@ const JobCandidateCreationScreen = () => {
     try {
       const response = await ApplicationService.postApplication(data);
 
-      console.log(response.status); // TODO
-
       if (response.status === ApiConstant.STT_CREATED) {
         navigation.goBack();
         toast("Create successfully", { type: "success" });
       }
     } catch (error) {
-      console.log("error", error);
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -179,11 +176,13 @@ const JobCandidateCreationScreen = () => {
         />
         <TextInputBlock
           label="Email *"
+          keyboardType="email-address"
           value={fields.email}
           onChangeText={value => handleChangeText(FIELD_NAMES.email, value)}
         />
         <TextInputBlock
           label="Phone number"
+          inputMode="numeric"
           value={fields.phoneNumber}
           onChangeText={value =>
             handleChangeText(FIELD_NAMES.phoneNumber, value)

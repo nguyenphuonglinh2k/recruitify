@@ -189,12 +189,13 @@ const CandidateEditingInfoScreen = () => {
         />
 
         <TextInputBlock
-          label="Name"
+          label="Name *"
           value={fields.name}
           onChangeText={value => handleChangeText(FIELD_NAMES.name, value)}
         />
         <TextInputBlock
-          label="Email"
+          label="Email *"
+          keyboardType="email-address"
           value={fields.email}
           onChangeText={value => handleChangeText(FIELD_NAMES.email, value)}
         />
