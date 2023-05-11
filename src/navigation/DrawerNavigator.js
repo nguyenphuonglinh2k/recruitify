@@ -1,7 +1,7 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DRAWER_TAB_NAME } from "const/path.const";
-import { ChangePasswordScreen, SettingScreen } from "screens";
+import { ChangePasswordScreen } from "screens";
 import {
   BriefcaseIcon,
   LockIcon,
@@ -13,7 +13,7 @@ import { COLORS } from "utils";
 import CustomDrawerContent from "./CustomDrawerContent";
 import TrainingTabNavigator from "./TrainingTabNavigator";
 import RecruitmentTabNavigator from "./RecruitmentTabNavigator";
-import { ProfileStack } from "./StackNavigator";
+import { ProfileStack, SettingStack } from "./StackNavigator";
 
 export const Drawer = createDrawerNavigator();
 
@@ -49,8 +49,8 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name={DRAWER_TAB_NAME.settingScreen}
-        component={SettingScreen}
+        name={DRAWER_TAB_NAME.settingStack}
+        component={SettingStack}
         options={{
           drawerLabel: "Settings",
           drawerIcon: () => <SettingIcon />,

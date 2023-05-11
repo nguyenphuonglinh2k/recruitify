@@ -12,7 +12,7 @@ export const DRAWER_TAB_NAME = {
   profileStack: "profileStack",
   recruitmentProcess: "recruitmentProcess",
   candidateTraining: "candidateTraining",
-  settingScreen: "settingScreen",
+  settingStack: "settingStack",
   changePassword: "changePassword",
 };
 
@@ -46,4 +46,6 @@ export const SCREEN_NAME = {
   projectTaskCreationScreen: "projectTaskCreationScreen",
   taskCreationScreen: "taskCreationScreen",
   taskEditingScreen: "taskEditingScreen",
+  settingScreen: "settingScreen",
+  settingTagScreen: "settingTagScreen",
 };

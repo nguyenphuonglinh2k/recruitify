@@ -30,6 +30,8 @@ import {
   JobCandidateCreationScreen,
   ProfileScreen,
   ProfileEditingScreen,
+  SettingScreen,
+  SettingTagScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -46,6 +48,21 @@ const ProfileStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.profileEditingScreen}
         component={ProfileEditingScreen}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const SettingStack = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name={SCREEN_NAME.settingScreen}
+        component={SettingScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.settingTagScreen}
+        component={SettingTagScreen}
       />
     </Stack.Navigator>
   );
@@ -201,6 +218,7 @@ const TaskStack = () => {
 
 export {
   ProfileStack,
+  SettingStack,
   AuthStack,
   DashboardStack,
   ApplicationStack,

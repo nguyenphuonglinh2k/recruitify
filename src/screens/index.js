@@ -37,6 +37,7 @@ import TaskCreationScreen from "./TaskCreationScreen";
 import TaskEditingScreen from "./TaskEditingScreen";
 
 import SettingScreen from "./SettingScreen";
+import SettingTagScreen from "./SettingTagScreen";
 
 export {
   SignInScreen,
@@ -70,4 +71,5 @@ export {
   JobCandidateCreationScreen,
   ProfileEditingScreen,
   ChangePasswordScreen,
+  SettingTagScreen,
 };

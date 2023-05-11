@@ -75,3 +75,6 @@ export const DELETE_TASK = "/task/{taskId}";
 
 // Tag
 export const GET_TAGS = "/tags";
+export const POST_TAGS = "/tags";
+export const PUT_TAG = "/tag/{tagId}";
+export const DELETE_TAG = "/tag/{tagId}";
