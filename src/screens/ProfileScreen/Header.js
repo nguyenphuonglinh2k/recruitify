@@ -22,7 +22,7 @@ const Header = ({ data }) => {
         <CommonAvatar style={styles.avatar} source={{ uri: user.avatarUrl }} />
       </ImageBackground>
 
-      <Role value={user.role} style={{ marginTop: 10 }} />
+      <Role value={user.role} style={{ marginTop: 10, alignSelf: "center" }} />
       <Text style={styles.name}>{user.name}</Text>
       <Text style={styles.joinedTime}>
         {`Joined ${moment(user.createdAt).format(

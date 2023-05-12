@@ -38,6 +38,7 @@ import TaskEditingScreen from "./TaskEditingScreen";
 
 import SettingScreen from "./SettingScreen";
 import SettingTagScreen from "./SettingTagScreen";
+import SettingUsersScreen from "./SettingUsersScreen";
 
 export {
   SignInScreen,
@@ -72,4 +73,5 @@ export {
   ProfileEditingScreen,
   ChangePasswordScreen,
   SettingTagScreen,
+  SettingUsersScreen,
 };

@@ -13,14 +13,21 @@ const SettingScreen = () => {
     navigation.navigate(SCREEN_NAME.settingTagScreen);
   };
 
+  const handleNavigateToUserSetting = () => {
+    navigation.navigate(SCREEN_NAME.settingUsersScreen);
+  };
+
   return (
     <MainLayout>
       <ScrollView style={{ margin: 16 }}>
         <Text style={styles.label}>Settings</Text>
 
         <SettingItem label="Tag Setting" onPress={handleNavigateToTagSetting} />
-        <SettingItem label="Users' Account" style={{ marginVertical: 10 }} />
-        <SettingItem label="Member Rights" />
+        <SettingItem
+          label="User Account Management"
+          style={{ marginTop: 10 }}
+          onPress={handleNavigateToUserSetting}
+        />
       </ScrollView>
     </MainLayout>
   );

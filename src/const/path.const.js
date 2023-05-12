@@ -48,4 +48,5 @@ export const SCREEN_NAME = {
   taskEditingScreen: "taskEditingScreen",
   settingScreen: "settingScreen",
   settingTagScreen: "settingTagScreen",
+  settingUsersScreen: "settingUsersScreen",
 };
