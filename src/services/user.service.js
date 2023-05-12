@@ -13,6 +13,9 @@ export const putUserInfo = async (userId, data) => {
   return Api.put(StringFormat(ApiConstant.PUT_USER_INFO, { userId }), data);
 };
 
+export const deleteUser = userId =>
+  Api.delete(StringFormat(ApiConstant.DELETE_USER, { userId }));
+
 export const postCloudinaryUpload = async data => {
   const response = await axios.post(process.env.CLOUDINARY_UPLOAD_URL, data, {
     headers: ApiConstant.HEADER_FORM_DATA_DEFAULT,

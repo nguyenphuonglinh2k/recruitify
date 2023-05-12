@@ -29,6 +29,7 @@ export const PUT_UPDATE_PASSWORD = "/auth/update-password/{userId}";
 export const GET_USERS = "/users";
 export const GET_USER_INFO = "/user/{userId}";
 export const PUT_USER_INFO = "/profile/{userId}";
+export const DELETE_USER = "/user/{userId}";
 
 // Job
 export const GET_JOBS = "/jobs";
