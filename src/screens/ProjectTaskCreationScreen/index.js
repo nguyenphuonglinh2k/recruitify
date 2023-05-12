@@ -97,7 +97,7 @@ const ProjectTaskCreationScreen = () => {
     [fields],
   );
 
-  const handleValidateFields = useCallback(() => {
+  const handleCreateTask = useCallback(async () => {
     let messages = "";
 
     if (!fields.name) {
@@ -107,10 +107,7 @@ const ProjectTaskCreationScreen = () => {
     }
 
     if (messages) return toast.show(messages, { type: "warning" });
-  }, [fields.assigneeId, fields.name, toast]);
 
-  const handleCreateTask = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     try {
@@ -128,7 +125,7 @@ const ProjectTaskCreationScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [handleValidateFields, fields, PROJECT._id, navigation, toast]);
+  }, [fields, PROJECT._id, navigation, toast]);
 
   return (
     <MainLayout isBackScreen headerProps={{ title: "Create new task" }}>

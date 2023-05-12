@@ -2,14 +2,24 @@ import { FlatList, RefreshControl, StyleSheet, Text } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { MainLayout } from "layouts";
 import UserItem from "./UserItem";
-import { EmptyData, LoadingSpinner } from "components";
+import { CommonIconButton, EmptyData } from "components";
 import { UserService } from "services";
 import { ApiConstant } from "const";
 import { COLORS } from "utils";
+import { PlusIcon } from "icons";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
 const SettingUsersScreen = () => {
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
+
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleNavigateToCreateUser = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.settingUserCreationScreen);
+  }, [navigation]);
 
   const handleGetUsers = useCallback(async () => {
     setIsLoading(true);
@@ -28,11 +38,21 @@ const SettingUsersScreen = () => {
   }, []);
 
   useEffect(() => {
-    handleGetUsers();
-  }, [handleGetUsers]);
+    if (isFocused) handleGetUsers();
+  }, [handleGetUsers, isFocused]);
 
   return (
-    <MainLayout isBackScreen headerProps={{ title: "User setting" }}>
+    <MainLayout
+      isBackScreen
+      headerProps={{
+        title: "User setting",
+        headerRight: (
+          <CommonIconButton onPress={handleNavigateToCreateUser}>
+            <PlusIcon color={COLORS.green} />
+          </CommonIconButton>
+        ),
+      }}
+    >
       <Text style={styles.title}>User Management</Text>
       <Text style={styles.desc}>
         Manage all your existing users or add a new user.

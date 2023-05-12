@@ -49,4 +49,5 @@ export const SCREEN_NAME = {
   settingScreen: "settingScreen",
   settingTagScreen: "settingTagScreen",
   settingUsersScreen: "settingUsersScreen",
+  settingUserCreationScreen: "settingUserCreationScreen",
 };

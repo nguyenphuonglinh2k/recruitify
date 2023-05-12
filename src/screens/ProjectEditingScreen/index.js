@@ -34,14 +34,10 @@ const ProjectEditingScreen = () => {
     setFields({ ...fields, [fieldName]: newValue });
   };
 
-  const handleValidateFields = useCallback(() => {
+  const handleEditProject = useCallback(async () => {
     if (!fields.name) {
       return toast.show("Name is required", { type: "warning" });
     }
-  }, [fields.name, toast]);
-
-  const handleEditProject = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     try {
@@ -56,7 +52,7 @@ const ProjectEditingScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [handleValidateFields, PROJECT._id, fields, navigation, toast]);
+  }, [PROJECT._id, fields, navigation, toast]);
 
   const handleSetDefaultFields = useCallback(() => {
     setFields({

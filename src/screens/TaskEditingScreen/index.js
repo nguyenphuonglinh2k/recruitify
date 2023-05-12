@@ -97,14 +97,10 @@ const TaskEditingScreen = () => {
     [fields],
   );
 
-  const handleValidateFields = useCallback(() => {
+  const handleEditTask = useCallback(async () => {
     if (!fields.name) {
       return toast.show("Name is required", { type: "warning" });
     }
-  }, [fields.name, toast]);
-
-  const handleEditTask = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     try {
@@ -119,7 +115,7 @@ const TaskEditingScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [handleValidateFields, TASK._id, fields, navigation, toast]);
+  }, [TASK._id, fields, navigation, toast]);
 
   const handleGetProjects = useCallback(async () => {
     setIsLoading(true);

@@ -112,14 +112,13 @@ const CandidateCreationScreen = () => {
     }
   }, []);
 
-  const handleValidateFields = useCallback(() => {
-    if (!fields.name || !fields.email || !fields.attachments || !fields.jobId) {
-      return toast.show("Please fill out all required fields");
-    }
-  }, [fields.attachments, fields.email, fields.jobId, fields.name, toast]);
-
   const handleCreateApplication = useCallback(async () => {
-    handleValidateFields();
+    if (!fields.name || !fields.email || !fields.attachments || !fields.jobId) {
+      return toast.show("Please fill out all required fields", {
+        type: "warning",
+      });
+    }
+
     setIsLoading(true);
 
     const skillIds = fields.skills.map(skill => skill._id);
@@ -150,7 +149,7 @@ const CandidateCreationScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [fields, handleValidateFields, navigation, toast]);
+  }, [fields, navigation, toast]);
 
   const handleChangeStatusModalValue = useCallback(
     newValue => {

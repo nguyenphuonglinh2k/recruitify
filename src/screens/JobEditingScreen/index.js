@@ -100,14 +100,10 @@ const JobEditingScreen = () => {
     [fields.tags, handleChangeText],
   );
 
-  const handleValidateFields = useCallback(() => {
+  const handleEditJob = useCallback(async () => {
     if (!fields.name) {
       return toast.show("Please fill out required fields", { type: "warning" });
     }
-  }, [fields.name, toast]);
-
-  const handleEditJob = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     const tagIds = fields.tags.map(tag => tag._id);
@@ -134,7 +130,7 @@ const JobEditingScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [handleValidateFields, fields, JOB._id, navigation, toast]);
+  }, [fields, JOB._id, navigation, toast]);
 
   const handleGetData = useCallback(async () => {
     setIsLoading(true);

@@ -33,6 +33,7 @@ import {
   SettingScreen,
   SettingTagScreen,
   SettingUsersScreen,
+  SettingUserCreationScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -68,6 +69,10 @@ const SettingStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.settingUsersScreen}
         component={SettingUsersScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.settingUserCreationScreen}
+        component={SettingUserCreationScreen}
       />
     </Stack.Navigator>
   );

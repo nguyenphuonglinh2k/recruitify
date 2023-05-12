@@ -44,3 +44,5 @@ export const PROGRESS_STATUS = {
   doing: 2,
   done: 3,
 };
+
+export const DEFAULT_PASSWORD = "123456";

@@ -34,14 +34,10 @@ const ProjectCreationScreen = () => {
     setFields({ ...fields, [fieldName]: newValue });
   };
 
-  const handleValidateFields = useCallback(() => {
+  const handleCreateProject = useCallback(async () => {
     if (!fields.name) {
       return toast.show("Name is required", { type: "warning" });
     }
-  }, [fields.name, toast]);
-
-  const handleCreateProject = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     try {
@@ -59,7 +55,7 @@ const ProjectCreationScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [handleValidateFields, fields, authUser._id, navigation, toast]);
+  }, [fields, authUser._id, navigation, toast]);
 
   return (
     <MainLayout headerProps={{ title: "Create new project" }}>

@@ -95,14 +95,10 @@ const TaskCreationScreen = () => {
     [fields],
   );
 
-  const handleValidateFields = useCallback(() => {
+  const handleCreateTask = useCallback(async () => {
     if (!fields.name) {
       return toast.show("Name is required", { type: "warning" });
     }
-  }, [fields.name, toast]);
-
-  const handleCreateTask = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     try {
@@ -120,7 +116,7 @@ const TaskCreationScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [handleValidateFields, fields, AUTH_USER._id, navigation, toast]);
+  }, [fields, AUTH_USER._id, navigation, toast]);
 
   const handleGetProjects = useCallback(async () => {
     setIsLoading(true);

@@ -36,6 +36,7 @@ const useStyles = value =>
       paddingVertical: 4,
       backgroundColor: onGetUserRoleBackgroundColor(value),
       borderRadius: 8,
+      alignSelf: "flex-start",
     },
     label: {
       textAlign: "center",

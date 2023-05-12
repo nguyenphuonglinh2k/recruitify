@@ -78,14 +78,11 @@ const JobCandidateCreationScreen = () => {
     }
   }, []);
 
-  const handleValidateFields = useCallback(() => {
+  const handleCreateApplication = useCallback(async () => {
     if (!fields.name || !fields.email || !fields.attachments) {
       return toast.show("Please fill out all required fields");
     }
-  }, [fields.attachments, fields.email, fields.name, toast]);
 
-  const handleCreateApplication = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     const skillIds = fields.skills.map(skill => skill._id);
@@ -116,7 +113,7 @@ const JobCandidateCreationScreen = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [JOB._id, fields, handleValidateFields, navigation, toast]);
+  }, [JOB._id, fields, navigation, toast]);
 
   const handleGetJobs = useCallback(() => {
     dispatch(JobActions.getJobsRequest());

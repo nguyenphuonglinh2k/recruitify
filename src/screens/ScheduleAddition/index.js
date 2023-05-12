@@ -96,14 +96,10 @@ const ScheduleAddition = () => {
     [handleChangeText],
   );
 
-  const handleValidateFields = useCallback(() => {
+  const handleCreateSchedule = useCallback(async () => {
     if (!fields.name) {
       return toast.show("Please fill out required fields", { type: "warning" });
     }
-  }, [fields.name, toast]);
-
-  const handleCreateSchedule = useCallback(async () => {
-    handleValidateFields();
     setIsLoading(true);
 
     const assigneeIds = fields.assignees.map(user => user._id);
@@ -132,7 +128,7 @@ const ScheduleAddition = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [AUTH_USER._id, date, fields, navigation, toast, handleValidateFields]);
+  }, [AUTH_USER._id, date, fields, navigation, toast]);
 
   const handleGetData = useCallback(async () => {
     setIsLoading(true);
