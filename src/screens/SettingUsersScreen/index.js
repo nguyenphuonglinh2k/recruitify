@@ -10,6 +10,7 @@ import { PlusIcon } from "icons";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import { useToast } from "react-native-toast-notifications";
+import EditUserRoleModal from "./EditUserRoleModal";
 
 const SettingUsersScreen = () => {
   const toast = useToast();
@@ -22,14 +23,24 @@ const SettingUsersScreen = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleConfirmModal, setIsVisibleConfirmModal] = useState(false);
+  const [isVisibleEditModal, setIsVisibleEditModal] = useState(false);
 
   const handleCloseConfirmModal = useCallback(() => {
     setIsVisibleConfirmModal(false);
   }, []);
 
+  const handleCloseEditModal = useCallback(() => {
+    setIsVisibleEditModal(false);
+  }, []);
+
   const handleOpenConfirmModal = useCallback(user => {
     setSelectedUser(user);
     setIsVisibleConfirmModal(true);
+  }, []);
+
+  const handleOpenEditRoleModal = useCallback(user => {
+    setSelectedUser(user);
+    setIsVisibleEditModal(true);
   }, []);
 
   const handleNavigateToCreateUser = useCallback(() => {
@@ -70,6 +81,40 @@ const SettingUsersScreen = () => {
     }
   }, [handleGetUsers, selectedUser._id, toast, handleCloseConfirmModal]);
 
+  const handleSaveNewRole = useCallback(
+    async newValue => {
+      if (newValue === selectedUser.role) {
+        handleCloseEditModal();
+        return;
+      }
+
+      setIsLoading(true);
+
+      try {
+        const response = await UserService.putUserInfo(selectedUser._id, {
+          role: newValue,
+        });
+
+        if (response.status === ApiConstant.STT_OK) {
+          toast.show("Update successfully", { type: "success" });
+          handleGetUsers();
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+        handleCloseEditModal();
+      }
+    },
+    [
+      handleCloseEditModal,
+      handleGetUsers,
+      selectedUser._id,
+      selectedUser.role,
+      toast,
+    ],
+  );
+
   useEffect(() => {
     if (isFocused) handleGetUsers();
   }, [handleGetUsers, isFocused]);
@@ -97,6 +142,7 @@ const SettingUsersScreen = () => {
             data={item}
             style={styles.item}
             onDelete={() => handleOpenConfirmModal(item)}
+            onPress={() => handleOpenEditRoleModal(item)}
           />
         )}
         keyExtractor={(_, i) => i}
@@ -113,6 +159,13 @@ const SettingUsersScreen = () => {
         isVisible={isVisibleConfirmModal}
         onCancel={handleCloseConfirmModal}
         onOK={handleDeleteUser}
+      />
+
+      <EditUserRoleModal
+        isVisible={isVisibleEditModal}
+        value={selectedUser.role}
+        onCloseModal={handleCloseEditModal}
+        onOk={newValue => handleSaveNewRole(newValue)}
       />
     </MainLayout>
   );

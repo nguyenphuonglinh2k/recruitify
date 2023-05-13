@@ -23,6 +23,7 @@ import TaskIcon from "./TaskIcon";
 import ProjectIcon from "./ProjectIcon";
 import CircleXMarkIcon from "./CircleXMarkIcon";
 import LockIcon from "./LockIcon";
+import CircleTickIcon from "./CircleTickIcon";
 
 export {
   HomeIcon,
@@ -50,4 +51,5 @@ export {
   ProjectIcon,
   CircleXMarkIcon,
   LockIcon,
+  CircleTickIcon,
 };
