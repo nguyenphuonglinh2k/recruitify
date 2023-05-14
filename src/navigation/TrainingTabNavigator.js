@@ -1,7 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeIcon, ProjectIcon, TaskIcon } from "icons";
-import { DashboardStack, ProjectStack, TaskStack } from "./StackNavigator";
+import {
+  ProjectStack,
+  TaskStack,
+  TrainingOverviewStack,
+} from "./StackNavigator";
 import { TAB_NAME } from "const/path.const";
 import { COLORS } from "utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -24,7 +28,7 @@ export default function TrainingTabNavigator() {
     >
       <Tab.Screen
         name={TAB_NAME.trainingOverview}
-        component={DashboardStack}
+        component={TrainingOverviewStack}
         options={onGetTabScreenOptions(HomeIcon, { tabBarLabel: "Overview" })}
       />
 

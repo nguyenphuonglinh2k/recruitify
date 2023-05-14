@@ -30,6 +30,7 @@ import ProjectEditingScreen from "./ProjectEditingScreen";
 import ProjectMemberEditingScreen from "./ProjectMemberEditingScreen";
 import ProjectTaskEditingScreen from "./ProjectTaskEditingScreen";
 import ProjectTaskCreationScreen from "./ProjectTaskCreationScreen";
+import ProjectOverviewScreen from "./ProjectOverviewScreen";
 
 import TaskScreen from "./TaskScreen";
 import TaskDetailScreen from "./TaskDetailScreen";
@@ -76,4 +77,5 @@ export {
   SettingTagScreen,
   SettingUsersScreen,
   SettingUserCreationScreen,
+  ProjectOverviewScreen,
 };
