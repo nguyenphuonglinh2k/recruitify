@@ -5,12 +5,14 @@ import PropTypes from "prop-types";
 import { BarChart } from "react-native-chart-kit";
 import { TaskService } from "services";
 import { ApiConstant } from "const";
+import { LoadingSpinner } from "components";
 
-const TaskStatistics = ({ userId, style, setIsLoading }) => {
+const TaskStatistics = ({ userId, style }) => {
   const [data, setData] = useState([0, 0, 0, 0, 0]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetStatistics = useCallback(async () => {
-    if (setIsLoading) setIsLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await TaskService.getWeeklyTaskStatistics(userId);
@@ -45,6 +47,8 @@ const TaskStatistics = ({ userId, style, setIsLoading }) => {
         fromZero
         style={{ marginLeft: -16 }}
       />
+
+      <LoadingSpinner isVisible={isLoading} />
     </View>
   );
 };

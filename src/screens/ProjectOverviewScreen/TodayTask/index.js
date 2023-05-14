@@ -6,13 +6,14 @@ import TaskItem from "./TaskItem";
 import { TaskService } from "services";
 import { PROGRESS_STATUS } from "const/app.const";
 import { ApiConstant } from "const";
-import { EmptyData } from "components";
+import { EmptyData, LoadingSpinner } from "components";
 
-const TodayTask = ({ userId, setIsLoading, style }) => {
+const TodayTask = ({ userId, style }) => {
   const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetTasks = useCallback(async () => {
-    if (setIsLoading) setIsLoading(true);
+    setIsLoading(true);
 
     try {
       const getTasksNewPromise = TaskService.getTodayTasks(userId, {
@@ -43,7 +44,7 @@ const TodayTask = ({ userId, setIsLoading, style }) => {
     } catch (error) {
       console.error(error);
     } finally {
-      if (setIsLoading) setIsLoading(false);
+      setIsLoading(false);
     }
   }, [setIsLoading, userId]);
 
@@ -61,6 +62,8 @@ const TodayTask = ({ userId, setIsLoading, style }) => {
       ) : (
         <EmptyData description="No today's tasks found!" />
       )}
+
+      <LoadingSpinner isVisible={isLoading} />
     </View>
   );
 };

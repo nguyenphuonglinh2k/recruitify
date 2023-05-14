@@ -7,13 +7,14 @@ import { PieChart } from "react-native-chart-kit";
 import PropTypes from "prop-types";
 import { ProjectService } from "services";
 import { ApiConstant } from "const";
-import { EmptyData } from "components";
+import { EmptyData, LoadingSpinner } from "components";
 
-const ProjectStatistics = ({ style, setIsLoading }) => {
+const ProjectStatistics = ({ style }) => {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetProjectStatistics = useCallback(async () => {
-    if (setIsLoading) setIsLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await ProjectService.getProjectStatistics();
@@ -47,7 +48,7 @@ const ProjectStatistics = ({ style, setIsLoading }) => {
     } catch (error) {
       console.error(error);
     } finally {
-      if (setIsLoading) setIsLoading(false);
+      setIsLoading(false);
     }
   }, [setIsLoading]);
 
@@ -74,6 +75,8 @@ const ProjectStatistics = ({ style, setIsLoading }) => {
       ) : (
         <EmptyData description="No project found!" />
       )}
+
+      <LoadingSpinner isVisible={isLoading} />
     </View>
   );
 };

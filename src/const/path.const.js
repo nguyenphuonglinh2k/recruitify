@@ -6,6 +6,7 @@ export const TAB_NAME = {
   trainingOverview: "trainingOverview",
   project: "project",
   task: "task",
+  trainingResult: "trainingResult",
 };
 
 export const DRAWER_TAB_NAME = {
@@ -51,4 +52,5 @@ export const SCREEN_NAME = {
   settingUsersScreen: "settingUsersScreen",
   settingUserCreationScreen: "settingUserCreationScreen",
   projectOverviewScreen: "projectOverviewScreen",
+  trainingResultScreen: "trainingResultScreen",
 };

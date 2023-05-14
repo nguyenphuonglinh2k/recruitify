@@ -35,6 +35,7 @@ import {
   SettingUsersScreen,
   SettingUserCreationScreen,
   ProjectOverviewScreen,
+  TrainingResultScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -238,6 +239,17 @@ const TaskStack = () => {
   );
 };
 
+const TrainingResultStack = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name={SCREEN_NAME.trainingResultScreen}
+        component={TrainingResultScreen}
+      />
+    </Stack.Navigator>
+  );
+};
+
 export {
   ProfileStack,
   SettingStack,
@@ -249,4 +261,5 @@ export {
   ProjectStack,
   TaskStack,
   TrainingOverviewStack,
+  TrainingResultStack,
 };

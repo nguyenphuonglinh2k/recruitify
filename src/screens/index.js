@@ -42,6 +42,8 @@ import SettingTagScreen from "./SettingTagScreen";
 import SettingUsersScreen from "./SettingUsersScreen";
 import SettingUserCreationScreen from "./SettingUserCreationScreen";
 
+import TrainingResultScreen from "./TrainingResultScreen";
+
 export {
   SignInScreen,
   JobsScreen,
@@ -78,4 +80,5 @@ export {
   SettingUsersScreen,
   SettingUserCreationScreen,
   ProjectOverviewScreen,
+  TrainingResultScreen,
 };

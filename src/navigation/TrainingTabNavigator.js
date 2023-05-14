@@ -1,10 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeIcon, ProjectIcon, TaskIcon } from "icons";
+import { BookmarkIcon, HomeIcon, ProjectIcon, TaskIcon } from "icons";
 import {
   ProjectStack,
   TaskStack,
   TrainingOverviewStack,
+  TrainingResultStack,
 } from "./StackNavigator";
 import { TAB_NAME } from "const/path.const";
 import { COLORS } from "utils";
@@ -45,6 +46,14 @@ export default function TrainingTabNavigator() {
         component={TaskStack}
         options={onGetTabScreenOptions(TaskIcon, {
           tabBarLabel: "Task",
+        })}
+      />
+
+      <Tab.Screen
+        name={TAB_NAME.trainingResult}
+        component={TrainingResultStack}
+        options={onGetTabScreenOptions(BookmarkIcon, {
+          tabBarLabel: "Result",
         })}
       />
     </Tab.Navigator>

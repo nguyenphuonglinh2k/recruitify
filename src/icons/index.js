@@ -24,6 +24,7 @@ import ProjectIcon from "./ProjectIcon";
 import CircleXMarkIcon from "./CircleXMarkIcon";
 import LockIcon from "./LockIcon";
 import CircleTickIcon from "./CircleTickIcon";
+import BookmarkIcon from "./BookmarkIcon";
 
 export {
   HomeIcon,
@@ -52,4 +53,5 @@ export {
   CircleXMarkIcon,
   LockIcon,
   CircleTickIcon,
+  BookmarkIcon,
 };
