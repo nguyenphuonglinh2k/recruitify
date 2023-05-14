@@ -45,4 +45,9 @@ export const PROGRESS_STATUS = {
   done: 3,
 };
 
+export const RESULT_STATUS = {
+  qualified: 1,
+  unqualified: 2,
+};
+
 export const DEFAULT_PASSWORD = "123456";

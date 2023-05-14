@@ -1,8 +1,20 @@
 import {
   APPLICATION_STATUS,
   PROGRESS_STATUS,
+  RESULT_STATUS,
   USER_ROLE,
 } from "const/app.const";
+
+export const onGetResultStatusLabel = status => {
+  switch (status) {
+    case RESULT_STATUS.qualified:
+      return "Qualified";
+    case RESULT_STATUS.unqualified:
+      return "Unqualified";
+    default:
+      return "Undefined";
+  }
+};
 
 export const onGetProjectAndTaskStatusLabel = status => {
   switch (status) {

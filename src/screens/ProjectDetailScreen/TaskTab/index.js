@@ -1,7 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import FilterButton from "./FilterButton";
 import TaskList from "./TaskList";
 import { ProjectService } from "services";
 import { ApiConstant } from "const";
@@ -10,6 +9,7 @@ import {
   LoadingSpinner,
   SearchBox,
   StatusOptionsModal,
+  FilterButton,
 } from "components";
 import { useIsFocused } from "@react-navigation/core";
 import { PROGRESS_STATUS } from "const/app.const";

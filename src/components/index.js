@@ -46,6 +46,7 @@ import SelectInputBlock from "./SelectInputBlock";
 import CheckboxOptionsModal from "./CheckboxOptionsModal";
 import AttachmentUploadBlock from "./AttachmentUploadBlock";
 import EditLocationBlock from "./EditLocationBlock";
+import FilterButton from "./FilterButton";
 
 export {
   CommonButton,
@@ -95,4 +96,5 @@ export {
   CheckboxOptionsModal,
   AttachmentUploadBlock,
   EditLocationBlock,
+  FilterButton,
 };
