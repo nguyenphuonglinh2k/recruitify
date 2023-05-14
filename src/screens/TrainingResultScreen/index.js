@@ -7,8 +7,12 @@ import { UserService } from "services";
 import { RESULT_STATUS, USER_ROLE } from "const/app.const";
 import { ApiConstant } from "const";
 import { onGetResultStatusLabel } from "utils/label.utils";
+import { useNavigation } from "@react-navigation/core";
+import { SCREEN_NAME } from "const/path.const";
 
 const TrainingResultScreen = () => {
+  const navigation = useNavigation();
+
   const [users, setUsers] = useState([]);
   const [status, setStatus] = useState(DEFAULT_STATUS_VALUE);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +24,7 @@ const TrainingResultScreen = () => {
     return statusObj?.label;
   }, [status]);
 
-  // TODO: get user's results
+  // TODO: get user's results (need useEffect?)
   const handleGetUsers = useCallback(async () => {
     setIsLoading(true);
 
@@ -41,6 +45,15 @@ const TrainingResultScreen = () => {
     }
   }, []);
 
+  const handleNavigateToDetail = useCallback(
+    item => {
+      navigation.navigate(SCREEN_NAME.trainingResultDetailScreen, {
+        resultId: item._id,
+      });
+    },
+    [navigation],
+  );
+
   return (
     <MainLayout>
       <View style={styles.filterBox}>
@@ -53,7 +66,13 @@ const TrainingResultScreen = () => {
 
       <FlatList
         data={users}
-        renderItem={({ item }) => <UserItem data={item} style={styles.item} />}
+        renderItem={({ item }) => (
+          <UserItem
+            data={item}
+            style={styles.item}
+            onPress={() => handleNavigateToDetail(item)}
+          />
+        )}
         keyExtractor={(_, i) => i}
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={handleGetUsers} />

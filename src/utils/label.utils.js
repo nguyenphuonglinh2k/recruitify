@@ -12,7 +12,7 @@ export const onGetResultStatusLabel = status => {
     case RESULT_STATUS.unqualified:
       return "Unqualified";
     default:
-      return "Undefined";
+      return "Not Evaluated";
   }
 };
 

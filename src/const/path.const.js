@@ -53,4 +53,5 @@ export const SCREEN_NAME = {
   settingUserCreationScreen: "settingUserCreationScreen",
   projectOverviewScreen: "projectOverviewScreen",
   trainingResultScreen: "trainingResultScreen",
+  trainingResultDetailScreen: "trainingResultDetailScreen",
 };
