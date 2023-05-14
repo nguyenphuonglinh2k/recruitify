@@ -15,11 +15,11 @@ const TodayTask = ({ userId, setIsLoading, style }) => {
     if (setIsLoading) setIsLoading(true);
 
     try {
-      const getTasksNewPromise = TaskService.getTasks(userId, {
+      const getTasksNewPromise = TaskService.getTodayTasks(userId, {
         params: { status: PROGRESS_STATUS.new },
       });
 
-      const getTasksDoingPromise = TaskService.getTasks(userId, {
+      const getTasksDoingPromise = TaskService.getTodayTasks(userId, {
         params: { status: PROGRESS_STATUS.doing },
       });
 

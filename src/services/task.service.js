@@ -5,6 +5,12 @@ import StringFormat from "string-format";
 export const getTasks = (userId, params) =>
   Api.get(StringFormat(ApiConstant.GET_TASKS, { userId }), params);
 
+export const getTodayTasks = (userId, params) =>
+  Api.get(StringFormat(ApiConstant.GET_TODAY_TASKS, { userId }), params);
+
+export const getWeeklyTaskStatistics = userId =>
+  Api.get(StringFormat(ApiConstant.GET_WEEKLY_TASK_STATISTICS, { userId }));
+
 export const getTaskDetail = (userId, taskId) => {
   return Api.get(StringFormat(ApiConstant.GET_TASK_DETAIL, { taskId, userId }));
 };

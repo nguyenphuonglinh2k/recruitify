@@ -54,6 +54,7 @@ export const PUT_SCHEDULE = "/schedule/{scheduleId}";
 export const DELETE_SCHEDULE = "/schedule/{scheduleId}";
 
 // Project
+export const GET_PROJECT_STATISTICS = "/project-statistics";
 export const GET_PROJECTS = "/projects/{userId}";
 export const GET_MEMBERS_TASKS_NOT_IN_PROJECT =
   "/project/{projectId}/member-tasks";
@@ -68,6 +69,8 @@ export const GET_TASKS_OF_PROJECT = "/project/{projectId}/tasks";
 export const GET_PROJECT_MEMBERS = "/project/{projectId}/members";
 
 // Task
+export const GET_WEEKLY_TASK_STATISTICS = "/task-statistics-weekly/{userId}";
+export const GET_TODAY_TASKS = "/member/{userId}/today-tasks";
 export const GET_TASKS = "/member/{userId}/tasks";
 export const GET_TASK_DETAIL = "/task/{taskId}/{userId}";
 export const POST_TASK = "/task";

@@ -2,6 +2,9 @@ import Api from "./api";
 import { ApiConstant } from "const";
 import StringFormat from "string-format";
 
+export const getProjectStatistics = () =>
+  Api.get(ApiConstant.GET_PROJECT_STATISTICS);
+
 export const getProjects = (userId, params) =>
   Api.get(StringFormat(ApiConstant.GET_PROJECTS, { userId }), params);
 
