@@ -6,6 +6,7 @@ import TaskItem from "./TaskItem";
 import { TaskService } from "services";
 import { PROGRESS_STATUS } from "const/app.const";
 import { ApiConstant } from "const";
+import { EmptyData } from "components";
 
 const TodayTask = ({ userId, setIsLoading, style }) => {
   const [tasks, setTasks] = useState([]);
@@ -53,9 +54,13 @@ const TodayTask = ({ userId, setIsLoading, style }) => {
   return (
     <View style={[styles.root, style]}>
       <Text style={styles.title}>Today Task</Text>
-      {tasks.map((task, index) => (
-        <TaskItem key={index} data={task} style={styles.item} />
-      ))}
+      {tasks.length ? (
+        tasks.map((task, index) => (
+          <TaskItem key={index} data={task} style={styles.item} />
+        ))
+      ) : (
+        <EmptyData description="No today's tasks found!" />
+      )}
     </View>
   );
 };

@@ -7,7 +7,7 @@ import { BarChart } from "react-native-chart-kit";
 const TaskStatistics = ({ style }) => {
   return (
     <View style={[styles.root, style]}>
-      <Text style={styles.title}>{`Task Statistics`}</Text>
+      <Text style={styles.title}>{`Weekly Task Statistics`}</Text>
       <BarChart
         data={data}
         width={Dimensions.get("window").width}

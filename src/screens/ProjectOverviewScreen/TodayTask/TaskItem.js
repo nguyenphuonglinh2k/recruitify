@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   },
   right: {
     flexDirection: "row",
+    alignItems: "center",
   },
   title: {
     color: COLORS.black,

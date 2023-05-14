@@ -8,7 +8,7 @@ import { LoadingSpinner } from "components";
 import { useSelector } from "react-redux";
 
 const ProjectOverviewScreen = () => {
-  const AUTH_USER = useSelector(({ authRedux }) => authRedux.user);
+  const AUTH_USER = useSelector(({ authRedux }) => authRedux.user); // TODO: filter by user
 
   const [isLoading, setIsLoading] = useState(false);
 
