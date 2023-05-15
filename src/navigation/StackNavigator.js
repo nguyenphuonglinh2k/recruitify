@@ -38,6 +38,7 @@ import {
   TrainingResultScreen,
   TrainingResultDetailScreen,
   TrainingResultEditingScreen,
+  TrainingResultCreationScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -255,6 +256,10 @@ const TrainingResultStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.trainingResultEditingScreen}
         component={TrainingResultEditingScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.trainingResultCreationScreen}
+        component={TrainingResultCreationScreen}
       />
     </Stack.Navigator>
   );

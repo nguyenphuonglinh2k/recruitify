@@ -7,7 +7,7 @@ import { COLORS } from "utils";
 
 const CommonRating = ({ color, value, readonly, style, ...otherProps }) => {
   const notFulfilStarTotal = useMemo(
-    () => AppConstant.MAXIMUM_STAR_RATING - value,
+    () => AppConstant.MAXIMUM_STAR_RATING - (value ?? 0),
     [value],
   );
 
@@ -38,7 +38,7 @@ CommonRating.propTypes = {
 };
 
 CommonRating.defaultProps = {
-  value: 3,
+  value: 0,
   readonly: true,
   color: COLORS.yellow,
 };

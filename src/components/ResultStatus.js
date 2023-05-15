@@ -34,9 +34,9 @@ export default ResultStatus;
 
 const styles = StyleSheet.create({
   root: {
-    borderRadius: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 16,
+    borderRadius: 6,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
     alignSelf: "flex-start",
     fontWeight: "600",
     fontSize: 13,

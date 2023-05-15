@@ -2,6 +2,9 @@ import Api from "./api";
 import { ApiConstant } from "const";
 import StringFormat from "string-format";
 
+export const getNotEvaluatedUsers = () =>
+  Api.get(ApiConstant.GET_NOT_EVALUATED_USERS);
+
 export const getTrainResults = params =>
   Api.get(ApiConstant.GET_TRAIN_RESULTS, params);
 

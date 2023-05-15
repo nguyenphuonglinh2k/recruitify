@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   name: {
     color: COLORS.black,
     fontWeight: "600",
-    marginBottom: 8,
+    marginBottom: 4,
     fontSize: 16,
   },
   avatar: {

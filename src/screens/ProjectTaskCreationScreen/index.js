@@ -43,18 +43,24 @@ const ProjectTaskCreationScreen = () => {
     return data;
   }, [PROJECT.memberIds]);
 
-  const modalData = useMemo(() => {
+  const [modalData, modalValue] = useMemo(() => {
     switch (modalType) {
       case MODAL_TYPES.progress:
-        return PROGRESS_DATA;
+        return [PROGRESS_DATA, fields.progress];
       case MODAL_TYPES.status:
-        return STATUS_DATA;
+        return [STATUS_DATA, fields.status];
       case MODAL_TYPES.assignee:
-        return assigneeData;
+        return [assigneeData, fields.assigneeId];
       default:
         return [];
     }
-  }, [modalType, assigneeData]);
+  }, [
+    modalType,
+    fields.progress,
+    fields.status,
+    fields.assigneeId,
+    assigneeData,
+  ]);
 
   const assigneeName = useMemo(() => {
     if (fields.assigneeId) {
@@ -186,7 +192,7 @@ const ProjectTaskCreationScreen = () => {
       />
 
       <StatusOptionsModal
-        value={fields.status}
+        value={modalValue}
         setValue={handleSetModalValue}
         isVisible={isVisibleModal}
         data={modalData}

@@ -45,6 +45,7 @@ import SettingUserCreationScreen from "./SettingUserCreationScreen";
 import TrainingResultScreen from "./TrainingResultScreen";
 import TrainingResultDetailScreen from "./TrainingResultDetailScreen";
 import TrainingResultEditingScreen from "./TrainingResultEditingScreen";
+import TrainingResultCreationScreen from "./TrainingResultCreationScreen";
 
 export {
   SignInScreen,
@@ -85,4 +86,5 @@ export {
   TrainingResultScreen,
   TrainingResultDetailScreen,
   TrainingResultEditingScreen,
+  TrainingResultCreationScreen,
 };

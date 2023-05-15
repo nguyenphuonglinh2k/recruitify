@@ -36,6 +36,7 @@ const RatingOptionsModal = ({
           style={[
             paddingStyle,
             contentStyle,
+            { paddingVertical: 16 },
             value === itemValue ? styles.selected : {},
           ]}
         >

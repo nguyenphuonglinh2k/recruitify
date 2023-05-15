@@ -1,7 +1,12 @@
 import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MainLayout } from "layouts";
-import { EmptyData, FilterButton, StatusOptionsModal } from "components";
+import {
+  CommonIconButton,
+  EmptyData,
+  FilterButton,
+  StatusOptionsModal,
+} from "components";
 import UserItem from "./UserItem";
 import { TrainResultService } from "services";
 import { RESULT_STATUS } from "const/app.const";
@@ -11,6 +16,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import { COLORS } from "utils";
 import { Text } from "react-native";
+import { PlusIcon } from "icons";
 
 const TrainingResultScreen = () => {
   const navigation = useNavigation();
@@ -55,12 +61,24 @@ const TrainingResultScreen = () => {
     [navigation],
   );
 
+  const handleNavigateToCreation = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.trainingResultCreationScreen);
+  }, [navigation]);
+
   useEffect(() => {
     if (isFocused) handleGetUsers();
   }, [handleGetUsers, isFocused]);
 
   return (
-    <MainLayout>
+    <MainLayout
+      headerProps={{
+        headerRight: (
+          <CommonIconButton onPress={handleNavigateToCreation}>
+            <PlusIcon color={COLORS.green} />
+          </CommonIconButton>
+        ),
+      }}
+    >
       <View style={{ margin: 16 }}>
         <Text style={styles.title}>Training Results</Text>
         <Text style={styles.desc}>
