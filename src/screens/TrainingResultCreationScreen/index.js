@@ -29,7 +29,7 @@ const TrainingResultCreationScreen = () => {
 
   const [fields, setFields] = useState({
     ...DEFAULT_FIELDS,
-    candidateId: CANDIDATE._id ?? DEFAULT_FIELDS.candidateId,
+    candidateId: CANDIDATE?._id ?? DEFAULT_FIELDS.candidateId,
   });
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -142,7 +142,7 @@ const TrainingResultCreationScreen = () => {
     <MainLayout
       isBackScreen
       headerProps={{
-        title: CANDIDATE.name
+        title: CANDIDATE?.name
           ? `Create ${CANDIDATE.name}'s evaluation`
           : "Create new evaluation",
       }}
@@ -169,7 +169,7 @@ const TrainingResultCreationScreen = () => {
           }
           onPress={() => setIsVisibleRatingModal(true)}
         />
-        {CANDIDATE.name ? (
+        {CANDIDATE?.name ? (
           <DetailItemRow label="Assignee *" content={CANDIDATE.name} />
         ) : (
           <SelectInputBlock
