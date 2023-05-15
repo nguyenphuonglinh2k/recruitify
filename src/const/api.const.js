@@ -82,3 +82,9 @@ export const GET_TAGS = "/tags";
 export const POST_TAGS = "/tags";
 export const PUT_TAG = "/tag/{tagId}";
 export const DELETE_TAG = "/tag/{tagId}";
+
+// Train result
+export const GET_TRAIN_RESULTS = "/train-results";
+export const GET_TRAIN_RESULT_DETAIL = "/train-result/{resultId}";
+export const POST_TRAIN_RESULT = "/train-result";
+export const PUT_TRAIN_RESULT = "/train-result/{resultId}";

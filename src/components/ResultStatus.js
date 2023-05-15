@@ -19,6 +19,7 @@ const onGetStatusStyle = status => {
       return styles.qualifiedLabel;
     case RESULT_STATUS.unqualified:
       return styles.unqualifiedLabel;
+    case RESULT_STATUS.notEvaluated:
     default:
       return styles.notEvaluatedLabel;
   }

@@ -7,8 +7,11 @@ import { TaskService } from "services";
 import { PROGRESS_STATUS } from "const/app.const";
 import { ApiConstant } from "const";
 import { EmptyData, LoadingSpinner } from "components";
+import { useIsFocused } from "@react-navigation/core";
 
 const TodayTask = ({ userId, style }) => {
+  const isFocused = useIsFocused();
+
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,8 +52,8 @@ const TodayTask = ({ userId, style }) => {
   }, [setIsLoading, userId]);
 
   useEffect(() => {
-    handleGetTasks();
-  }, [handleGetTasks]);
+    if (isFocused) handleGetTasks();
+  }, [handleGetTasks, isFocused]);
 
   return (
     <View style={[styles.root, style]}>
@@ -77,10 +80,7 @@ TodayTask.propTypes = {
 export default TodayTask;
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    alignItems: "flex-start",
-  },
+  root: {},
   title: {
     color: COLORS.black,
     fontSize: 24,

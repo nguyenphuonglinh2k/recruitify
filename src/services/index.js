@@ -7,6 +7,7 @@ import * as ApplicationService from "./application.service";
 import * as TagService from "./tag.service";
 import * as UploadService from "./upload.service";
 import * as ScheduleService from "./schedule.service";
+import * as TrainResultService from "./trainResult.service";
 
 export {
   JobService,
@@ -18,4 +19,5 @@ export {
   TagService,
   UploadService,
   ScheduleService,
+  TrainResultService,
 };

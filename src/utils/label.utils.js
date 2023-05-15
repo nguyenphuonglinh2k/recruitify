@@ -11,6 +11,7 @@ export const onGetResultStatusLabel = status => {
       return "Qualified";
     case RESULT_STATUS.unqualified:
       return "Unqualified";
+    case RESULT_STATUS.notEvaluated:
     default:
       return "Not Evaluated";
   }

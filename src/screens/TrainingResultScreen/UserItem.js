@@ -9,8 +9,12 @@ const UserItem = ({ data, style, onDelete, onPress, ...otherProps }) => {
   const { name, avatarUrl, email } = data;
 
   return (
-    <TouchableOpacity style={[styles.root, style]} {...otherProps}>
-      <View style={styles.userWrapper} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.root, style]}
+      onPress={onPress}
+      {...otherProps}
+    >
+      <View style={styles.userWrapper}>
         <CommonAvatar source={{ uri: avatarUrl }} style={styles.avatar} />
         <View style={styles.infoWrapper}>
           <Text style={styles.name}>{name}</Text>

@@ -48,6 +48,7 @@ import AttachmentUploadBlock from "./AttachmentUploadBlock";
 import EditLocationBlock from "./EditLocationBlock";
 import FilterButton from "./FilterButton";
 import ResultStatus from "./ResultStatus";
+import RatingOptionsModal from "./RatingOptionsModal";
 
 export {
   CommonButton,
@@ -99,4 +100,5 @@ export {
   EditLocationBlock,
   FilterButton,
   ResultStatus,
+  RatingOptionsModal,
 };
