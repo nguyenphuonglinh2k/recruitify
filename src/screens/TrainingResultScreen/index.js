@@ -23,9 +23,18 @@ const TrainingResultScreen = () => {
   const isFocused = useIsFocused();
 
   const [results, setResults] = useState([]);
+  const [users, setUsers] = useState([]);
   const [status, setStatus] = useState(DEFAULT_STATUS_VALUE);
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
+
+  const data = useMemo(() => {
+    if (status === RESULT_STATUS.notEvaluated) {
+      return users;
+    } else {
+      return results;
+    }
+  }, [results, status, users]);
 
   const statusLabel = useMemo(() => {
     const statusObj = STATUS_DATA.find(item => item.value === status);
@@ -38,12 +47,30 @@ const TrainingResultScreen = () => {
     setIsLoading(true);
 
     try {
-      const response = await TrainResultService.getTrainResults({
+      const resultsPromise = TrainResultService.getTrainResults({
         params: { status },
       });
 
-      if (response.status === ApiConstant.STT_OK) {
-        setResults(response.data);
+      const notEvaluatedUsersPromise =
+        TrainResultService.getNotEvaluatedUsers();
+
+      const responses = await Promise.all([
+        resultsPromise,
+        notEvaluatedUsersPromise,
+      ]);
+
+      const hasAllSuccessStatus = responses.every(
+        res => res.status === ApiConstant.STT_OK,
+      );
+
+      if (hasAllSuccessStatus) {
+        const [resultsResponseData, usersResponseData] = [
+          responses[0].data,
+          responses[1].data,
+        ];
+
+        setResults(resultsResponseData);
+        setUsers(usersResponseData);
       }
     } catch (error) {
       console.error(error);
@@ -52,13 +79,19 @@ const TrainingResultScreen = () => {
     }
   }, [status]);
 
-  const handleNavigateToDetail = useCallback(
+  const handlePressCard = useCallback(
     item => {
-      navigation.navigate(SCREEN_NAME.trainingResultDetailScreen, {
-        resultId: item._id,
-      });
+      if (status === RESULT_STATUS.notEvaluated) {
+        navigation.navigate(SCREEN_NAME.trainingResultCreationScreen, {
+          candidate: item,
+        });
+      } else {
+        navigation.navigate(SCREEN_NAME.trainingResultDetailScreen, {
+          resultId: item._id,
+        });
+      }
     },
-    [navigation],
+    [navigation, status],
   );
 
   const handleNavigateToCreation = useCallback(() => {
@@ -97,12 +130,14 @@ const TrainingResultScreen = () => {
       </View>
 
       <FlatList
-        data={results}
+        data={data}
         renderItem={({ item }) => (
           <UserItem
-            data={item.candidateId}
+            data={
+              status === RESULT_STATUS.notEvaluated ? item : item.candidateId
+            }
             style={styles.item}
-            onPress={() => handleNavigateToDetail(item)}
+            onPress={() => handlePressCard(item)}
           />
         )}
         keyExtractor={(_, i) => i}

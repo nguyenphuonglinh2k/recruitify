@@ -1,7 +1,7 @@
 import { ScrollView, TouchableOpacity } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MainLayout } from "layouts";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation, useRoute } from "@react-navigation/core";
 import {
   CommonButton,
   CommonRating,
@@ -23,8 +23,14 @@ import { useToast } from "react-native-toast-notifications";
 const TrainingResultCreationScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
+  const router = useRoute();
 
-  const [fields, setFields] = useState(DEFAULT_FIELDS);
+  const CANDIDATE = router.params?.candidate;
+
+  const [fields, setFields] = useState({
+    ...DEFAULT_FIELDS,
+    candidateId: CANDIDATE._id ?? DEFAULT_FIELDS.candidateId,
+  });
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleRatingModal, setIsVisibleRatingModal] = useState(false);
@@ -136,7 +142,9 @@ const TrainingResultCreationScreen = () => {
     <MainLayout
       isBackScreen
       headerProps={{
-        title: `Create new evaluation`,
+        title: CANDIDATE.name
+          ? `Create ${CANDIDATE.name}'s evaluation`
+          : "Create new evaluation",
       }}
     >
       <ScrollView>
@@ -161,11 +169,16 @@ const TrainingResultCreationScreen = () => {
           }
           onPress={() => setIsVisibleRatingModal(true)}
         />
-        <SelectInputBlock
-          label="Assignee *"
-          value={assigneeName}
-          onPress={() => handleOpenModal(MODAL_TYPES.candidate)}
-        />
+        {CANDIDATE.name ? (
+          <DetailItemRow label="Assignee *" content={CANDIDATE.name} />
+        ) : (
+          <SelectInputBlock
+            label="Assignee *"
+            value={assigneeName}
+            onPress={() => handleOpenModal(MODAL_TYPES.candidate)}
+          />
+        )}
+
         <TextInputBlock
           label="Description"
           maxLength={200}
@@ -229,7 +242,7 @@ const FIELD_NAMES = {
 };
 
 const DEFAULT_FIELDS = {
-  [FIELD_NAMES.evaluation]: 0,
+  [FIELD_NAMES.evaluation]: 5,
   [FIELD_NAMES.description]: "",
   [FIELD_NAMES.status]: RESULT_STATUS.qualified,
   [FIELD_NAMES.candidateId]: null,
