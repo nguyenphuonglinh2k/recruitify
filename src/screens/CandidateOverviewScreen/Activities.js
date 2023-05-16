@@ -1,9 +1,36 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { COLORS } from "utils";
 import PropTypes from "prop-types";
+import { LoadingSpinner } from "components";
+import { ApplicationService } from "services";
+import { ApiConstant } from "const";
 
 const Activities = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(DEFAULT_DATA);
+
+  const handleGetStatistics = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const response =
+        await ApplicationService.getApplicationActivityStatistics();
+
+      if (response.status === ApiConstant.STT_OK) {
+        setData(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleGetStatistics();
+  }, [handleGetStatistics]);
+
   return (
     <View>
       <Text style={styles.title}>Activities</Text>
@@ -11,16 +38,16 @@ const Activities = () => {
       <View style={{ flexDirection: "row" }}>
         <Box
           currentLabel="Current week"
-          prevLabel={`Previous week: 2`}
-          quantity={2}
+          prevLabel={`Previous week: ${data.lastWeek}`}
+          quantity={data.thisWeek}
           quantityColor={COLORS.yellow}
           quantityBgColor={COLORS.lightYellow}
           style={{ flex: 1, marginRight: 8 }}
         />
         <Box
           currentLabel="Current month"
-          prevLabel={`Previous month: 3`}
-          quantity={2}
+          prevLabel={`Previous month: ${data.lastMonth}`}
+          quantity={data.thisMonth}
           quantityColor={COLORS.darkGreen}
           quantityBgColor={COLORS.lightGreen}
           style={{ flex: 1, marginLeft: 8 }}
@@ -30,13 +57,15 @@ const Activities = () => {
       <View style={{ flexDirection: "row", marginTop: 16 }}>
         <Box
           currentLabel="Today"
-          prevLabel="Yesterday"
-          quantity={2}
+          prevLabel={`Yesterday: ${data.yesterday}`}
+          quantity={data.today}
           quantityColor={COLORS.purple}
           quantityBgColor={COLORS.lightPurple}
           style={{ flex: 0.5, marginRight: 40 }}
         />
       </View>
+
+      <LoadingSpinner isVisible={isLoading} />
     </View>
   );
 };
@@ -54,7 +83,7 @@ const Box = ({
       <Text style={styles.currentLabel}>{currentLabel}</Text>
       <Text style={styles.prevLabel}>{prevLabel}</Text>
       <View style={[styles.quantityWrapper(quantityBgColor)]}>
-        <Text style={styles.quantity(quantityColor)}>{quantity}</Text>
+        <Text style={styles.quantity(quantityColor)}>{quantity ?? 0}</Text>
       </View>
       <Text style={styles.lastLabel}>Applications</Text>
     </View>
@@ -68,6 +97,15 @@ Box.propTypes = {
   quantityBgColor: PropTypes.string,
   quantityColor: PropTypes.string,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+};
+
+const DEFAULT_DATA = {
+  today: 0,
+  yesterday: 0,
+  thisMonth: 0,
+  thisWeek: 0,
+  lastMonth: 0,
+  lastWeek: 0,
 };
 
 export default Activities;

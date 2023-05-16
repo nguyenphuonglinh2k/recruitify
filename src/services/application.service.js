@@ -2,6 +2,12 @@ import Api from "./api";
 import { ApiConstant } from "const";
 import StringFormat from "string-format";
 
+export const getApplicationStatistics = () =>
+  Api.get(ApiConstant.GET_APPLICATION_STATISTICS);
+
+export const getApplicationActivityStatistics = () =>
+  Api.get(ApiConstant.GET_APPLICATION_ACTIVITY_STATISTICS);
+
 export const getApplications = params =>
   Api.get(ApiConstant.GET_APPLICATIONS, params);
 

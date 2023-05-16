@@ -47,6 +47,8 @@ export const PUT_APPLICATION = "/application/{applicationId}";
 export const DELETE_APPLICATION = "/application/{applicationId}";
 
 // Schedule
+export const GET_APPLICATION_STATISTICS = "/application-statistics";
+export const GET_APPLICATION_ACTIVITY_STATISTICS = "/activity-statistics";
 export const GET_SCHEDULES = "/schedules";
 export const GET_SCHEDULE_DETAIL = "/schedule/{scheduleId}";
 export const POST_SCHEDULE = "/schedule";

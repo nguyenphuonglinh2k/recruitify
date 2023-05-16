@@ -7,6 +7,8 @@ import { PieChart } from "react-native-chart-kit";
 import PropTypes from "prop-types";
 import { EmptyData, LoadingSpinner } from "components";
 import { useIsFocused } from "@react-navigation/core";
+import { ApplicationService } from "services";
+import { ApiConstant } from "const";
 
 const ApplicationStatistics = ({ style }) => {
   const isFocused = useIsFocused();
@@ -18,41 +20,40 @@ const ApplicationStatistics = ({ style }) => {
     setIsLoading(true);
 
     try {
-      const responseData = {
-        screening: 7,
-        interview: 2,
-        hire: 5,
-        reject: 3,
-      };
+      const response = await ApplicationService.getApplicationStatistics();
 
-      const newData = [
-        {
-          name: onGetApplicationStatusLabel(APPLICATION_STATUS.screening),
-          value: responseData.screening,
-          color: COLORS.blue.light,
-          legendFontSize: 14,
-        },
-        {
-          name: onGetApplicationStatusLabel(APPLICATION_STATUS.interview),
-          value: responseData.interview,
-          color: COLORS.orange[100],
-          legendFontSize: 14,
-        },
-        {
-          name: onGetApplicationStatusLabel(APPLICATION_STATUS.hire),
-          value: responseData.hire,
-          color: COLORS.darkGreen,
-          legendFontSize: 14,
-        },
-        {
-          name: onGetApplicationStatusLabel(APPLICATION_STATUS.reject),
-          value: responseData.reject,
-          color: COLORS.pink,
-          legendFontSize: 14,
-        },
-      ];
+      if (response.status === ApiConstant.STT_OK) {
+        const responseData = response.data;
 
-      setData(newData);
+        const newData = [
+          {
+            name: onGetApplicationStatusLabel(APPLICATION_STATUS.screening),
+            value: responseData.screening,
+            color: COLORS.blue.light,
+            legendFontSize: 14,
+          },
+          {
+            name: onGetApplicationStatusLabel(APPLICATION_STATUS.interview),
+            value: responseData.interview,
+            color: COLORS.orange[100],
+            legendFontSize: 14,
+          },
+          {
+            name: onGetApplicationStatusLabel(APPLICATION_STATUS.hire),
+            value: responseData.hire,
+            color: COLORS.darkGreen,
+            legendFontSize: 14,
+          },
+          {
+            name: onGetApplicationStatusLabel(APPLICATION_STATUS.reject),
+            value: responseData.reject,
+            color: COLORS.pink,
+            legendFontSize: 14,
+          },
+        ];
+
+        setData(newData);
+      }
     } catch (error) {
       console.error(error);
     } finally {
