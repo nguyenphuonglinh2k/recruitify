@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ApplicationIcon, BriefcaseIcon, CalendarIcon, HomeIcon } from "icons";
 import {
-  DashboardStack,
+  CandidateOverviewStack,
   ApplicationStack,
   JobStack,
   ScheduleStack,
@@ -50,11 +50,11 @@ export default function RecruitmentTabNavigator() {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: true,
       }}
-      initialRouteName={TAB_NAME.dashboard}
+      initialRouteName={TAB_NAME.candidateOverview}
     >
       <Tab.Screen
-        name={TAB_NAME.dashboard}
-        component={DashboardStack}
+        name={TAB_NAME.candidateOverview}
+        component={CandidateOverviewStack}
         options={onGetTabScreenOptions(HomeIcon, { tabBarLabel: "Overview" })}
       />
 

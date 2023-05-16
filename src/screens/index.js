@@ -1,7 +1,5 @@
 import SignInScreen from "./SignInScreen";
 
-import OverviewScreen from "./OverviewScreen";
-
 import JobsScreen from "./JobsScreen";
 import JobDetailScreen from "./JobDetailScreen";
 import JobCreationScreen from "./JobCreationScreen";
@@ -11,6 +9,7 @@ import JobCandidateCreationScreen from "./JobCandidateCreationScreen";
 import CandidatesScreen from "./CandidatesScreen";
 import CandidateDetailScreen from "./CandidateDetailScreen";
 import CandidateEditingInfoScreen from "./CandidateEditingInfoScreen";
+import CandidateOverviewScreen from "./CandidateOverviewScreen";
 
 import ScheduleScreen from "./ScheduleScreen";
 import ScheduleListScreen from "./ScheduleListScreen";
@@ -55,7 +54,6 @@ export {
   CandidateDetailScreen,
   CandidateEditingInfoScreen,
   CandidateCreationScreen,
-  OverviewScreen,
   ScheduleScreen,
   ScheduleListScreen,
   ScheduleDetailScreen,
@@ -87,4 +85,5 @@ export {
   TrainingResultDetailScreen,
   TrainingResultEditingScreen,
   TrainingResultCreationScreen,
+  CandidateOverviewScreen,
 };

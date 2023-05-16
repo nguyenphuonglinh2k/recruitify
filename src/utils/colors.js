@@ -21,13 +21,16 @@ export default {
     600: "#A0A5AB",
   },
   yellow: "#f7ca18",
+  lightYellow: "#FDF9E6",
   orange: {
     neutral: "#F5A623",
     dark: "#F9690E",
     light: "#FEE1CF",
+    100: "#FF7D2B",
   },
   pink: "#FF4E71",
   lightPink: "#FFDCE3",
   purple: "#4950E5",
+  lightPurple: "#F0EDFE",
   red: "#DF1717",
 };

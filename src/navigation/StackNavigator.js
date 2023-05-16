@@ -6,7 +6,6 @@ import {
   JobDetailScreen,
   CandidatesScreen,
   CandidateDetailScreen,
-  OverviewScreen,
   ScheduleScreen,
   ScheduleListScreen,
   ScheduleDetailScreen,
@@ -39,6 +38,7 @@ import {
   TrainingResultDetailScreen,
   TrainingResultEditingScreen,
   TrainingResultCreationScreen,
+  CandidateOverviewScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -91,12 +91,12 @@ const AuthStack = () => {
   );
 };
 
-const DashboardStack = () => {
+const CandidateOverviewStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
-        name={SCREEN_NAME.overviewScreen}
-        component={OverviewScreen}
+        name={SCREEN_NAME.candidateOverviewScreen}
+        component={CandidateOverviewScreen}
       />
     </Stack.Navigator>
   );
@@ -269,7 +269,7 @@ export {
   ProfileStack,
   SettingStack,
   AuthStack,
-  DashboardStack,
+  CandidateOverviewStack,
   ApplicationStack,
   JobStack,
   ScheduleStack,

@@ -1,5 +1,5 @@
 export const TAB_NAME = {
-  dashboard: "dashboard",
+  candidateOverview: "candidateOverview",
   position: "position",
   application: "application",
   scheduled: "scheduled",
@@ -30,7 +30,7 @@ export const SCREEN_NAME = {
   candidateDetailScreen: "candidateDetailScreen",
   candidateEditingInfoScreen: "candidateEditingInfoScreen",
   candidateCreationScreen: "candidateCreationScreen",
-  overviewScreen: "overviewScreen",
+  candidateOverviewScreen: "candidateOverviewScreen",
   scheduleScreen: "scheduleScreen",
   scheduleListScreen: "scheduleListScreen",
   scheduleDetailScreen: "scheduleDetailScreen",
