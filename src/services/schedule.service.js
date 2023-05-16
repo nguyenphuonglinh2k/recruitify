@@ -5,6 +5,11 @@ import StringFormat from "string-format";
 export const getSchedules = params =>
   Api.get(ApiConstant.GET_SCHEDULES, params);
 
+export const getScheduleDetailOfApplicant = applicationId =>
+  Api.get(
+    StringFormat(ApiConstant.GET_SCHEDULE_OF_APPLICANT, { applicationId }),
+  );
+
 export const getScheduleDetail = scheduleId =>
   Api.get(StringFormat(ApiConstant.GET_SCHEDULE_DETAIL, { scheduleId }));
 

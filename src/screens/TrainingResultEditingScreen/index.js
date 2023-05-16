@@ -155,7 +155,7 @@ const FIELD_NAMES = {
 const DEFAULT_FIELDS = {
   [FIELD_NAMES.evaluation]: null,
   [FIELD_NAMES.description]: "",
-  [FIELD_NAMES.status]: RESULT_STATUS.notEvaluated,
+  [FIELD_NAMES.status]: RESULT_STATUS.qualified,
 };
 
 export default TrainingResultEditingScreen;

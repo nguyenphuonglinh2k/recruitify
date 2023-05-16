@@ -56,4 +56,5 @@ export const SCREEN_NAME = {
   trainingResultDetailScreen: "trainingResultDetailScreen",
   trainingResultEditingScreen: "trainingResultEditingScreen",
   trainingResultCreationScreen: "trainingResultCreationScreen",
+  candidateEditingProcessScreen: "candidateEditingProcessScreen",
 };

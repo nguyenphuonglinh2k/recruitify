@@ -39,6 +39,7 @@ import {
   TrainingResultEditingScreen,
   TrainingResultCreationScreen,
   CandidateOverviewScreen,
+  CandidateEditingProcessScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -144,6 +145,10 @@ const ApplicationStack = () => {
       <Stack.Screen
         name={SCREEN_NAME.candidateCreationScreen}
         component={CandidateCreationScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAME.candidateEditingProcessScreen}
+        component={CandidateEditingProcessScreen}
       />
     </Stack.Navigator>
   );

@@ -38,11 +38,15 @@ const CandidateDetailScreen = () => {
     navigation.navigate(SCREEN_NAME.candidateEditingInfoScreen);
   }, [navigation]);
 
+  const handleNavigateToEditProcess = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.candidateEditingProcessScreen);
+  }, [navigation]);
+
   const onRenderHeaderRight = () => {
     switch (activatedTab) {
       case CANDIDATE_DETAIL_TAB_VALUES.process:
         return (
-          <CommonIconButton>
+          <CommonIconButton onPress={handleNavigateToEditProcess}>
             <PencilIcon color={COLORS.green} />
           </CommonIconButton>
         );

@@ -10,13 +10,14 @@ import CandidatesScreen from "./CandidatesScreen";
 import CandidateDetailScreen from "./CandidateDetailScreen";
 import CandidateEditingInfoScreen from "./CandidateEditingInfoScreen";
 import CandidateOverviewScreen from "./CandidateOverviewScreen";
+import CandidateCreationScreen from "./CandidateCreationScreen";
+import CandidateEditingProcessScreen from "./CandidateEditingProcessScreen";
 
 import ScheduleScreen from "./ScheduleScreen";
 import ScheduleListScreen from "./ScheduleListScreen";
 import ScheduleDetailScreen from "./ScheduleDetailScreen";
 import ScheduleAddition from "./ScheduleAddition";
 import ScheduleDetailEditingScreen from "./ScheduleDetailEditingScreen";
-import CandidateCreationScreen from "./CandidateCreationScreen";
 
 import ProfileScreen from "./ProfileScreen";
 import ProfileEditingScreen from "./ProfileEditingScreen";
@@ -86,4 +87,5 @@ export {
   TrainingResultEditingScreen,
   TrainingResultCreationScreen,
   CandidateOverviewScreen,
+  CandidateEditingProcessScreen,
 };
