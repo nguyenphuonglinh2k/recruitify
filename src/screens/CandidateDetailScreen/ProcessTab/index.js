@@ -1,11 +1,5 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ApplicationProcessStatus,
   ChipAvatarList,
@@ -17,22 +11,29 @@ import {
 } from "components";
 import { COLORS } from "utils";
 import { paddingStyle } from "components/DetailItemRow";
-import { CandidateDetailContext } from "..";
-import { InterviewResultService, ScheduleService } from "services";
+import { ScheduleService } from "services";
 import { ApiConstant } from "const";
 import { useIsFocused } from "@react-navigation/core";
 import moment from "moment";
 import { APPLICATION_STATUS, FORMAT_DATE_WITH_SLASH } from "const/app.const";
 import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ResultActions from "reduxStore/result.redux";
 
 const ProcessTab = () => {
   const isFocused = useIsFocused();
-  const { application } = useContext(CandidateDetailContext);
+  const dispatch = useDispatch();
+
+  const [result, application] = useSelector(
+    ({ resultRedux, applicationRedux }) => [
+      resultRedux.result,
+      applicationRedux.application,
+    ],
+  );
 
   const [schedule, setSchedule] = useState({});
   const [selectedUserId, setSelectedUserId] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState({});
 
   const isDisabledResult = useMemo(
     () => application.status === APPLICATION_STATUS.screening,
@@ -47,23 +48,8 @@ const ProcessTab = () => {
   }, []);
 
   const handleGetResult = useCallback(async () => {
-    setIsLoading(true);
-
-    try {
-      const response =
-        await InterviewResultService.getInterviewResultDetailOfApplicant(
-          application._id,
-        );
-
-      if (response.status === ApiConstant.STT_OK) {
-        setResult(response.data);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [application._id]);
+    dispatch(ResultActions.getInterviewResultDetailRequest(application._id));
+  }, [application._id, dispatch]);
 
   const handleGetSchedule = useCallback(async () => {
     setIsLoading(true);
@@ -107,7 +93,7 @@ const ProcessTab = () => {
         <DetailItemRow
           label="Responsible for interviewing"
           content={
-            schedule.assigneeIds ? (
+            schedule?.assigneeIds ? (
               <ChipAvatarList
                 data={schedule.assigneeIds ?? []}
                 style={styles.contentSpacing}
@@ -121,7 +107,7 @@ const ProcessTab = () => {
         <DetailItemRow
           label="Schedule time for interview"
           content={
-            schedule.date
+            schedule?.date
               ? `${moment(schedule.date).format(FORMAT_DATE_WITH_SLASH)} ${
                   schedule.startTime
                 } - ${schedule.endTime}`
@@ -132,7 +118,7 @@ const ProcessTab = () => {
           disabled={isDisabledResult}
           label="Result Status"
           content={
-            result.status ? (
+            result?.status ? (
               <View style={paddingStyle}>
                 <ResultStatus value={result.status} />
               </View>
@@ -145,7 +131,7 @@ const ProcessTab = () => {
           disabled={isDisabledResult}
           label="Evaluation"
           content={
-            result.evaluation ? (
+            result?.evaluation ? (
               <CommonRating value={result.evaluation} style={styles.rating} />
             ) : (
               ""
@@ -155,7 +141,7 @@ const ProcessTab = () => {
         <DetailItemRow
           disabled={isDisabledResult}
           label="Description"
-          content={result.description}
+          content={result?.description}
         />
       </ScrollView>
 

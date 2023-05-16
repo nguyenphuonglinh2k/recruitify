@@ -11,6 +11,7 @@ const TextInputBlock = ({
   keyboardType,
   placeholder = "",
   styles,
+  disabled,
   textInputProps,
   ...otherProps
 }) => {
@@ -25,9 +26,11 @@ const TextInputBlock = ({
           placeholder={placeholder}
           placeholderTextColor={COLORS.grey[200]}
           keyboardType={keyboardType}
+          editable={!disabled}
           {...textInputProps}
         />
       }
+      disabled={disabled}
       {...otherProps}
     />
   );
@@ -45,6 +48,7 @@ TextInputBlock.propTypes = {
   }),
   keyboardType: PropTypes.string,
   textInputProps: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default TextInputBlock;

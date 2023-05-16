@@ -10,6 +10,7 @@ import { JobTypes } from "reduxStore/job.redux";
 import { AuthTypes } from "reduxStore/auth.redux";
 import { ProjectTypes } from "reduxStore/project.redux";
 import { ApplicationTypes } from "reduxStore/application.redux";
+import { ResultTypes } from "reduxStore/result.redux";
 
 /* ------------- Sagas ------------- */
 import { getUserInfoRequest } from "./user.saga";
@@ -17,6 +18,7 @@ import { getJobsRequest, getJobDetailRequest } from "./job.saga";
 import { postLoginRequest } from "./auth.saga";
 import { getProjectDetailRequest } from "./project.saga";
 import { getApplicationDetailRequest } from "./application.saga";
+import { getInterviewResultDetailRequest } from "./result.saga";
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
@@ -41,6 +43,12 @@ export default function* root() {
     takeLatest(
       ApplicationTypes.GET_APPLICATION_DETAIL_REQUEST,
       getApplicationDetailRequest,
+    ),
+
+    // Result
+    takeLatest(
+      ResultTypes.GET_INTERVIEW_RESULT_DETAIL_REQUEST,
+      getInterviewResultDetailRequest,
     ),
   ]);
 }

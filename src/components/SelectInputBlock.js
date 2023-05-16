@@ -4,15 +4,21 @@ import PropTypes from "prop-types";
 import DetailItemRow, { contentStyle, paddingStyle } from "./DetailItemRow";
 import { CaretIcon } from "icons";
 
-const SelectInputBlock = ({ value, label, onPress, ...otherProps }) => {
+const SelectInputBlock = ({
+  value,
+  label,
+  onPress,
+  disabled,
+  ...otherProps
+}) => {
   return (
     <DetailItemRow
       label={label}
       content={
         <TouchableOpacity
-          activeOpacity={0.8}
+          activeOpacity={disabled ? 1 : 0.8}
           style={[paddingStyle, styles.content]}
-          onPress={onPress}
+          onPress={disabled ? null : onPress}
         >
           {isValidElement(value) ? (
             value
@@ -22,6 +28,7 @@ const SelectInputBlock = ({ value, label, onPress, ...otherProps }) => {
           <CaretIcon />
         </TouchableOpacity>
       }
+      disabled={disabled}
       {...otherProps}
     />
   );
@@ -35,6 +42,7 @@ SelectInputBlock.propTypes = {
     PropTypes.node,
   ]),
   onPress: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default SelectInputBlock;

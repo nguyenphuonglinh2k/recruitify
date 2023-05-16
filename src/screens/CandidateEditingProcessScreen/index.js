@@ -20,26 +20,48 @@ import {
   onGetApplicationStatusLabel,
   onGetResultStatusLabel,
 } from "utils/label.utils";
+import { ApplicationService, InterviewResultService } from "services";
+import { ApiConstant } from "const";
+import { useNavigation } from "@react-navigation/core";
+import { useToast } from "react-native-toast-notifications";
 
 const CandidateEditingProcessScreen = () => {
-  const APPLICATION = useSelector(
-    ({ applicationRedux }) => applicationRedux.application,
+  const navigation = useNavigation();
+  const toast = useToast();
+
+  const [RESULT, APPLICATION] = useSelector(
+    ({ resultRedux, applicationRedux }) => [
+      resultRedux.result,
+      applicationRedux.application,
+    ],
   );
 
   const [fields, setFields] = useState(DEFAULT_FIELDS);
   const [selectedStatusType, setSelectedStatusType] = useState();
 
-  useEffect(() => {
-    if (APPLICATION) {
-      setFields({
-        status: APPLICATION.status,
-      });
-    }
-  }, [APPLICATION]);
+  const canEditable = useMemo(
+    () => fields.status !== APPLICATION_STATUS.screening,
+    [fields.status],
+  );
 
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleStatusModal, setIsVisibleStatusModal] = useState(false);
   const [isVisibleRatingModal, setIsVisibleRatingModal] = useState(false);
+
+  const hasChangeResult = useMemo(() => {
+    return (
+      RESULT?.status !== fields.resultStatus ||
+      RESULT?.evaluation !== fields.evaluation ||
+      RESULT?.description !== fields.description
+    );
+  }, [
+    RESULT?.description,
+    RESULT?.evaluation,
+    RESULT?.status,
+    fields.description,
+    fields.evaluation,
+    fields.resultStatus,
+  ]);
 
   const statusModalData = useMemo(() => {
     if (selectedStatusType === STATUS_MODAL_TYPES.resultStatus) {
@@ -74,9 +96,195 @@ const CandidateEditingProcessScreen = () => {
     [handleChangeText, selectedStatusType],
   );
 
-  const handleSaveChange = useCallback(async () => {
+  const handleUpdateResult = useCallback(async () => {
     setIsLoading(true);
-  }, []);
+
+    const data = {
+      status: fields.resultStatus,
+      evaluation: fields.evaluation,
+      description: fields.description,
+    };
+    try {
+      const response = await InterviewResultService.putInterviewResult(
+        RESULT?._id,
+        data,
+      );
+
+      if (response.status === ApiConstant.STT_OK) {
+        navigation.goBack();
+        toast.show("Update successfully", { type: "success" });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [
+    RESULT?._id,
+    fields.description,
+    fields.evaluation,
+    fields.resultStatus,
+    navigation,
+    toast,
+  ]);
+
+  const handleCreateResult = useCallback(async () => {
+    setIsLoading(true);
+
+    const data = {
+      status: fields.resultStatus,
+      evaluation: fields.evaluation,
+      description: fields.description,
+      applicationId: APPLICATION._id,
+    };
+    try {
+      const response = await InterviewResultService.postInterviewResult(data);
+
+      if (response.status === ApiConstant.STT_CREATED) {
+        navigation.goBack();
+        toast.show("Evaluate candidate successfully", { type: "success" });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [
+    APPLICATION._id,
+    fields.description,
+    fields.evaluation,
+    fields.resultStatus,
+    navigation,
+    toast,
+  ]);
+
+  const handleUpdateApplicationStatus = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await ApplicationService.putApplication(
+        APPLICATION._id,
+        { status: fields.status },
+      );
+
+      if (response.status === ApiConstant.STT_OK) {
+        navigation.goBack();
+        toast.show("Update successfully", { type: "success" });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [APPLICATION._id, fields.status, navigation, toast]);
+
+  const handleUpdateApplicationAndResult = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const updateApplicationPromise = ApplicationService.putApplication(
+        APPLICATION._id,
+        { status: fields.status },
+      );
+      let resultPromise;
+
+      if (RESULT?._id) {
+        const data = {
+          status: fields.resultStatus,
+          evaluation: fields.evaluation,
+          description: fields.description,
+        };
+
+        resultPromise = InterviewResultService.putInterviewResult(
+          RESULT?._id,
+          data,
+        );
+      } else {
+        const data = {
+          status: fields.resultStatus,
+          evaluation: fields.evaluation,
+          description: fields.description,
+          applicationId: APPLICATION._id,
+        };
+
+        resultPromise = InterviewResultService.postInterviewResult(data);
+      }
+
+      const responses = await Promise.all([
+        updateApplicationPromise,
+        resultPromise,
+      ]);
+
+      const hasAllSuccessStatus = responses.every(
+        res =>
+          res.status === ApiConstant.STT_OK ||
+          res.status === ApiConstant.STT_CREATED,
+      );
+
+      if (hasAllSuccessStatus) {
+        navigation.goBack();
+        toast.show("Update successfully", { type: "success" });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [
+    APPLICATION._id,
+    RESULT?._id,
+    fields.description,
+    fields.evaluation,
+    fields.resultStatus,
+    fields.status,
+    navigation,
+    toast,
+  ]);
+
+  const handleSaveChange = useCallback(async () => {
+    if (
+      (APPLICATION.status === fields.status && !canEditable) ||
+      (APPLICATION.status === fields.status && canEditable && !hasChangeResult)
+    ) {
+      return;
+    } else if (
+      (!canEditable && APPLICATION.status !== fields.status) ||
+      (canEditable && !hasChangeResult && APPLICATION.status !== fields.status)
+    ) {
+      handleUpdateApplicationStatus();
+    } else if (APPLICATION.status === fields.status && canEditable) {
+      if (RESULT?._id) {
+        handleUpdateResult();
+      } else {
+        handleCreateResult();
+      }
+    } else if (
+      APPLICATION.status !== fields.status &&
+      canEditable &&
+      hasChangeResult
+    ) {
+      handleUpdateApplicationAndResult();
+    }
+  }, [
+    APPLICATION.status,
+    RESULT?._id,
+    canEditable,
+    fields.status,
+    handleCreateResult,
+    handleUpdateApplicationAndResult,
+    handleUpdateApplicationStatus,
+    handleUpdateResult,
+    hasChangeResult,
+  ]);
+
+  useEffect(() => {
+    setFields({
+      status: APPLICATION.status,
+      resultStatus: RESULT?.status ?? DEFAULT_FIELDS.resultStatus,
+      evaluation: RESULT?.evaluation ?? DEFAULT_FIELDS.evaluation,
+      description: RESULT?.description ?? DEFAULT_FIELDS.description,
+    });
+  }, [APPLICATION, RESULT?.description, RESULT?.evaluation, RESULT?.status]);
 
   return (
     <MainLayout
@@ -101,12 +309,16 @@ const CandidateEditingProcessScreen = () => {
         />
 
         <DetailItemRow
+          disabled={!canEditable}
           label="Result Status *"
           content={
             <TouchableOpacity
+              activeOpacity={canEditable ? 0.7 : 1}
               style={paddingStyle}
-              onPress={() =>
-                handleOpenStatusModal(STATUS_MODAL_TYPES.resultStatus)
+              onPress={
+                canEditable
+                  ? () => handleOpenStatusModal(STATUS_MODAL_TYPES.resultStatus)
+                  : null
               }
             >
               <ResultStatus value={fields.resultStatus} />
@@ -114,6 +326,7 @@ const CandidateEditingProcessScreen = () => {
           }
         />
         <SelectInputBlock
+          disabled={!canEditable}
           label="Evaluation *"
           value={
             <CommonRating
@@ -124,6 +337,7 @@ const CandidateEditingProcessScreen = () => {
           onPress={() => setIsVisibleRatingModal(true)}
         />
         <TextInputBlock
+          disabled={!canEditable}
           label="Description"
           maxLength={200}
           multiline
@@ -135,13 +349,18 @@ const CandidateEditingProcessScreen = () => {
       </ScrollView>
 
       <CommonButton
+        disabled={APPLICATION.status === fields.status && !hasChangeResult}
         label="Save"
         style={{ margin: 16 }}
         onPress={handleSaveChange}
       />
 
       <StatusOptionsModal
-        value={fields.status}
+        value={
+          selectedStatusType === STATUS_MODAL_TYPES.applicationStatus
+            ? fields.status
+            : fields.resultStatus
+        }
         setValue={handleChangeStatusModalValue}
         isVisible={isVisibleStatusModal}
         data={statusModalData}
@@ -156,7 +375,7 @@ const CandidateEditingProcessScreen = () => {
         onCloseModal={() => setIsVisibleRatingModal(false)}
       />
 
-      <LoadingSpinner isLoading={isLoading} />
+      <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };
@@ -205,7 +424,7 @@ const FIELD_NAMES = {
 
 const DEFAULT_FIELDS = {
   [FIELD_NAMES.status]: APPLICATION_STATUS.screening,
-  [FIELD_NAMES.evaluation]: null,
+  [FIELD_NAMES.evaluation]: 5,
   [FIELD_NAMES.description]: "",
   [FIELD_NAMES.resultStatus]: RESULT_STATUS.qualified,
 };
