@@ -85,6 +85,7 @@ const ProjectTaskCreationScreen = () => {
           break;
         case MODAL_TYPES.assignee:
           fieldName = FIELD_NAMES.assigneeId;
+          break;
       }
       if (fieldName) setFields({ ...fields, [fieldName]: newValue });
     },

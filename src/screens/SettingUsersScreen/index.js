@@ -151,6 +151,7 @@ const SettingUsersScreen = () => {
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={handleGetUsers} />
         }
+        showsVerticalScrollIndicator={false}
       />
 
       <ConfirmDeleteModal

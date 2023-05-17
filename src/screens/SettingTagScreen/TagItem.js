@@ -1,9 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { contentStyle, paddingStyle } from "components/DetailItemRow";
+import { contentStyle } from "components/DetailItemRow";
 import PropTypes from "prop-types";
 import { TrashIcon } from "icons";
 import { CommonIconButton, CommonTextButton } from "components";
+import { COLORS } from "utils";
 
 const TagItem = ({
   label,
@@ -45,8 +46,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    ...paddingStyle,
     paddingVertical: 0,
+    borderRadius: 10,
+    borderColor: COLORS.grey[200],
+    borderWidth: 2,
+    padding: 12,
+    backgroundColor: COLORS.grey[300],
   },
   textInput: {
     ...contentStyle,

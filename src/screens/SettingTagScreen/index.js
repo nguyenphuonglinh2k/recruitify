@@ -191,7 +191,9 @@ const SettingTagScreen = () => {
 export default SettingTagScreen;
 
 const styles = StyleSheet.create({
-  item: {},
+  item: {
+    marginBottom: 10,
+  },
   searchBox: {
     marginHorizontal: 16,
     marginBottom: 16,
@@ -199,6 +201,7 @@ const styles = StyleSheet.create({
   body: {
     borderTopWidth: 1,
     borderColor: COLORS.grey[100],
+    padding: 16,
   },
   desc: {
     textAlign: "center",

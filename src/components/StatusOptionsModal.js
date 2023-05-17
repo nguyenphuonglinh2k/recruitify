@@ -41,7 +41,7 @@ StatusOptionsModal.propTypes = {
       value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     }),
   ),
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  value: PropTypes.any,
   setValue: PropTypes.func,
   isVisible: PropTypes.bool.isRequired,
   onCloseModal: PropTypes.func.isRequired,
