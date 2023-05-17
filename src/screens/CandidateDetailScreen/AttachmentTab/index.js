@@ -12,7 +12,7 @@ const AttachmentTab = () => {
   return (
     <ScrollView style={styles.root}>
       <Text style={styles.label}>Resume</Text>
-      {application.attachments.map((item, index) => (
+      {application?.attachments.map((item, index) => (
         <AttachmentItem
           key={index}
           data={item}

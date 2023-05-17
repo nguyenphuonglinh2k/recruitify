@@ -1,5 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useMemo } from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Linking,
+} from "react-native";
+import React, { useMemo, memo } from "react";
 import PropTypes from "prop-types";
 import { DetailItemRow } from "components";
 import { COLORS } from "utils";
@@ -11,6 +17,24 @@ const Information = ({ data, style }) => {
 
   const user = useMemo(() => data ?? authUser, [data, authUser]);
 
+  const resume = useMemo(() => {
+    if (
+      user?.applicationIds?.length &&
+      user?.applicationIds[0]?.attachments?.length
+    ) {
+      const attachment = user.applicationIds[0].attachments[0];
+      return attachment ?? {};
+    } else {
+      return {};
+    }
+  }, [user?.applicationIds]);
+
+  const handleOpenResume = () => {
+    if (user?.applicationIds?.length) {
+      Linking.openURL(user?.applicationIds[0]?.attachments[0]?.url);
+    }
+  };
+
   return (
     <View style={[styles.root, style]}>
       <DetailItemRow label="Email" content={user.email} />
@@ -20,11 +44,8 @@ const Information = ({ data, style }) => {
         label="Application link"
         content={
           <View style={paddingStyle}>
-            <TouchableOpacity>
-              <Text style={styles.resumeName}>
-                {/* TODO */}
-                {APPLICATION_INFO.resumeName}
-              </Text>
+            <TouchableOpacity onPress={handleOpenResume}>
+              <Text style={styles.resumeName}>{resume?.name ?? ""}</Text>
             </TouchableOpacity>
           </View>
         }
@@ -37,17 +58,11 @@ Information.propTypes = {
   data: PropTypes.object,
 };
 
-const APPLICATION_INFO = {
-  currentAddress: "Cali, Poland",
-  phoneNumber: "0123456789",
-  resumeName: "Arnolu_Chafe_resume",
-};
-
 Information.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-export default Information;
+export default memo(Information);
 
 const styles = StyleSheet.create({
   root: {
