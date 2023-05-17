@@ -11,9 +11,11 @@ import LogoutIcon from "icons/LogoutIcon";
 import { AppConstant } from "const";
 import { useDispatch } from "react-redux";
 import AuthActions from "reduxStore/auth.redux";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 
 const CustomDrawerContent = props => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleLogout = () => {
     dispatch(
@@ -22,6 +24,7 @@ const CustomDrawerContent = props => {
       }),
     );
     StorageUtils.remove(AppConstant.AUTH_TOKEN_KEY);
+    navigation.dispatch(DrawerActions.closeDrawer());
   };
 
   return (
