@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import TaskList from "./TaskList";
 import { ProjectService } from "services";
-import { ApiConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
 import {
   EmptyData,
   LoadingSpinner,
@@ -15,6 +15,8 @@ import { useIsFocused } from "@react-navigation/core";
 import { PROGRESS_STATUS } from "const/app.const";
 import { onGetProjectAndTaskStatusLabel } from "utils/label.utils";
 import { useSelector } from "react-redux";
+import { debounce } from "utils/time.utils";
+import { COLORS } from "utils";
 
 const TaskTab = ({ projectId }) => {
   const isFocused = useIsFocused();
@@ -24,6 +26,8 @@ const TaskTab = ({ projectId }) => {
   );
 
   const [tasks, setTasks] = useState([]);
+  const [searchTasks, setSearchTasks] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
@@ -47,6 +51,16 @@ const TaskTab = ({ projectId }) => {
     () => filters.selected === FILTER_KEYS.member,
     [filters.selected],
   );
+
+  const handleChangeSearchTasks = useCallback(() => {
+    debounce(() => {
+      const data = tasks.filter(item =>
+        item.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
+      );
+
+      setSearchTasks(data);
+    }, AppConstant.TYPING_WAIT_TIME)();
+  }, [searchText, tasks]);
 
   const handleGetUsername = useCallback(() => {
     const user = CONVERTED_MEMBERS.find(mem => mem.value === filters.member);
@@ -90,6 +104,7 @@ const TaskTab = ({ projectId }) => {
 
       if (response.status === ApiConstant.STT_OK) {
         setTasks(response.data);
+        setSearchTasks(response.data);
       }
     } catch (error) {
       console.error(error);
@@ -101,6 +116,10 @@ const TaskTab = ({ projectId }) => {
   useEffect(() => {
     if (isFocused) handleGetTasks();
   }, [handleGetTasks, isFocused]);
+
+  useEffect(() => {
+    handleChangeSearchTasks();
+  }, [handleChangeSearchTasks]);
 
   return (
     <View style={styles.container}>
@@ -117,11 +136,17 @@ const TaskTab = ({ projectId }) => {
         />
       </View>
 
-      <SearchBox style={{ margin: 16, marginTop: 0 }} />
+      <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey[200] }}>
+        <SearchBox
+          value={searchText}
+          onChangeText={setSearchText}
+          style={{ margin: 16, marginTop: 0 }}
+        />
+      </View>
 
-      {tasks.length ? (
+      {searchTasks.length ? (
         <TaskList
-          data={tasks}
+          data={searchTasks}
           setIsLoading={setIsLoading}
           onRefetchData={handleGetTasks}
         />
