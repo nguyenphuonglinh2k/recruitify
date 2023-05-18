@@ -7,8 +7,9 @@ import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
 import { useSelector } from "react-redux";
 import { ProjectService } from "services";
-import { ApiConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
 import TaskList from "./TaskList";
+import { debounce } from "utils/time.utils";
 
 const ProjectTaskExistingAdditionScreen = () => {
   const navigation = useNavigation();
@@ -19,6 +20,17 @@ const ProjectTaskExistingAdditionScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [searchTasks, setSearchTasks] = useState([]);
+
+  const handleChangeSearchTasks = useCallback(() => {
+    debounce(() => {
+      const newTasks = data.filter(item =>
+        item.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
+      );
+
+      setSearchTasks(newTasks);
+    }, AppConstant.TYPING_WAIT_TIME)();
+  }, [searchText, data]);
 
   const handleGetTasks = useCallback(async () => {
     setIsLoading(true);
@@ -35,6 +47,7 @@ const ProjectTaskExistingAdditionScreen = () => {
         }));
 
         setData(tasks);
+        setSearchTasks(tasks);
       }
     } catch (error) {
       console.error(error);
@@ -74,6 +87,10 @@ const ProjectTaskExistingAdditionScreen = () => {
     handleGetTasks();
   }, [handleGetTasks]);
 
+  useEffect(() => {
+    handleChangeSearchTasks();
+  }, [handleChangeSearchTasks]);
+
   return (
     <MainLayout isBackScreen headerProps={{ title: "Adding tasks" }}>
       <ScrollView>
@@ -81,8 +98,13 @@ const ProjectTaskExistingAdditionScreen = () => {
           <SearchBox onChangeText={setSearchText} value={searchText} />
         </View>
 
-        {data.length ? (
-          <TaskList data={data} setData={setData} style={{ margin: 16 }} />
+        {searchTasks.length ? (
+          <TaskList
+            displayData={searchTasks}
+            data={data}
+            setData={setData}
+            style={{ margin: 16 }}
+          />
         ) : (
           <EmptyData description="No tasks found!" />
         )}

@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import TaskItem from "./TaskItem";
 import PropTypes from "prop-types";
 
-const TaskList = ({ data, setData, ...otherProps }) => {
+const TaskList = ({ displayData, data, setData, ...otherProps }) => {
   const handleChangeValue = index => {
     const newData = [
       ...data.slice(0, index),
@@ -18,7 +18,7 @@ const TaskList = ({ data, setData, ...otherProps }) => {
 
   return (
     <View {...otherProps}>
-      {data.map((item, index) => (
+      {displayData.map((item, index) => (
         <TaskItem
           data={item}
           style={styles.item}
@@ -35,6 +35,7 @@ export default TaskList;
 TaskList.propTypes = {
   data: PropTypes.array,
   setData: PropTypes.func,
+  displayData: PropTypes.array,
 };
 
 const styles = StyleSheet.create({
