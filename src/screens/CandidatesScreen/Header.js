@@ -1,5 +1,3 @@
-import { CommonIconButton } from "components";
-import { FilterSearchIcon, SearchIcon } from "icons";
 import React from "react";
 import PropTypes from "prop-types";
 import { StyleSheet, Text, View } from "react-native";
@@ -9,14 +7,14 @@ const Header = ({ style, total }) => {
   return (
     <View style={[styles.header, style]}>
       <Text style={styles.title}>Candidate ({total})</Text>
-      <View style={styles.icons}>
+      {/* <View style={styles.icons}>
         <CommonIconButton style={styles.notLastIcon}>
           <SearchIcon />
         </CommonIconButton>
         <CommonIconButton>
           <FilterSearchIcon />
         </CommonIconButton>
-      </View>
+      </View> */}
     </View>
   );
 };
