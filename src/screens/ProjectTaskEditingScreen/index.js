@@ -22,15 +22,18 @@ const ProjectTaskExistingAdditionScreen = () => {
   const [data, setData] = useState([]);
   const [searchTasks, setSearchTasks] = useState([]);
 
-  const handleChangeSearchTasks = useCallback(() => {
-    debounce(() => {
-      const newTasks = data.filter(item =>
-        item.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
-      );
+  const handleChangeSearchText = text => {
+    setSearchText(text);
+    handleFilterTasks(text);
+  };
 
-      setSearchTasks(newTasks);
-    }, AppConstant.TYPING_WAIT_TIME)();
-  }, [searchText, data]);
+  const handleFilterTasks = debounce(text => {
+    const newTasks = data.filter(item =>
+      item.name?.toLowerCase()?.includes(text?.toLowerCase()),
+    );
+
+    setSearchTasks(newTasks);
+  }, AppConstant.TYPING_WAIT_TIME);
 
   const handleGetTasks = useCallback(async () => {
     setIsLoading(true);
@@ -87,20 +90,17 @@ const ProjectTaskExistingAdditionScreen = () => {
     handleGetTasks();
   }, [handleGetTasks]);
 
-  useEffect(() => {
-    handleChangeSearchTasks();
-  }, [handleChangeSearchTasks]);
-
   return (
     <MainLayout isBackScreen headerProps={{ title: "Adding tasks" }}>
       <ScrollView>
         <View style={styles.filterView}>
-          <SearchBox onChangeText={setSearchText} value={searchText} />
+          <SearchBox onChangeText={handleChangeSearchText} value={searchText} />
         </View>
 
         {searchTasks.length ? (
           <TaskList
             displayData={searchTasks}
+            setDisplayData={setSearchTasks}
             data={data}
             setData={setData}
             style={{ margin: 16 }}

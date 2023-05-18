@@ -51,15 +51,18 @@ const SettingTagScreen = () => {
     setIsVisibleEditModal(false);
   }, []);
 
-  const handleChangeSearchTags = useCallback(() => {
-    debounce(() => {
-      const data = tags.filter(item =>
-        item.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
-      );
+  const handleChangeSearchText = text => {
+    setSearchText(text);
+    handleFilterTags(text);
+  };
 
-      setSearchTags(data);
-    }, AppConstant.TYPING_WAIT_TIME)();
-  }, [searchText, tags]);
+  const handleFilterTags = debounce(text => {
+    const data = tags.filter(item =>
+      item.name?.toLowerCase()?.includes(text?.toLowerCase()),
+    );
+
+    setSearchTags(data);
+  }, AppConstant.TYPING_WAIT_TIME);
 
   const handleChangeSelectedTag = useCallback(
     newValue => {
@@ -89,6 +92,12 @@ const SettingTagScreen = () => {
 
       if (response.status === ApiConstant.STT_OK) {
         toast.show("Update successfully", { type: "success" });
+
+        const data = newTags.filter(item =>
+          item.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
+        );
+
+        setSearchTags(data);
         setTags(newTags);
       }
     } catch (error) {
@@ -97,7 +106,7 @@ const SettingTagScreen = () => {
       setIsLoading(false);
       handleCloseEditModal();
     }
-  }, [handleCloseEditModal, selectedTag, tags, toast]);
+  }, [handleCloseEditModal, searchText, selectedTag, tags, toast]);
 
   const handleDeleteTag = useCallback(async () => {
     setIsLoading(true);
@@ -110,6 +119,12 @@ const SettingTagScreen = () => {
 
       if (response.status === ApiConstant.STT_OK) {
         toast.show("Delete successfully", { type: "success" });
+
+        const data = newTags.filter(item =>
+          item.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
+        );
+
+        setSearchTags(data);
         setTags(newTags);
       }
     } catch (error) {
@@ -118,7 +133,7 @@ const SettingTagScreen = () => {
       setIsLoading(false);
       handleCloseConfirmModal();
     }
-  }, [selectedTag, tags, handleCloseConfirmModal, toast]);
+  }, [tags, selectedTag._id, toast, searchText, handleCloseConfirmModal]);
 
   const handleGetTags = useCallback(async () => {
     setIsLoading(true);
@@ -141,10 +156,6 @@ const SettingTagScreen = () => {
     handleGetTags();
   }, [handleGetTags]);
 
-  useEffect(() => {
-    handleChangeSearchTags();
-  }, [handleChangeSearchTags]);
-
   return (
     <MainLayout
       isBackScreen
@@ -158,7 +169,7 @@ const SettingTagScreen = () => {
       }}
     >
       <SearchBox
-        onChangeText={setSearchText}
+        onChangeText={handleChangeSearchText}
         value={searchText}
         style={styles.searchBox}
       />

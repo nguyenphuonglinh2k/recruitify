@@ -12,7 +12,7 @@ const MemberList = ({ data, onPress, ...otherProps }) => {
         key={index}
         data={item}
         isCreator={item._id === PROJECT.creatorId?._id}
-        onPress={() => onPress(index)}
+        onPress={() => onPress(item, index)}
         {...otherProps}
       />
     ))

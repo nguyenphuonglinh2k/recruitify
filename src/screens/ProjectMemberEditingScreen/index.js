@@ -1,15 +1,15 @@
-import { ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { MainLayout } from "layouts";
-import { SearchIcon } from "icons";
 import { COLORS } from "utils";
-import { CommonButton, LoadingSpinner } from "components";
+import { CommonButton, LoadingSpinner, SearchBox } from "components";
 import MemberList from "./MemberList";
 import { ProjectService, UserService } from "services";
-import { ApiConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
+import { debounce } from "utils/time.utils";
 
 const ProjectMemberEditingScreen = () => {
   const navigation = useNavigation();
@@ -20,6 +20,7 @@ const ProjectMemberEditingScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
 
   const handleGetUsers = useCallback(async () => {
     setIsLoading(true);
@@ -80,6 +81,7 @@ const ProjectMemberEditingScreen = () => {
 
         const newData = [...newProjectUsers, ...newOtherUsers];
         setData(newData);
+        setSearchData(newData);
       }
     } catch (error) {
       console.error(error);
@@ -89,17 +91,41 @@ const ProjectMemberEditingScreen = () => {
   }, [PROJECT]);
 
   const handleToggleMembers = useCallback(
-    index => {
+    (item, index) => {
+      const newSearchData = [
+        ...searchData.slice(0, index),
+        {
+          ...searchData[index],
+          isChecked: !searchData[index].isChecked,
+        },
+        ...searchData.slice(index + 1),
+      ];
+
+      const dataIndex = data.findIndex(mem => mem._id === item._id);
       const newData = [
-        ...data.slice(0, index),
-        { ...data[index], isChecked: !data[index].isChecked },
-        ...data.slice(index + 1),
+        ...data.slice(0, dataIndex),
+        { ...data[dataIndex], isChecked: !data[dataIndex]?.isChecked },
+        ...data.slice(dataIndex + 1),
       ];
 
       setData(newData);
+      setSearchData(newSearchData);
     },
-    [data],
+    [data, searchData],
   );
+
+  const handleChangeSearchText = text => {
+    setSearchText(text);
+    handleFilterMembers(text);
+  };
+
+  const handleFilterMembers = debounce(text => {
+    const newData = data.filter(item =>
+      item.name?.toLowerCase()?.includes(text?.toLowerCase()),
+    );
+
+    setSearchData(newData);
+  }, AppConstant.TYPING_WAIT_TIME);
 
   const handleUpdateMembers = useCallback(async () => {
     setIsLoading(true);
@@ -135,18 +161,10 @@ const ProjectMemberEditingScreen = () => {
     <MainLayout isBackScreen headerProps={{ title: "Update member" }}>
       <ScrollView>
         <View style={styles.filterView}>
-          <View style={styles.searchBox}>
-            <SearchIcon />
-            <TextInput
-              style={styles.input}
-              onChangeText={setSearchText}
-              value={searchText}
-              placeholder="Search..."
-            />
-          </View>
+          <SearchBox onChangeText={handleChangeSearchText} value={searchText} />
         </View>
 
-        <MemberList data={data} onPress={handleToggleMembers} />
+        <MemberList data={searchData} onPress={handleToggleMembers} />
       </ScrollView>
 
       <CommonButton

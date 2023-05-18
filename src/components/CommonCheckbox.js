@@ -12,6 +12,7 @@ const CommonCheckbox = props => {
         borderRadius: 6,
       }}
       iconStyle={{ borderRadius: 6 }}
+      disableBuiltInState
       {...props}
     />
   );
