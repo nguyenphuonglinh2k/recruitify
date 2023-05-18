@@ -18,6 +18,8 @@ export const MAXIMUM_AVATAR_TOTAL_IN_GROUP = 3;
 
 export const MINIMUM_PASSWORD_LENGTH = 6;
 
+export const TYPING_WAIT_TIME = 500;
+
 export const JOB_AND_APPLICATION_STATUS = {
   active: 1,
   closed: 2,

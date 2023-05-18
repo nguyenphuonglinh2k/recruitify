@@ -11,15 +11,17 @@ import TagItem from "./TagItem";
 import { COLORS } from "utils";
 import { PlusIcon } from "icons";
 import { TagService } from "services";
-import { ApiConstant } from "const";
+import { ApiConstant, AppConstant } from "const";
 import EditTagModal from "./EditTagModal";
 import AddTagModal from "./AddTagModal";
 import { useToast } from "react-native-toast-notifications";
+import { debounce } from "utils/time.utils";
 
 const SettingTagScreen = () => {
   const toast = useToast();
 
   const [tags, setTags] = useState([]);
+  const [searchTags, setSearchTags] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [selectedTag, setSelectedTag] = useState({});
 
@@ -48,6 +50,16 @@ const SettingTagScreen = () => {
   const handleCloseEditModal = useCallback(() => {
     setIsVisibleEditModal(false);
   }, []);
+
+  const handleChangeSearchTags = useCallback(() => {
+    debounce(() => {
+      const data = tags.filter(item =>
+        item.name?.toLowerCase()?.includes(searchText?.toLowerCase()),
+      );
+
+      setSearchTags(data);
+    }, AppConstant.TYPING_WAIT_TIME)();
+  }, [searchText, tags]);
 
   const handleChangeSelectedTag = useCallback(
     newValue => {
@@ -116,6 +128,7 @@ const SettingTagScreen = () => {
 
       if (response.status === ApiConstant.STT_OK) {
         setTags(response.data);
+        setSearchTags(response.data);
       }
     } catch (error) {
       console.error(error);
@@ -127,6 +140,10 @@ const SettingTagScreen = () => {
   useEffect(() => {
     handleGetTags();
   }, [handleGetTags]);
+
+  useEffect(() => {
+    handleChangeSearchTags();
+  }, [handleChangeSearchTags]);
 
   return (
     <MainLayout
@@ -147,8 +164,8 @@ const SettingTagScreen = () => {
       />
 
       <ScrollView style={styles.body}>
-        {tags.length ? (
-          tags.map((tag, index) => (
+        {searchTags.length ? (
+          searchTags.map((tag, index) => (
             <TagItem
               key={index}
               label={tag.name}
