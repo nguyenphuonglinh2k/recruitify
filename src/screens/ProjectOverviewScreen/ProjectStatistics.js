@@ -1,68 +1,40 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { COLORS } from "utils";
 import { onGetProjectAndTaskStatusLabel } from "utils/label.utils";
 import { PROGRESS_STATUS } from "const/app.const";
 import { PieChart } from "react-native-chart-kit";
 import PropTypes from "prop-types";
-import { ProjectService } from "services";
-import { ApiConstant } from "const";
-import { EmptyData, LoadingSpinner } from "components";
+import { EmptyData } from "components";
+import { memo } from "react";
 
-const ProjectStatistics = ({ style }) => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleGetProjectStatistics = useCallback(async () => {
-    setIsLoading(true);
-
-    try {
-      const response = await ProjectService.getProjectStatistics();
-
-      if (response.status === ApiConstant.STT_OK) {
-        const responseData = response.data;
-
-        const newData = [
-          {
-            name: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.new),
-            value: responseData.new,
-            color: COLORS.blue.neutral,
-            legendFontSize: 14,
-          },
-          {
-            name: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.doing),
-            value: responseData.doing,
-            color: COLORS.orange.dark,
-            legendFontSize: 14,
-          },
-          {
-            name: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.done),
-            value: responseData.done,
-            color: COLORS.green,
-            legendFontSize: 14,
-          },
-        ];
-
-        setData(newData);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [setIsLoading]);
-
-  useEffect(() => {
-    handleGetProjectStatistics();
-  }, [handleGetProjectStatistics]);
-
+const ProjectStatistics = ({ style, data }) => {
   return (
     <View style={[styles.root, style]}>
       <Text style={styles.title}>Project Statistics</Text>
 
-      {data.length ? (
+      {data && Object.keys(data).length ? (
         <PieChart
-          data={data}
+          data={[
+            {
+              name: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.new),
+              value: data.new,
+              color: COLORS.blue.neutral,
+              legendFontSize: 14,
+            },
+            {
+              name: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.doing),
+              value: data.doing,
+              color: COLORS.orange.dark,
+              legendFontSize: 14,
+            },
+            {
+              name: onGetProjectAndTaskStatusLabel(PROGRESS_STATUS.done),
+              value: data.done,
+              color: COLORS.green,
+              legendFontSize: 14,
+            },
+          ]}
           width={Dimensions.get("window").width}
           height={200}
           chartConfig={chartConfig}
@@ -75,8 +47,6 @@ const ProjectStatistics = ({ style }) => {
       ) : (
         <EmptyData description="No project found!" />
       )}
-
-      <LoadingSpinner isVisible={isLoading} />
     </View>
   );
 };
@@ -84,13 +54,18 @@ const ProjectStatistics = ({ style }) => {
 ProjectStatistics.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   setIsLoading: PropTypes.func,
+  data: PropTypes.shape({
+    new: PropTypes.number,
+    doing: PropTypes.number,
+    done: PropTypes.number,
+  }),
 };
 
 const chartConfig = {
   color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
 };
 
-export default ProjectStatistics;
+export default memo(ProjectStatistics);
 
 const styles = StyleSheet.create({
   root: {
