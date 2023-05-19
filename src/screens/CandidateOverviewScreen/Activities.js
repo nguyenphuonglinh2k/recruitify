@@ -1,36 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { COLORS } from "utils";
 import PropTypes from "prop-types";
-import { LoadingSpinner } from "components";
-import { ApplicationService } from "services";
-import { ApiConstant } from "const";
 
-const Activities = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState(DEFAULT_DATA);
-
-  const handleGetStatistics = useCallback(async () => {
-    setIsLoading(true);
-
-    try {
-      const response =
-        await ApplicationService.getApplicationActivityStatistics();
-
-      if (response.status === ApiConstant.STT_OK) {
-        setData(response.data);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    handleGetStatistics();
-  }, [handleGetStatistics]);
-
+const Activities = ({ data }) => {
   return (
     <View>
       <Text style={styles.title}>Activities</Text>
@@ -64,8 +37,6 @@ const Activities = () => {
           style={{ flex: 0.5, marginRight: 40 }}
         />
       </View>
-
-      <LoadingSpinner isVisible={isLoading} />
     </View>
   );
 };
@@ -99,13 +70,8 @@ Box.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
-const DEFAULT_DATA = {
-  today: 0,
-  yesterday: 0,
-  thisMonth: 0,
-  thisWeek: 0,
-  lastMonth: 0,
-  lastWeek: 0,
+Activities.propTypes = {
+  data: PropTypes.object,
 };
 
 export default Activities;
