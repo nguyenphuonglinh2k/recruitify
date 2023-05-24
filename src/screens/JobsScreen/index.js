@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import Header from "./Header";
 import { MainLayout } from "layouts";
 import JobItem from "./JobItem";
-import { CommonIconButton } from "components";
+import { CommonIconButton, EmptyData } from "components";
 import { PlusIcon } from "icons";
 import { COLORS } from "utils";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,9 +46,13 @@ const JobsScreen = () => {
         <Header total={jobs.length} style={{ margin: 16 }} />
 
         <View style={styles.positions}>
-          {jobs.map((data, index) => (
-            <JobItem key={index} data={data} style={styles.marginBottom} />
-          ))}
+          {jobs.length ? (
+            jobs.map((data, index) => (
+              <JobItem key={index} data={data} style={styles.marginBottom} />
+            ))
+          ) : (
+            <EmptyData description="No position found!" />
+          )}
         </View>
       </ScrollView>
     </MainLayout>

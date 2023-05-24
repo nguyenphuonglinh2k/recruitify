@@ -152,7 +152,7 @@ const CandidateEditingInfoScreen = () => {
         address: application.applicantInfo?.address,
         skills: application.skillIds,
         attachments: application.attachments[0],
-        jobId: application.jobId._id,
+        jobId: application.jobId?._id ?? null,
       });
     }
   }, [application]);

@@ -101,7 +101,7 @@ const JobEditingScreen = () => {
   );
 
   const handleEditJob = useCallback(async () => {
-    if (!fields.name) {
+    if (!fields.name || !fields.assignees?.length) {
       return toast.show("Please fill out required fields", { type: "warning" });
     }
     setIsLoading(true);
@@ -219,7 +219,7 @@ const JobEditingScreen = () => {
           setData={newData => handleChangeText(FIELD_NAMES.locations, newData)}
         />
         <EditAttendeeBlock
-          label="Assignees"
+          label="Assignees *"
           data={fields.assignees}
           setData={newData => handleChangeText(FIELD_NAMES.assignees, newData)}
           onAdd={() => handleOpenCheckboxModal(CHECKBOX_MODAL_TYPES.assignee)}

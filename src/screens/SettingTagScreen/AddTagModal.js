@@ -143,8 +143,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     display: "flex",
     marginTop: 10,
+    flexWrap: "wrap",
   },
   item: {
     marginLeft: 8,
+    marginBottom: 8,
   },
 });

@@ -4,6 +4,7 @@ import React, { memo } from "react";
 import { COLORS } from "utils";
 import { CommonChip } from "components";
 import { useSelector } from "react-redux";
+import { paddingStyle } from "components/DetailItemRow";
 
 const Skills = ({ style }) => {
   const application = useSelector(
@@ -15,13 +16,17 @@ const Skills = ({ style }) => {
       <Text style={styles.label}>Skills</Text>
 
       <View style={styles.tags}>
-        {(application.skillIds ?? []).map((item, index) => (
-          <CommonChip
-            key={index}
-            label={item.name}
-            style={index !== 0 ? styles.notFirstTag : {}}
-          />
-        ))}
+        {application.skillIds?.length ? (
+          application.skillIds.map((item, index) => (
+            <CommonChip
+              key={index}
+              label={item.name}
+              style={index !== 0 ? styles.notFirstTag : {}}
+            />
+          ))
+        ) : (
+          <View style={{ ...paddingStyle, borderBottomWidth: 0 }} />
+        )}
       </View>
     </View>
   );

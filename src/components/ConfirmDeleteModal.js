@@ -9,6 +9,11 @@ const ConfirmDeleteModal = props => {
 
   if (!isVisible) return null;
 
+  const handleDelete = () => {
+    if (onOK) onOK();
+    if (onCancel) onCancel();
+  };
+
   return (
     <CommonModal
       visible={isVisible}
@@ -27,7 +32,7 @@ const ConfirmDeleteModal = props => {
             style={[styles.button, { marginRight: 4 }]}
           />
           <CommonButton
-            onPress={onOK}
+            onPress={handleDelete}
             label="Delete"
             color={COLORS.red}
             labelStyle={{ fontWeight: "500" }}

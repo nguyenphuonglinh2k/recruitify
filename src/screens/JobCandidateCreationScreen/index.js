@@ -79,13 +79,19 @@ const JobCandidateCreationScreen = () => {
   }, []);
 
   const handleCreateApplication = useCallback(async () => {
-    if (!fields.name || !fields.email || !fields.attachments) {
-      return toast.show("Please fill out all required fields");
+    if (
+      !fields.name ||
+      !fields.email ||
+      !Object.keys(fields.attachments).length
+    ) {
+      return toast.show("Please fill out all required fields", {
+        type: "warning",
+      });
     }
 
     setIsLoading(true);
 
-    const skillIds = fields.skills.map(skill => skill._id);
+    const skillIds = (fields.skills ?? []).map(skill => skill._id);
 
     const data = {
       applicantInfo: {
@@ -109,7 +115,8 @@ const JobCandidateCreationScreen = () => {
         toast("Create successfully", { type: "success" });
       }
     } catch (error) {
-      console.error(error);
+      console.log("error", error); // TODO
+      // console.error(error);
     } finally {
       setIsLoading(false);
     }
