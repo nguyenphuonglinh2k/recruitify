@@ -1,8 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { View, StyleSheet, Image } from "react-native";
-import { NotificationIcon } from "icons";
-import { CommonIconButton } from "components";
 import { ImageSource } from "assets";
 import { COLORS } from "utils";
 import { isValidElement } from "react";
@@ -12,13 +10,7 @@ const Header = ({ style, iconProps, headerRight, ...otherProps }) => {
     <View style={[styles.root, style]} {...otherProps}>
       <Image source={ImageSource.LogoDarkImage} style={styles.logo} />
 
-      {isValidElement(headerRight) ? (
-        headerRight
-      ) : (
-        <CommonIconButton>
-          <NotificationIcon {...iconProps} />
-        </CommonIconButton>
-      )}
+      {isValidElement(headerRight) ? headerRight : <Fragment />}
     </View>
   );
 };
