@@ -87,6 +87,7 @@ const TaskList = ({ data, setIsLoading, onRefetchData, ...otherProps }) => {
         )}
         keyExtractor={(_, index) => index}
         style={styles.root}
+        showsVerticalScrollIndicator={false}
         {...otherProps}
       />
       <ConfirmDeleteModal

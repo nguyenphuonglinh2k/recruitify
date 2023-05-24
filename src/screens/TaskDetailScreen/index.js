@@ -114,7 +114,7 @@ const TaskDetailScreen = () => {
         <DetailItemRow label="Description" content={task.description} />
         <DetailItemRow
           label="Progress"
-          content={`${task.progress ?? 0 * 10}%`}
+          content={`${(task.progress ?? 0) * 10}%`}
         />
         <DetailItemRow
           label="Starting date"

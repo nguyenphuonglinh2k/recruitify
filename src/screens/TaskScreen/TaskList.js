@@ -6,6 +6,7 @@ import TaskItem from "./TaskItem";
 const TaskList = ({ data, ...otherProps }) => {
   return (
     <FlatList
+      showsVerticalScrollIndicator={false}
       data={data}
       renderItem={({ item }) => <TaskItem data={item} style={styles.item} />}
       keyExtractor={(_, index) => index}

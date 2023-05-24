@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   progressLabel: {
     fontWeight: "500",
-    color: COLORS.grey[600],
+    color: COLORS.black,
   },
   progressValue: {
     color: COLORS.black,

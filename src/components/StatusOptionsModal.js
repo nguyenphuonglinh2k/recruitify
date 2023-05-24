@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { Fragment } from "react";
 import CommonModal from "./CommonModal";
 import PropTypes from "prop-types";
 import { contentStyle, paddingStyle } from "./DetailItemRow";
@@ -18,7 +18,7 @@ const StatusOptionsModal = ({
     }
     onCloseModal();
   };
-  return (
+  return data?.length ? (
     <CommonModal visible={isVisible} onCloseModal={onCloseModal}>
       {data?.map(({ label, value: itemValue }, index) => (
         <TouchableOpacity
@@ -31,6 +31,8 @@ const StatusOptionsModal = ({
         </TouchableOpacity>
       ))}
     </CommonModal>
+  ) : (
+    <Fragment />
   );
 };
 

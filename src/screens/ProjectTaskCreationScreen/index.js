@@ -155,8 +155,7 @@ const ProjectTaskCreationScreen = () => {
         />
         <TextInputBlock
           label="Description"
-          maxLength={200}
-          multiline
+          textInputProps={{ maxLength: 200, multiline: true }}
           value={fields.description}
           onChangeText={value =>
             handleChangeText(FIELD_NAMES.description, value)
