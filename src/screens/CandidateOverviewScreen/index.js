@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { RefreshControl, ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import { MainLayout } from "layouts";
 import ApplicationStatistics from "./ApplicationStatistics";
@@ -6,14 +6,10 @@ import Activities from "./Activities";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
-import { useIsFocused } from "@react-navigation/core";
-import { LoadingSpinner } from "components";
 import { ApplicationService } from "services";
 import { ApiConstant } from "const";
 
 const CandidateOverviewScreen = () => {
-  const isFocused = useIsFocused();
-
   const [isLoading, setIsLoading] = useState(false);
   const [applicationStatistics, setApplicationStatistics] = useState({});
   const [activities, setActivities] = useState(DEFAULT_ACTIVITIES);
@@ -48,14 +44,21 @@ const CandidateOverviewScreen = () => {
   }, [setIsLoading]);
 
   useEffect(() => {
-    if (isFocused) {
-      handleGetAllStatistics();
-    }
-  }, [handleGetAllStatistics, isFocused]);
+    handleGetAllStatistics();
+  }, [handleGetAllStatistics]);
 
   return (
     <MainLayout>
-      <ScrollView style={{ margin: 16 }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={{ margin: 16 }}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={handleGetAllStatistics}
+          />
+        }
+      >
         <ApplicationStatistics
           style={styles.bottomSpacing}
           data={applicationStatistics}
@@ -63,7 +66,6 @@ const CandidateOverviewScreen = () => {
 
         <Activities data={activities} />
       </ScrollView>
-      <LoadingSpinner isVisible={isLoading} hasBackdrop={false} />
     </MainLayout>
   );
 };

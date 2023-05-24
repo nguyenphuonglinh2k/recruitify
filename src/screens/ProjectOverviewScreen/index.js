@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { RefreshControl, ScrollView, StyleSheet } from "react-native";
 import React, { useCallback, useMemo, useState } from "react";
 import { MainLayout } from "layouts";
 import ProjectStatistics from "./ProjectStatistics";
@@ -6,15 +6,11 @@ import TodayTask from "./TodayTask";
 import TaskStatistics from "./TaskStatistics";
 import { useSelector } from "react-redux";
 import { PROGRESS_STATUS, USER_ROLE } from "const/app.const";
-import { LoadingSpinner } from "components";
-import { useIsFocused } from "@react-navigation/core";
 import { ProjectService, TaskService } from "services";
 import { ApiConstant } from "const";
 import { useEffect } from "react";
 
 const ProjectOverviewScreen = () => {
-  const isFocused = useIsFocused();
-
   const AUTH_USER = useSelector(({ authRedux }) => authRedux.user); // TODO: filter by user
 
   const [isLoading, setIsLoading] = useState(false);
@@ -76,14 +72,18 @@ const ProjectOverviewScreen = () => {
   }, [AUTH_USER._id]);
 
   useEffect(() => {
-    if (isFocused) {
-      handleGetApi();
-    }
-  }, [handleGetApi, isFocused]);
+    handleGetApi();
+  }, [handleGetApi]);
 
   return (
     <MainLayout>
-      <ScrollView style={{ margin: 16 }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={{ margin: 16 }}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={handleGetApi} />
+        }
+      >
         {canAccess && (
           <ProjectStatistics
             style={styles.bottomSpacing}
@@ -94,8 +94,6 @@ const ProjectOverviewScreen = () => {
         <TaskStatistics style={styles.bottomSpacing} data={taskStatistics} />
         <TodayTask data={todayTasks} />
       </ScrollView>
-
-      <LoadingSpinner isVisible={isLoading} hasBackdrop={false} />
     </MainLayout>
   );
 };
