@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { CommonCalendar, LoadingSpinner } from "components";
-import { useNavigation } from "@react-navigation/core";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import { ScheduleService } from "services";
 import { ApiConstant } from "const";
@@ -8,6 +8,7 @@ import { COLORS } from "utils";
 import { useSelector } from "react-redux";
 
 const MySchedule = () => {
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
 
   const AUTH_USER = useSelector(({ authRedux }) => authRedux.user);
@@ -54,8 +55,8 @@ const MySchedule = () => {
   }, [AUTH_USER._id]);
 
   useEffect(() => {
-    handleGetSchedules();
-  }, [handleGetSchedules]);
+    if (isFocused) handleGetSchedules();
+  }, [handleGetSchedules, isFocused]);
 
   return (
     <>

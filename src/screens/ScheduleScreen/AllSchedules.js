@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { StyleSheet } from "react-native";
 import { CommonCalendar, LoadingSpinner, SelectUserModal } from "components";
-import { useNavigation } from "@react-navigation/core";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
 import FilterByUser from "./FilterByUser";
 import { ScheduleService, UserService } from "services";
@@ -10,6 +10,7 @@ import { COLORS } from "utils";
 import { USER_ROLE } from "const/app.const";
 
 const AllSchedules = () => {
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
 
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -106,8 +107,8 @@ const AllSchedules = () => {
   }, [selectedUserId]);
 
   useEffect(() => {
-    handleGetSchedules();
-  }, [handleGetSchedules]);
+    if (isFocused) handleGetSchedules();
+  }, [handleGetSchedules, isFocused]);
 
   useEffect(() => {
     handleGetUsers();

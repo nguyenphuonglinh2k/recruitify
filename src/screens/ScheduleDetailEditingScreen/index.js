@@ -18,6 +18,7 @@ import { ApplicationService, ScheduleService, UserService } from "services";
 import { ApiConstant, AppConstant } from "const";
 import moment from "moment";
 import { useToast } from "react-native-toast-notifications";
+import { FORMAT_DATE_WITH_HYPHEN } from "const/app.const";
 
 const ScheduleDetailEditingScreen = () => {
   const navigation = useNavigation();
@@ -105,7 +106,7 @@ const ScheduleDetailEditingScreen = () => {
 
     const data = {
       assigneeIds,
-      date: fields.date,
+      date: moment(fields.date).format(FORMAT_DATE_WITH_HYPHEN),
       name: fields.name,
       description: fields.description,
       startTime: fields.startTime,

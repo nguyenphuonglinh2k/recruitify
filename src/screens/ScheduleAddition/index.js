@@ -97,7 +97,13 @@ const ScheduleAddition = () => {
   );
 
   const handleCreateSchedule = useCallback(async () => {
-    if (!fields.name) {
+    if (
+      !fields.name ||
+      !fields.startTime ||
+      !fields.endTime ||
+      !fields.assignees.length ||
+      !Object.keys(fields.application).length
+    ) {
       return toast.show("Please fill out required fields", { type: "warning" });
     }
     setIsLoading(true);
@@ -186,7 +192,7 @@ const ScheduleAddition = () => {
           onChangeText={value => handleChangeText(FIELD_NAMES.name, value)}
         />
         <TimeInputBlock
-          label="Time"
+          label="Time *"
           startValue={fields.startTime}
           endValue={fields.endTime}
           setStartValue={newValue =>
@@ -205,13 +211,13 @@ const ScheduleAddition = () => {
           textInputProps={{ maxLength: 200, multiline: true }}
         />
         <EditAttendeeBlock
-          label="Attendees"
+          label="Attendees *"
           data={fields.assignees}
           setData={newData => handleChangeText(FIELD_NAMES.assignees, newData)}
           onAdd={() => setIsVisibleModal(true)}
         />
         <SelectInputBlock
-          label="Candidate"
+          label="Candidate *"
           value={
             selectedCandidate?.name && (
               <CommonAvatarChip
