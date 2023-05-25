@@ -1,4 +1,4 @@
-import { ScrollView } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { MainLayout } from "layouts";
 import {
@@ -10,6 +10,9 @@ import {
   LoadingSpinner,
   CheckboxOptionsModal,
   TextInputBlock,
+  DetailItemRow,
+  StatusOptionsModal,
+  JobAndApplicationStatus,
 } from "components";
 import moment from "moment";
 import { ApiConstant, AppConstant } from "const";
@@ -17,6 +20,9 @@ import { JobService, TagService, UserService } from "services";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import { useToast } from "react-native-toast-notifications";
+import { paddingStyle } from "components/DetailItemRow";
+import { JOB_AND_APPLICATION_STATUS } from "const/app.const";
+import { onGetJobAndApplicationStatus } from "utils/label.utils";
 
 const JobEditingScreen = () => {
   const navigation = useNavigation();
@@ -25,6 +31,7 @@ const JobEditingScreen = () => {
   const JOB = useSelector(({ jobRedux }) => jobRedux.job);
 
   const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [isVisibleStatusModal, setIsVisibleStatusModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [checkboxData, setCheckboxData] = useState([]);
   const [checkboxModalType, setCheckboxModalType] = useState();
@@ -116,6 +123,7 @@ const JobEditingScreen = () => {
       endDate: fields.endDate,
       tagIds,
       assigneeIds,
+      status: fields.status,
     };
 
     try {
@@ -181,6 +189,7 @@ const JobEditingScreen = () => {
         endDate: JOB.endDate,
         tags: JOB.tagIds,
         assignees: JOB.assigneeIds,
+        status: JOB.status,
       });
     }
   }, [JOB]);
@@ -192,6 +201,17 @@ const JobEditingScreen = () => {
   return (
     <MainLayout isBackScreen headerProps={{ title: `Edit position` }}>
       <ScrollView>
+        <DetailItemRow
+          label="Status *"
+          content={
+            <TouchableOpacity
+              style={paddingStyle}
+              onPress={() => setIsVisibleStatusModal(true)}
+            >
+              <JobAndApplicationStatus value={fields.status} />
+            </TouchableOpacity>
+          }
+        />
         <TextInputBlock
           label="Name *"
           value={fields.name}
@@ -239,11 +259,29 @@ const JobEditingScreen = () => {
         onCloseModal={() => setIsVisibleModal(false)}
         onAdd={handleAddSelectedCheckboxData}
       />
+      <StatusOptionsModal
+        value={fields.status}
+        setValue={newValue => handleChangeText(FIELD_NAMES.status, newValue)}
+        isVisible={isVisibleStatusModal}
+        data={STATUS_DATA}
+        onCloseModal={() => setIsVisibleStatusModal(false)}
+      />
 
       <LoadingSpinner isVisible={isLoading} />
     </MainLayout>
   );
 };
+
+const STATUS_DATA = [
+  {
+    value: JOB_AND_APPLICATION_STATUS.active,
+    label: onGetJobAndApplicationStatus(JOB_AND_APPLICATION_STATUS.active),
+  },
+  {
+    value: JOB_AND_APPLICATION_STATUS.closed,
+    label: onGetJobAndApplicationStatus(JOB_AND_APPLICATION_STATUS.closed),
+  },
+];
 
 const CHECKBOX_MODAL_TYPES = {
   tag: 1,
@@ -257,6 +295,7 @@ const FIELD_NAMES = {
   endDate: "endDate",
   tags: "tags",
   assignees: "assignees",
+  status: "status",
 };
 
 const DEFAULT_FIELDS = {
@@ -266,6 +305,7 @@ const DEFAULT_FIELDS = {
   [FIELD_NAMES.tags]: [],
   [FIELD_NAMES.assignees]: [],
   [FIELD_NAMES.locations]: [""],
+  [FIELD_NAMES.status]: JOB_AND_APPLICATION_STATUS.active,
 };
 
 export default JobEditingScreen;
