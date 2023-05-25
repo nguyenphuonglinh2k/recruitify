@@ -50,9 +50,10 @@ const CandidateEditingProcessScreen = () => {
 
   const hasChangeResult = useMemo(() => {
     return (
-      RESULT?.status !== fields.resultStatus ||
-      RESULT?.evaluation !== fields.evaluation ||
-      RESULT?.description !== fields.description
+      fields.resultStatus !== RESULT_STATUS.notEvaluated &&
+      (RESULT?.status !== fields.resultStatus ||
+        RESULT?.evaluation !== fields.evaluation ||
+        RESULT?.description !== fields.description)
     );
   }, [
     RESULT?.description,
@@ -425,7 +426,7 @@ const DEFAULT_FIELDS = {
   [FIELD_NAMES.status]: APPLICATION_STATUS.screening,
   [FIELD_NAMES.evaluation]: 5,
   [FIELD_NAMES.description]: "",
-  [FIELD_NAMES.resultStatus]: RESULT_STATUS.qualified,
+  [FIELD_NAMES.resultStatus]: RESULT_STATUS.notEvaluated,
 };
 
 export default CandidateEditingProcessScreen;

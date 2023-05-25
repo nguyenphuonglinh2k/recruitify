@@ -7,7 +7,7 @@ import { EmptyData } from "components";
 const PositionTab = () => {
   const { application } = useContext(CandidateDetailContext);
 
-  return application.jobId?.length ? (
+  return Object.keys(application?.jobId ?? {}).length ? (
     <FlatList
       data={[application.jobId]}
       renderItem={({ item }) => (
