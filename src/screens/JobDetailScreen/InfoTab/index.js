@@ -3,7 +3,11 @@ import React, { useState } from "react";
 import Details from "./Details";
 import Locations from "./Locations";
 import Tags from "./Tags";
-import { CommonDeleteButton, ConfirmDeleteModal } from "components";
+import {
+  CommonDeleteButton,
+  ConfirmDeleteModal,
+  LoadingSpinner,
+} from "components";
 import { useSelector } from "react-redux";
 import { JobService } from "services";
 import { ApiConstant } from "const";
@@ -17,6 +21,7 @@ const InfoTab = props => {
   const job = useSelector(({ jobRedux }) => jobRedux.job);
 
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOpenConfirmDeleteModal = () => {
     setIsVisible(true);
@@ -27,6 +32,7 @@ const InfoTab = props => {
   };
 
   const handleDeleteTask = async () => {
+    setIsLoading(true);
     try {
       const response = await JobService.deleteJob(job._id);
 
@@ -36,6 +42,8 @@ const InfoTab = props => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -54,10 +62,12 @@ const InfoTab = props => {
 
       <ConfirmDeleteModal
         title={job.name}
+        description="Do you really want to delete? All its application will also be deleted."
         isVisible={isVisible}
         onCancel={handleCloseConfirmDeleteModal}
         onOK={handleDeleteTask}
       />
+      <LoadingSpinner isVisible={isLoading} />
     </>
   );
 };
