@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import Header from "./Header";
 import { MainLayout } from "layouts";
@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import JobActions from "reduxStore/job.redux";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
+import { JOB_AND_APPLICATION_STATUS } from "const/app.const";
+import JobTabBar from "./JobTabBar";
 
 const JobsScreen = () => {
   const navigation = useNavigation();
@@ -18,9 +20,13 @@ const JobsScreen = () => {
 
   const jobs = useSelector(({ jobRedux }) => jobRedux.jobs);
 
+  const [activatedTab, setActivatedTab] = useState(
+    JOB_AND_APPLICATION_STATUS.active,
+  );
+
   const handleGetJobs = useCallback(async () => {
-    dispatch(JobActions.getJobsRequest());
-  }, [dispatch]);
+    dispatch(JobActions.getJobsRequest({ params: { status: activatedTab } }));
+  }, [activatedTab, dispatch]);
 
   const handleNavigateToCreationScreen = useCallback(() => {
     navigation.navigate(SCREEN_NAME.jobCreationScreen);
@@ -42,7 +48,11 @@ const JobsScreen = () => {
         ),
       }}
     >
-      <ScrollView>
+      <JobTabBar
+        activatedTab={activatedTab}
+        setActivatedTab={setActivatedTab}
+      />
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Header total={jobs.length} style={{ margin: 16 }} />
 
         <View style={styles.positions}>
@@ -51,7 +61,7 @@ const JobsScreen = () => {
               <JobItem key={index} data={data} style={styles.marginBottom} />
             ))
           ) : (
-            <EmptyData description="No position found!" />
+            <EmptyData description="No job found!" />
           )}
         </View>
       </ScrollView>

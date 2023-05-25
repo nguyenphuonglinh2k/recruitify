@@ -1,9 +1,21 @@
 import {
   APPLICATION_STATUS,
+  JOB_AND_APPLICATION_STATUS,
   PROGRESS_STATUS,
   RESULT_STATUS,
   USER_ROLE,
 } from "const/app.const";
+
+export const onGetJobAndApplicationStatus = status => {
+  switch (status) {
+    case JOB_AND_APPLICATION_STATUS.active:
+      return "Active";
+    case JOB_AND_APPLICATION_STATUS.closed:
+      return "Closed";
+    default:
+      return "Undefined";
+  }
+};
 
 export const onGetResultStatusLabel = status => {
   switch (status) {
