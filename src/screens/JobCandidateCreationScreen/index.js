@@ -112,11 +112,10 @@ const JobCandidateCreationScreen = () => {
 
       if (response.status === ApiConstant.STT_CREATED) {
         navigation.goBack();
-        toast("Create successfully", { type: "success" });
+        toast.show("Create successfully", { type: "success" });
       }
     } catch (error) {
-      console.log("error", error); // TODO
-      // console.error(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

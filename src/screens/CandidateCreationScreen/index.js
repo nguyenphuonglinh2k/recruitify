@@ -142,7 +142,7 @@ const CandidateCreationScreen = () => {
 
       if (response.status === ApiConstant.STT_CREATED) {
         navigation.goBack();
-        toast("Create successfully", { type: "success" });
+        toast.show("Create successfully", { type: "success" });
       }
     } catch (error) {
       console.error(error);
