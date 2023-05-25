@@ -49,6 +49,7 @@ export default function RecruitmentTabNavigator() {
         },
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: true,
+        unmountOnBlur: true,
       }}
       initialRouteName={TAB_NAME.candidateOverview}
     >

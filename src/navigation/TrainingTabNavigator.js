@@ -25,6 +25,7 @@ export default function TrainingTabNavigator() {
         },
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: true,
+        unmountOnBlur: true,
       }}
     >
       <Tab.Screen

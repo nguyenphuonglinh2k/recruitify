@@ -206,6 +206,11 @@ const CandidateEditingInfoScreen = () => {
             handleChangeText(FIELD_NAMES.phoneNumber, value)
           }
         />
+        <TextInputBlock
+          label="Address"
+          value={fields.address}
+          onChangeText={value => handleChangeText(FIELD_NAMES.address, value)}
+        />
         <EditTagBlock
           label="Skills"
           data={fields.skills}
