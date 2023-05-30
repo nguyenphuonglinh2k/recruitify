@@ -23,9 +23,14 @@ export const PROJECT_DETAIL_TAB_VALUES = {
   info: 1,
   task: 2,
   member: 3,
+  overview: 4,
 };
 
 export const TAB_DATA = [
+  {
+    label: "Overview",
+    tabValue: PROJECT_DETAIL_TAB_VALUES.overview,
+  },
   {
     label: "Info",
     tabValue: PROJECT_DETAIL_TAB_VALUES.info,

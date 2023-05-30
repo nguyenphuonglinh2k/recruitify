@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProjectActions from "reduxStore/project.redux";
 import { createContext } from "react";
 import TaskAdditionOptionsModal from "./TaskTab/TaskAdditionOptionsModal";
+import OverviewTab from "./OverviewTab";
 
 const ProjectDetailScreen = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const ProjectDetailScreen = () => {
   const projectId = route.params?.projectId;
 
   const [activatedTab, setActivatedTab] = useState(
-    PROJECT_DETAIL_TAB_VALUES.info,
+    PROJECT_DETAIL_TAB_VALUES.overview,
   );
   const [isLoading, setIsLoading] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -108,6 +109,7 @@ const ProjectDetailScreen = () => {
           activatedTab={activatedTab}
           setActivatedTab={setActivatedTab}
         />
+        {activatedTab === PROJECT_DETAIL_TAB_VALUES.overview && <OverviewTab />}
         {activatedTab === PROJECT_DETAIL_TAB_VALUES.info && (
           <InfoTab data={project} />
         )}
