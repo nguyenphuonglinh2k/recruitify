@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { COLORS } from "utils";
@@ -16,17 +16,17 @@ const Skills = ({ style }) => {
       <Text style={styles.label}>Skills</Text>
 
       <View style={styles.tags}>
-        {application.skillIds?.length ? (
-          application.skillIds.map((item, index) => (
-            <CommonChip
-              key={index}
-              label={item.name}
-              style={index !== 0 ? styles.notFirstTag : {}}
-            />
-          ))
-        ) : (
-          <View style={{ ...paddingStyle, borderBottomWidth: 0 }} />
-        )}
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          nestedScrollEnabled
+          data={application.skillIds ?? []}
+          renderItem={({ item }) => (
+            <CommonChip label={item.name} style={styles.item} />
+          )}
+          keyExtractor={(_, i) => i}
+          ListEmptyComponent={<View style={styles.empty} />}
+        />
       </View>
     </View>
   );
@@ -55,7 +55,11 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: COLORS.grey[200],
   },
-  notFirstTag: {
-    marginLeft: 4,
+  item: {
+    marginRight: 4,
+  },
+  empty: {
+    ...paddingStyle,
+    borderBottomWidth: 0,
   },
 });

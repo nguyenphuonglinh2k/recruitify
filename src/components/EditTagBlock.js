@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { PlusIcon } from "icons";
@@ -23,16 +23,22 @@ const EditTagBlock = ({ label, data, onAdd, onDelete, ...otherProps }) => {
 
 const Tags = ({ data, onDelete }) => {
   return (
-    <View style={[styles.list, paddingStyle]}>
-      {data?.map((item, index) => (
+    <FlatList
+      showsHorizontalScrollIndicator={false}
+      horizontal
+      nestedScrollEnabled
+      data={data ?? []}
+      renderItem={({ item, index }) => (
         <CommonDeleteChip
-          key={index}
           label={item.name}
+          style={styles.item}
           onPress={() => onDelete(index, item)}
-          style={index !== 0 ? styles.item : {}}
         />
-      ))}
-    </View>
+      )}
+      keyExtractor={(_, i) => i}
+      ListEmptyComponent={<View style={styles.empty} />}
+      contentContainerStyle={paddingStyle}
+    />
   );
 };
 
@@ -55,12 +61,11 @@ Tags.propTypes = {
 export default memo(EditTagBlock);
 
 const styles = StyleSheet.create({
-  list: {
-    flexDirection: "row",
-    alignItems: "center",
-    display: "flex",
-  },
   item: {
-    marginLeft: 8,
+    marginRight: 8,
+  },
+  empty: {
+    ...paddingStyle,
+    borderBottomWidth: 0,
   },
 });

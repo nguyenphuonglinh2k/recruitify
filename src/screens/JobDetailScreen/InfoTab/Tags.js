@@ -1,9 +1,10 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import PropTypes from "prop-types";
 import React, { memo } from "react";
 import { COLORS } from "utils";
 import { CommonChip } from "components";
 import { useSelector } from "react-redux";
+import { paddingStyle } from "components/DetailItemRow";
 
 const Tags = ({ style }) => {
   const job = useSelector(({ jobRedux }) => jobRedux.job);
@@ -12,15 +13,18 @@ const Tags = ({ style }) => {
     <View style={[styles.root, style]}>
       <Text style={styles.label}>Tags</Text>
 
-      <View style={styles.tags}>
-        {(job?.tagIds ?? []).map(({ name }, index) => (
-          <CommonChip
-            key={index}
-            label={name}
-            style={index !== 0 ? styles.notFirstTag : {}}
-          />
-        ))}
-      </View>
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        nestedScrollEnabled
+        data={job?.tagIds ?? []}
+        renderItem={({ item }) => (
+          <CommonChip label={item.name} style={styles.item} />
+        )}
+        keyExtractor={(_, i) => i}
+        ListEmptyComponent={<View style={styles.padding} />}
+        contentContainerStyle={styles.padding}
+      />
     </View>
   );
 };
@@ -43,12 +47,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.grey[500],
     paddingHorizontal: 16,
   },
-  tags: {
-    flexDirection: "row",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+  item: {
+    marginRight: 4,
   },
-  notFirstTag: {
-    marginLeft: 4,
+  padding: {
+    ...paddingStyle,
+    borderBottomWidth: 0,
   },
 });

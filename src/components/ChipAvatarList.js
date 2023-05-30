@@ -1,21 +1,28 @@
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
 import PropTypes from "prop-types";
 import { CommonAvatarChip } from "components";
+import { paddingStyle } from "./DetailItemRow";
 
 const ChipAvatarList = ({ data, style, onPress, ...otherProp }) => {
   return (
-    <View style={[styles.root, style]} {...otherProp}>
-      {data?.map(({ name, avatarUrl, _id }, index) => (
+    <FlatList
+      showsHorizontalScrollIndicator={false}
+      horizontal
+      nestedScrollEnabled
+      data={data ?? []}
+      renderItem={({ item }) => (
         <CommonAvatarChip
-          key={index}
-          label={name}
-          source={{ uri: avatarUrl }}
-          style={index !== 0 ? styles.notFirstChild : {}}
-          onPress={() => onPress(_id)}
+          label={item.name}
+          source={{ uri: item.avatarUrl }}
+          onPress={() => onPress(item._id)}
+          style={styles.item}
         />
-      ))}
-    </View>
+      )}
+      keyExtractor={(_, i) => i}
+      ListEmptyComponent={<View style={styles.empty} />}
+      contentContainerStyle={paddingStyle}
+    />
   );
 };
 
@@ -34,11 +41,11 @@ ChipAvatarList.propTypes = {
 export default ChipAvatarList;
 
 const styles = StyleSheet.create({
-  root: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+  item: {
+    marginRight: 10,
   },
-  notFirstChild: {
-    marginLeft: 10,
+  empty: {
+    ...paddingStyle,
+    borderBottomWidth: 0,
   },
 });
