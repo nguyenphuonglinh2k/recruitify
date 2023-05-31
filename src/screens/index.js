@@ -1,4 +1,5 @@
 import SignInScreen from "./SignInScreen";
+import ForgotPasswordScreen from "./ForgotPasswordScreen";
 
 import JobsScreen from "./JobsScreen";
 import JobDetailScreen from "./JobDetailScreen";
@@ -88,4 +89,5 @@ export {
   TrainingResultCreationScreen,
   CandidateOverviewScreen,
   CandidateEditingProcessScreen,
+  ForgotPasswordScreen,
 };

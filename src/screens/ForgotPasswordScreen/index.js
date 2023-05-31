@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   StyleSheet,
   ScrollView,
@@ -7,43 +7,52 @@ import {
   Image,
 } from "react-native";
 import { ImageSource } from "assets";
-import { CommonButton, CommonTextButton, CommonTextInput } from "components";
-import { useDispatch, useSelector } from "react-redux";
-import AuthActions from "reduxStore/auth.redux";
+import {
+  CommonButton,
+  CommonTextButton,
+  CommonTextInput,
+  LoadingSpinner,
+} from "components";
 import { useToast } from "react-native-toast-notifications";
 import { useNavigation } from "@react-navigation/core";
 import { SCREEN_NAME } from "const/path.const";
+import { AuthService } from "services";
+import { ApiConstant } from "const";
 
-const SignInScreen = () => {
-  const toast = useToast();
+const ForgotPasswordScreen = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const toast = useToast();
 
-  const [error, isFetching] = useSelector(({ authRedux }) => [
-    authRedux.error,
-    authRedux.isFetching,
-  ]);
+  const [email, onChangeEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [email, onChangeEmail] = useState("dpeach1@gmail.com");
-  const [password, onChangePassword] = useState("123456");
-
-  const onLogin = () => {
-    dispatch(AuthActions.postLoginRequest({ email, password }));
-  };
-
-  const handleShowError = useCallback(() => {
-    if (error?.message && !isFetching) {
-      toast.show(error.message, { type: "warning" });
-    }
-  }, [error?.message, toast, isFetching]);
-
-  const handleNavigateToForgotPw = useCallback(() => {
-    navigation.navigate(SCREEN_NAME.forgotPasswordScreen);
+  const handleNavigateToLogin = useCallback(() => {
+    navigation.navigate(SCREEN_NAME.signInScreen);
   }, [navigation]);
 
-  useEffect(() => {
-    handleShowError();
-  }, [handleShowError]);
+  const handleSubmit = useCallback(async () => {
+    if (!email) {
+      return toast.show("Please enter your email", { type: "warning" });
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await AuthService.postForgotPassword({ email });
+
+      if (response.status === ApiConstant.STT_OK) {
+        toast.show("Password reset is sent to your email", { type: "success" });
+      } else {
+        toast.show(response.data?.message ?? "Something went wrong", {
+          type: "warning",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [email, toast]);
 
   return (
     <ImageBackground
@@ -53,10 +62,9 @@ const SignInScreen = () => {
     >
       <ScrollView contentContainerStyle={styles.root}>
         <Image source={ImageSource.LogoImage} style={styles.logo} />
-        <Text style={styles.title}>Sign in</Text>
+        <Text style={styles.title}>Reset password</Text>
         <Text style={styles.subTitle}>
-          Sign in and start managing your candidates and training your new
-          employees
+          Enter your email address to request a password reset.
         </Text>
 
         <CommonTextInput
@@ -66,26 +74,21 @@ const SignInScreen = () => {
           keyboardType="email-address"
           placeholder="Email"
         />
-        <CommonTextInput
-          value={password}
-          onChangeText={onChangePassword}
-          style={[styles.input, styles.pwInput]}
-          secureTextEntry
-          placeholder="Password"
-        />
 
         <CommonButton
-          label="Login In"
+          label="Reset"
           labelStyle={styles.buttonLabel}
           style={styles.button}
-          onPress={onLogin}
+          onPress={handleSubmit}
         />
         <CommonTextButton
-          label="Forgot password?"
+          label="Return to login"
+          onPress={handleNavigateToLogin}
           style={styles.textButton}
-          onPress={handleNavigateToForgotPw}
         />
       </ScrollView>
+
+      <LoadingSpinner isVisible={isLoading} />
     </ImageBackground>
   );
 };
@@ -137,4 +140,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInScreen;
+export default ForgotPasswordScreen;

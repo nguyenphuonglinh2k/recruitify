@@ -24,6 +24,7 @@ export const STT_INTERNAL_SERVER = 500;
 export const POST_SIGN_IN = "/auth/login";
 export const POST_SIGN_UP = "/auth/signup";
 export const PUT_UPDATE_PASSWORD = "/auth/update-password/{userId}";
+export const POST_FORGOT_PASSWORD = "/auth/forgot-password";
 
 // User
 export const GET_USERS = "/users";

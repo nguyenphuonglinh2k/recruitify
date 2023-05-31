@@ -9,7 +9,11 @@ const CommonTextInput = ({ label, style, labelStyle, ...otherProps }) => {
       {Boolean(label) && (
         <Text style={[styles.label, labelStyle]}>{label}</Text>
       )}
-      <TextInput style={[styles.input, style]} {...otherProps} />
+      <TextInput
+        style={[styles.input, style]}
+        placeholderTextColor={COLORS.white}
+        {...otherProps}
+      />
     </>
   );
 };

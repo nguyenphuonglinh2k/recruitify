@@ -40,6 +40,7 @@ import {
   TrainingResultCreationScreen,
   CandidateOverviewScreen,
   CandidateEditingProcessScreen,
+  ForgotPasswordScreen,
 } from "screens";
 import { SCREEN_NAME } from "const/path.const";
 
@@ -88,6 +89,10 @@ const AuthStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name={SCREEN_NAME.signInScreen} component={SignInScreen} />
+      <Stack.Screen
+        name={SCREEN_NAME.forgotPasswordScreen}
+        component={ForgotPasswordScreen}
+      />
     </Stack.Navigator>
   );
 };
